@@ -6,6 +6,9 @@ use App\Http\Controllers\Session\SessionController;
 use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Quiz\QuizController;
 use App\Http\Controllers\Predection\PredectionController;
+use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Reports\TopFive;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -121,5 +124,12 @@ Route::get('getData','K_Means\KmeansController@kMeansquiz');
 
 Route::get('Data','Naeve\NaeveController@naeve');
 
+Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
+
+Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
+Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
+Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
+Route::get('saveupdate','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
+Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
 
 

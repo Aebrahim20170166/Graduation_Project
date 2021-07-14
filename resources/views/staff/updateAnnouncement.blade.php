@@ -1,16 +1,16 @@
-
 <?php
 session_start();
-session(['courseID' => $courseID,'Announcements'=>$Announcements]);
-
-
+$courseID;
+if(session()->has('courseID'))
+{
+$courseID=session()->get('courseID');
+}
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
 
-    <title>QR Code Page</title>
+    <title>update announcement</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -52,6 +52,7 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
             border:2px solid #3DB2EB;
             color: #3DB2EB;
         }
+
     </style>
 </head>
 <body>
@@ -65,41 +66,31 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
         <ul class="nav navbar-nav">
             <li><a href="{{route('home')}}">Home</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="{{route('logout')}}">Log out</a></li>
         </ul>
 
     </div>
 </div>
 
 <div class="container text-center">
-    <div class="row">
+    {{--<div class="row">
         <h1>{{$courseID}}</h1>
-    </div>
+    </div>--}}
 
 
     <div class="row">
-        {{--<a href={{route('sessions')}}><button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">Sessions</button>
-        </a>--}}
-            <form action="{{route('get_sessions')}}" method="post">
-                {{@csrf_field()}}
-                <input type="hidden" name='courseID' value={{$courseID}}> <br>
-                <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">Sessions</button>
 
-            </form>
+        <form action="{{route('saveupdate')}}" method="get">
+        @csrf <!-- {{ csrf_field() }} -->
+
+            <input type="hidden" name='courseID' value={{$courseID}}> <br>
+            <input type="hidden" name='postid' value={{$postid}}> <br>
+            <span>Announcement</span>
+            <input class="s_name" type="text" name='body' value="{{$body}}" > <br>
+            <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank"> update </button>
+        </form>
+<div>
 
     </div>
-    <div class="row">
-
-        <a href={{route('showQuizes',['courseID' => $courseID])}}><button type="submit" class="btn btn-defult btn-lg" >
-         <span class="glyphicon glyphicon-check"></span>Quizzes</button></a>
-    </div>
-    <div class="row">
-
-        <a href={{route('announcements',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-bullhorn"></span>  Make an announcement</button></a>
-    </div>
-    <div class="row">
-
-        <a href={{route('getreports',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   get regular students </button></a>
     </div>
 </div>
 
