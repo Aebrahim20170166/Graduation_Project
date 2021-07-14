@@ -28,7 +28,7 @@ Route::post('joinCourse','Course\CourseController@joinCourse');
 Route::post('getCourses','Course\CourseController@getEnrolledCourses');
 Route::post('getSessions','Session\SessionController@getSessionsOfCourse');
 Route::post('getAttendanceOfSession','Attendance\AttendanceController@getAttendanceOfSession');
-Route::post('getAnsence','Attendance\AttendanceController@getNumOfAbsencesInCourse');
+Route::post('getAbsence','Attendance\AttendanceController@getNumOfAbsenceAndLecturesNamesِInCourse');
 Route::post('getTeachedCourses','Teach\TeachController@getInstructorCoursesApi');
 Route::post('getTopicsOfQuizzes','Quiz\QuizController@getQuizzes');
 Route::post('getQuestionsandAnswersOfQuiz','Quiz\QuizController@showQuiz');

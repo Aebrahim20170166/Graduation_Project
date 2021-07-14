@@ -12,24 +12,24 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
-    protected String $Fname;
+    /*protected String $Fname;
     protected String $Lname;
     protected String $Id;
     protected String $email;
-    protected String $password;
+    protected String $password;*/
     /**
      * Create a new controller instance.
      *
      * @return void
 */
-    public function __construct($fname,$lname,$id,$email,$password)
+    /*public function __construct($fname,$lname,$id,$email,$password)
     {
         $this->Fname=$fname;
         $this->Lname=$lname;
         $this->Id=$id;
         $this->email=$email;
         $this->password=$password;
-    }
+    }*/
 
     /**
      * Show the application dashboard.
@@ -38,11 +38,11 @@ class UserController extends Controller
      */
     public function login()
     {
-        return view('Registeration.Login');
+        return view('Registration.Login');
     }
     public function signup()
     {
-        return view('Registeration.SignUp');
+        return view('Registration.SignUp');
     }
     public function logout()
     {
@@ -53,35 +53,19 @@ class UserController extends Controller
 
     }
 
-     //validata sign up data and save in database
+    //validata sign up data and save in database
     public function save_data(Request $request)
     {
-<<<<<<< HEAD
         $validator=validationController::validata_up($request);
-=======
-
-        $validator=$this->validata_up($request);
->>>>>>> 5590917 (generate qrCode)
 
         if($validator->fails())
         {
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         }
-<<<<<<< HEAD
         validationController::insertInDatabase($request);
-=======
-        Doctor::create([
-            'id'=>$request->id,
-            'full_name'=>$request->full_name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password),
-
-
-        ]);
->>>>>>> 5590917 (generate qrCode)
         return redirect()->back()->with(['success'=>'Signed Up Successfully']);
     }
-     //validata login data and check in database
+    //validata login data and check in database
     public function validate_login(Request $request){
 
         $validator=validationController::validata_in($request);
@@ -91,7 +75,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         }
 
-        $userData=Instructor::where([['id','=',$request->id],['password','=', $request->password]])->first();
+        //$userData=Instructor::where([['id','=',$request->id],['password','=', $request->password]])->first();
 
         return validationController::checkLogin_data($request);
 

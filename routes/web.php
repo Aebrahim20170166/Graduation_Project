@@ -44,8 +44,8 @@ Route::group(['middleware' => 'loggedin'],function (){
     Route::get('getEnrolledCourses','Teach\TeachController@getTeachedCourses')->name('getEnrolledCourses');
 });
 
-Route::post('createAccount','User\userRegistration@signUp')->name("createAccount");
-Route::post('validate','User\userRegistration@login')->name('validate');
+Route::post('createAccount','User\userRegisteration@signUp')->name("createAccount");
+Route::post('validate','User\userRegisteration@login')->name('validate');
 Route::get('getData','K_Means\KmeansController@readData');
 Route::get('update','Grade\GradeController@update');
 Route::get('generate','Grade\GradeController@generateAttendanceData');
@@ -86,15 +86,15 @@ Route::post('delete_instructor_course','Teach\TeachController@deleteInstructorCo
 //test
 Route::get('getCourses/{studentID}',[CourseController::class,'getEnrolledCourses']);
 Route::get('getSessions/{courseID}',[SessionController::class,'getSessionsOfCourse']);
-Route::get('getAttendance}',[AttendanceController::class,'getAttendanceOfSession'])->name('getAttendance');
-Route::get('getNumOfAbsents/{courseID}',[AttendanceController::class,'getNumOfAbsencesInCourse']);
+Route::get('getAttendance',[AttendanceController::class,'getAttendanceOfSession'])->name('getAttendance');
+Route::get('getNumOfAbsents',[AttendanceController::class,'getNumOfAbsenceAndLecturesNamesِInCourse']);
 Route::get('deleteQuiz/{CourseID}',[QuizController::class,'deleteQuiz']);
 //AttendanceController
 //logout
 Route::get('/flush', function () {
     Session::flush();
     return redirect()->route('login');
-})->name('flush');
+})->name('logout');
 
 Route::view('/createquiz/{courseID}','staff/quiz');
 Route::get('createQuiz/{courseID}',function ($courseID){
