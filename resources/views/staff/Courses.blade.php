@@ -86,7 +86,7 @@ if(session()->has('instructorID'))
             <ul class="nav navbar-nav">
                 <li><a href="{{route('home')}}">Home</a></li>
                 <li><a href="#">Profile</a></li>
-                <li><a href="{{route('flush')}}">Log out</a></li>
+                <li><a href="{{route('logout')}}">Log out</a></li>
             </ul>
 
         </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 session_start();
+
+use App\Http\Controllers\Traits\requestTrait;
 use App\Models\Teach;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Teach\TeachController;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 class userRegisteration extends Controller
 {
     /**
@@ -17,58 +20,85 @@ class userRegisteration extends Controller
      */
     public function signUp(Request $request){
 
-        $role = $request->role;
-        $id = $request->id;
-        $Fname = $request->first_name;
-        $Lname = $request->last_name;
-        $email = $request ->email;
-        $password = $request->password;
+        if($request->role === "instructor"){
 
-        if($role === "instructor"){
-            $instrutor = new \App\Models\Instructor();
-            $result = $instrutor->search($id,$email);
+            $result = InstructorController::search($request);
             if ($result->isEmpty()){
-                $instrutor->store($id,$Fname,$Lname,$email,$password);
-                return $this->login($request);
+                if(InstructorController::store($request))
+                {
+                    $request->session()->put('instructorID',$request->id);
+                    $message='success';
+                    return requestTrait::handleRegistrationSuccess($request,$message);
+                }
+                $message='Connection error';
+                return requestTrait::handleRegistrationFailure($request,$message);
+
             }
-            else {return "user allready exist ";}
+            else {
+                $error = 'user already exist';
+                return requestTrait::handleRegistrationFailure($request,$error);
+            }
         }
         else{
-            $student = new \App\Models\Student();
-            $result = $student->search($id,$email);
+            $result = studentController::search($request);
             if ($result->isEmpty()){
-                $student->store($id,$Fname,$Lname,$email,$password);
-                return $this->login($request);
+                if(studentController::store($request))
+                {
+                    $message='success';
+                    return requestTrait::handleRegistrationSuccess($request,$message);
+                }
+                $message='Connection error';
+                return requestTrait::handleRegistrationFailure($request,$message);
             }
-            else {return "user allready exist ";}
+            else {
+                $error = 'user allready exist';
+                return requestTrait::handleRegistrationFailure($request,$error);
+            }
         }
     }
 
-    public function login(Request $request){
-        $role = $request->role;
-        $id = $request->id;
-        $password = $request->password;
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public static function login(Request $request){
+        //return $request;
+        if($request->role == "instructor") {
+            $result = InstructorController::validate_data($request);
+            //return $result;
+            if(is_null($result)){
 
-        if($role === "instructor") {
-            $instrutor = new \App\Models\Instructor();
-            $result = $instrutor->search_logIn($id,$password);
-            if ($result->isEmpty()){
-                return "id or password are wrong";
+                $error = 'id or password are wrong';
+                return requestTrait::handleRegistrationFailure($request,$error);
             }
             else {
-                $request->session()->put('id',$id);
-                $courses = TeachController::getInstructorCourses($id);
-                return view("staff/Home",['courses' => $courses]);
+
+                if(Hash::check($request->password,$result->password))
+                {
+
+                    $request->session()->put('instructorID',$request->id);
+                    $message='success';
+                    //return $result->password;
+                    return requestTrait::handleRegistrationSuccess($request,$message);
+                }
+                $error = 'id or password are wrong';
+                return requestTrait::handleRegistrationFailure($request,$error);
+
             }
         }
         else{
-            $student = new \App\Models\Student();
-            $result = $student->search_logIn($id,$password);
+            $result = studentController::validate($request);
             if ($result->isEmpty()){
-                return "id or password are wrong";
+                $error = 'id or password are wrong';
+                return requestTrait::handleRegistrationFailure($request,$error);
             }
             else {
-                return view("staff/Home");
+                if(Hash::check($request->password, $result->password))
+                {
+                    $message='success';
+                    return requestTrait::handleRegistrationSuccess($request,$message);
+                }
+                $error = 'id or password are wrong';
+                return requestTrait::handleRegistrationFailure($request,$error);
             }
         }
     }

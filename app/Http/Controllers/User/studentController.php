@@ -6,79 +6,31 @@ use Illuminate\Http\Request;
 
 class studentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public static function search(Request $request){
+        return Student::query()
+            ->where('id', '=', $request->id)
+            ->orWhere('email', '=', $request->email)
+            ->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public static function store(Request $request){
+        if(Student::create([
+            'student_id'=>$request->id,
+            'Fname'=>$request->first_name,
+            'Lname'=>$request->last_name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]))
+        {
+            return true;
+        }
+        return false;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public static function validate(Request $request){
+        return Student::query()
+            ->where('id', '=', $request->id)
+            ->where('password', '=', $request->password)
+            ->get();
     }
 }

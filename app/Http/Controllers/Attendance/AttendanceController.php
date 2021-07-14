@@ -46,16 +46,23 @@ class AttendanceController extends Controller
     i get number of sessions in this course then number of attendance of the student
     and subtract number of sessions from number of attendance to get the absence of the student
     */
-    public function getNumOfAbsencesInCourse(Request $request){
-        //get number of sessions in the course
-        $numSessions=Session::query()->where('course_id','=',$request->courseID)
-            ->get()->count();
-
-        //get number of times the student attend it in this course
+    public function getNumOfAbsenceAndLecturesNamesِInCourse(Request $request){
+        //get number of times the student not attend it in this course
         $numOfAttendance=Attendance::query()->where('course_id','=',$request->courseID)
             ->where('student_id','=',$request->studentID)
+            ->where('attended','=',0)
             ->get()->count();
-        return json_encode(strval($numSessions-$numOfAttendance));
+        /** @var TYPE_NAME $lecturesNames */
+        $lecturesNames=Attendance::query()->join('sessions','sessions.session_id','=',
+        'attendence.session_id')
+            ->where('attendence.course_id','=',$request->courseID)
+            ->where('attendence.student_id','=',$request->studentID)
+            ->where('attendence.attended','=',0)
+            ->select('sessions.session_name','sessions.date')->get();
+
+        //$results= [$numOfAttendance,
+            //$lecturesNames];
+        return json_encode($lecturesNames);
 
     }
 
