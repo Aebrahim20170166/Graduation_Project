@@ -23,10 +23,13 @@ class QuizController extends Controller
         $quizID = 'q8'; // generate id for this quiz
         // save quiz
 
+        //generate date
+        $date = date('Y-m-d H:i:s');
         Quiz::create([
             'id' => $quizID,
             'courseID' => 'CS150',
-            'topic' => 'quiz topic'
+            'topic' => 'quiz topic',
+            'date' => $date
         ]);
 
         $questionsCount = $request->questionsCount;
