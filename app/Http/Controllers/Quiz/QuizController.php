@@ -20,18 +20,27 @@ class QuizController extends Controller
 {
     /*Create new quiz*/
     public function createQuiz(Request $request){
+//        return $request;
         $courseID = $request->courseID;
         $topic = $request->quizTopic;
-        $quizID = $this->saveQuiz($courseID,$topic);
+        $questionCount = $request -> questionsCount;
+        $totalGrade = 0;
+        for ($i=1; $i<=$questionCount; $i++){
+            $questionGrade = 'questionGrade'.$i;
+            $totalGrade += (int)$request->$questionGrade;
+        }
+//        return $totalGrade;
+        $quizID = $this->saveQuiz($courseID,$topic,$totalGrade);
         $request->merge(['quizID'=> $quizID]);
         QuestionController::saveQuestions($request);
     }
 
-    public function saveQuiz($courseID,$topic){
+    public function saveQuiz($courseID,$topic,$totalGrade){
         $date=date('Y-m-d H:i:s');
         $quizID= Quiz::insertGetId([
             'courseID' => $courseID,
             'topic' => $topic,
+            'total_grade' => $totalGrade,
             'date'=>$date
         ]);
         return $quizID;
