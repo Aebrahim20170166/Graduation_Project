@@ -8,6 +8,9 @@ use App\Http\Controllers\Quiz\QuizController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Predection\PredectionController;
+use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Reports\TopFive;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -114,10 +117,27 @@ Route::get('/flush', function () {
 })->name('logout');
 
 
+Route::view('/createquiz/{courseID}','staff/quiz');
+Route::get('createQuiz/{courseID}',function ($courseID){
+    return view('staff/quiz')->with('courseID',$courseID);
+})->name('createQuiz');
+Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+
 //generate data for predection
 Route::get('generateFinal',[PredectionController::class,'generateStudentResults']);
 Route::get('predict',[PredectionController::class,'predictFinalGrade']);
 //predictFinalGrade
+
+//last
+Route::post('saveNewQuestions','Quiz\QuestionController@saveQuestions')->name('saveNewQuestions');
+
+Route::post('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+Route::post('removeChoice','Quiz\QuestionController@removeChoice')->name('removeChoice');
+Route::post('addOption','Quiz\QuestionController@addOption')->name('addOption');
+
+Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
+
+
 Route::get('getData','K_Means\KmeansController@kMeansquiz');
 Route::get('getData','K_Means\KmeansController@readData');
 Route::get('update','Grade\GradeController@update');
@@ -126,7 +146,7 @@ Route::get('generate','Grade\GradeController@generateAttendanceData');
 Route::get('Data','Naeve\NaeveController@naeve');
 
 //Announcement
-
+Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');

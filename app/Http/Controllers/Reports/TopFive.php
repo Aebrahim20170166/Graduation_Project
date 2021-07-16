@@ -46,10 +46,9 @@ class TopFive extends Controller
             }
             if($SID!=""&&$attendance==sizeof($sessions))
                 $studentsattend[]=$SID;
-            $studentnames[]=$Sname;
+                $studentnames[]=$Sname;
         }
         return view('staff/getreport',['regularstudents'=>$studentsattend,'studentnames'=>$studentnames]) ;
     }
-
 
 }

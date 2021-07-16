@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 session(['courseID' => $courseID,'Announcements'=>$Announcements]);

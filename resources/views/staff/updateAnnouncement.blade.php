@@ -6,7 +6,7 @@ if(session()->has('courseID'))
     $courseID=session()->get('courseID');
 }
 ?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -52,6 +52,7 @@ if(session()->has('courseID'))
             border:2px solid #3DB2EB;
             color: #3DB2EB;
         }
+
     </style>
 </head>
 <body>
@@ -87,11 +88,8 @@ if(session()->has('courseID'))
             <input class="s_name" type="text" name='body' value="{{$body}}" > <br>
             <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank"> update </button>
         </form>
-        <div>
-
-        </div>
+         </div>
+     
     </div>
-</div>
-
 </body>
 </html>

@@ -94,7 +94,8 @@ if(session()->has('courseID')and session()->has('Announcements'))
                 <div class="row">
                     {{$announce->body}}
                     <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
-                        <button type="button" >   update</button></a>
+
+                    <button type="button" >   update</button></a>
                     <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
                         <button type="button">   delete</button></a>
 
