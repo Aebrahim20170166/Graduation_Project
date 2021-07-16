@@ -198,16 +198,7 @@
             },
             success:function(optionID){
                 displayOption(question,optionID);
-                // alert(data);
-                // console.log(data);
             },
-            // error:function(xhr,status,error){
-            //     $.each(xhr.responseJSON.errors,function (key,item)
-            //         {
-            //             alert(item)
-            //         }
-            //     );
-            // }
         });
     };
     var removeChoice = function (node,choiceID){
@@ -246,7 +237,8 @@
                 @for($j=1; $j<=$question['optionsCount']; $j++)
                     @if($question['option'.$j] != $question['correctAnswer'])
                         <option value="{{$question['option'.$j]}}" id="{{$question['optionid'.$j]}}"> {{$question['option'.$j]}} </option>
-                    @endif                @endfor
+                    @endif
+                @endfor
 
             </select>
             <br>
