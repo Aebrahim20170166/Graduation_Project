@@ -148,35 +148,29 @@ class QuizController extends Controller
         return view('staff/quizzes',[ 'quizes' =>$quizes]);
     }
 
-    public function showQuiz(Request $request){
+    public function showQuiz($quizID){
         $questions = Question::query()
-            ->where('quiz_id', '=', $request->quizID)
+            ->where('quiz_id', '=', "{$quizID}")
             ->get();
-        $allQuestions =array();
+        $allQuestions = [];
+        $i = 0;
         foreach ($questions as $question) {
-            /** @var TYPE_NAME $questionWithAnswer */
-            $questionWithAnswer =array();
-
+            $questionWithAnswer = [];
             $options = Choice::query()
                 ->where('question_id', '=', "{$question->id}")
                 ->get();
             $questionWithAnswer['question'] =$question->content;
-            $questionWithAnswer['questionID'] =$question->id;
+            $questionWithAnswer['questionid'] =$question->id;
             $questionWithAnswer['correctAnswer'] =$question->answer;
-            /** @var TYPE_NAME $options_of_questions */
-            $options_of_questions=[];
+            $j = 1;
             foreach ($options as $option){
-                $options_of_questions[]=$option->content;
-
+                $questionWithAnswer['option'.$j] = $option->content;
+                $questionWithAnswer['optionid'.$j++] = $option->id;
             }
-            $questionWithAnswer['options']=$options_of_questions;
-            $allQuestions[] = $questionWithAnswer;
-
+            $questionWithAnswer['optionsCount'] = $j-1;
+            $allQuestions[$i++] = $questionWithAnswer;
         }
-        if($request->wantsJson()) {
-            return json_encode($allQuestions);
-        }
-        return view("staff/editQuiz",['questions'=>$allQuestions]);
-
+//        return $allQuestions;
+        return view("staff/editQuiz",['questions'=>$allQuestions, 'quizID'=>$quizID]);
     }
 }

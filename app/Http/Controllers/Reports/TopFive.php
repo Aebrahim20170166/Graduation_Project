@@ -7,8 +7,6 @@ use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Quiz;
 use App\Models\Student;
-use App\Models\Teach;
-use App\Models\Enrolled_Courses;
 use App\Models\Announcement;
 
 use App\Http\Controllers\Controller;
@@ -52,16 +50,5 @@ class TopFive extends Controller
         }
         return view('staff/getreport',['regularstudents'=>$studentsattend,'studentnames'=>$studentnames]) ;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

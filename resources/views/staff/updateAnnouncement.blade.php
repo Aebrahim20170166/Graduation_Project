@@ -3,7 +3,7 @@ session_start();
 $courseID;
 if(session()->has('courseID'))
 {
-$courseID=session()->get('courseID');
+    $courseID=session()->get('courseID');
 }
 ?>
 <!DOCTYPE html>
@@ -88,11 +88,8 @@ $courseID=session()->get('courseID');
             <input class="s_name" type="text" name='body' value="{{$body}}" > <br>
             <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank"> update </button>
         </form>
-<div>
-
+         </div>
+     
     </div>
-    </div>
-</div>
-
 </body>
 </html>

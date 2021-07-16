@@ -2,11 +2,9 @@
 <?php
 session_start();
 session(['courseID' => $courseID,'Announcements'=>$Announcements]);
-
-
 ?>
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
 
@@ -80,18 +78,18 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
     <div class="row">
         {{--<a href={{route('sessions')}}><button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">Sessions</button>
         </a>--}}
-            <form action="{{route('get_sessions')}}" method="post">
-                {{@csrf_field()}}
-                <input type="hidden" name='courseID' value={{$courseID}}> <br>
-                <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">Sessions</button>
+        <form action="{{route('get_sessions')}}" method="post">
+            {{@csrf_field()}}
+            <input type="hidden" name='courseID' value={{$courseID}}> <br>
+            <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">Sessions</button>
 
-            </form>
+        </form>
 
     </div>
     <div class="row">
 
         <a href={{route('showQuizes',['courseID' => $courseID])}}><button type="submit" class="btn btn-defult btn-lg" >
-         <span class="glyphicon glyphicon-check"></span>Quizzes</button></a>
+                <span class="glyphicon glyphicon-check"></span>Quizzes</button></a>
     </div>
     <div class="row">
 

@@ -51,7 +51,6 @@ if(session()->has('courseID')and session()->has('Announcements'))
             border:2px solid #3DB2EB;
             color: #3DB2EB;
         }
-
     </style>
 
 </head>
@@ -81,7 +80,7 @@ if(session()->has('courseID')and session()->has('Announcements'))
     <div class="row">
 
         <form action="{{route('makepost')}}" method="post">
-        @csrf
+            @csrf
 
             <input type="hidden" name='courseID' value={{$courseID}}> <br>
 
@@ -90,17 +89,12 @@ if(session()->has('courseID')and session()->has('Announcements'))
             <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">post </button>
         </form>
 
-
-
-
-
-
-
         <div>
             @foreach($announcements as $announce)
                 <div class="row">
                     {{$announce->body}}
                     <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
+
                     <button type="button" >   update</button></a>
                     <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
                         <button type="button">   delete</button></a>
