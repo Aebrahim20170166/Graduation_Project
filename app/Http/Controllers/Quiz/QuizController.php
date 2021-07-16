@@ -6,11 +6,11 @@
 namespace App\Http\Controllers\Quiz;
 session_start();
 
-use App\Http\Controllers\Answer\AnswerController;
+use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Traits\requestTrait;
-use App\Models\Answer;
+use App\Models\Choice;
 use App\Models\Grade;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -20,45 +20,21 @@ class QuizController extends Controller
 {
     /*Create new quiz*/
     public function createQuiz(Request $request){
-        $quizID = 'q8'; // generate id for this quiz
-        // save quiz
+        $courseID = $request->courseID;
+        $topic = $request->quizTopic;
+        $quizID = $this->saveQuiz($courseID,$topic);
+        $request->merge(['quizID'=> $quizID]);
+        QuestionController::saveQuestions($request);
+    }
 
-        //generate date
-        $date = date('Y-m-d H:i:s');
-        Quiz::create([
-            'id' => $quizID,
-            'courseID' => 'CS150',
-            'topic' => 'quiz topic',
-            'date' => $date
+    public function saveQuiz($courseID,$topic){
+        $date=date('Y-m-d H:i:s');
+        $quizID= Quiz::insertGetId([
+            'courseID' => $courseID,
+            'topic' => $topic,
+            'date'=>$date
         ]);
-
-        $questionsCount = $request->questionsCount;
-//        return $request;
-        for($i=1; $i<=$questionsCount; $i++) {
-            $questionID = 'question'.$i;
-            $correctAnswerID = 'correctAnswer'.$i;
-            $count = 'optionCount'.$i;
-            $questionOptions = $request->$count;
-// q1question1
-            if ($request->$questionID) {
-                // save question and its correct answer
-                Question::create([
-                    'id' => $quizID.$questionID,
-                    'quiz_id' => $quizID,
-                    'content' => $request->$questionID,
-                    'answer' => $request->$correctAnswerID
-                ]);
-                // sava question and its options
-                for ($j = 1; $j <= $questionOptions; $j++) {
-                    $questionOption = 'question' . $i . 'option' . $j;
-                    $questionOptionContent = $request->$questionOption;
-                    Answer::create([
-                        'question_id' => $quizID . $questionID,
-                        'content' => $questionOptionContent
-                    ]);
-                }
-            }
-        }
+        return $quizID;
     }
 
     public static function quizCorrection(Request $request){
@@ -146,7 +122,7 @@ class QuizController extends Controller
             $questionWithAnswers=array();
             $questionWithAnswers['content']=$question->content;
             $questionWithAnswers['id']=$question->id;
-            $answers=AnswerController::getQnswers($question->id);
+            $answers=ChoiceController::getChoices($question->id);
             foreach ($answers as $answer) {
                 $questionWithAnswers['answer'.$countOFAnswers++]=$answer->content;
             }
@@ -181,7 +157,7 @@ class QuizController extends Controller
             /** @var TYPE_NAME $questionWithAnswer */
             $questionWithAnswer =array();
 
-            $options = Answer::query()
+            $options = Choice::query()
                 ->where('question_id', '=', "{$question->id}")
                 ->get();
             $questionWithAnswer['question'] =$question->content;

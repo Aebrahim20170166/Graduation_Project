@@ -2,56 +2,70 @@
 
 namespace App\Http\Controllers\Question;
 
+use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\requestTrait;
+use App\Models\Choice;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    /*public function createQuestion(Request $request)
-    {
-        if(QuestionController::search($request)){
-            if(Question::create(['quiz_id'=>$request->quizID,'content'=>$request->Content])){
-                return 'Question add successfully';
+    public static function saveQuestion($quizID,$questionID,$correctAnswer){
+        $questionID = Question::insertGetId([
+            'quiz_id' => $quizID,
+            'content' => $questionID,
+            'answer' => $correctAnswer
+        ]);
+        return $questionID;
+
+    }
+
+    public static function saveQuestions(Request $request){
+        $quizID = $request->quizID;
+        $questionsCount = $request->questionsCount; // number of questions in this request
+        for($i=1; $i<=$questionsCount; $i++) {
+            $correctAnswer = 'correctAnswer'.$i;
+            $count = 'optionCount'.$i;
+            $content = 'question'.$i;
+            $questionOptions = $request->$count;
+
+            if ($request->$content) {
+                // save question and its correct answer
+                $questionID = self::saveQuestion($quizID,$request->$content,$request->$correctAnswer);
+                // sava question and its options
+                for ($j = 1; $j <= $questionOptions; $j++) {
+                    $questionOption = 'question' . $i . 'option' . $j;
+                    $questionOptionContent = $request->$questionOption;
+                    ChoiceController::saveChoice($questionID, $questionOptionContent);
+                }
             }
-
         }
-        else{
-            return 'Question is already exist';
-        }
-        //return requestTrait::handleCreateQuestionRequest($request,$message);
-    }*/
+    }
 
-    /*public function deleteQuestion(Request $request){
-        $result=Question::query()
-            ->where('id','=',$request->ID)
-            ->where('quiz_id','=',$request->quizID)
+    public function update(Request $request)
+    {
+//        return $request;
+        $question= Question::findOrFail($request->id);
+        $question-> content =$request['content'];
+        $question-> answer_id =$request['correctAnswer'];
+        $question->save();
+
+        Choice::where('question_id','=',"{$request->id}")
             ->delete();
-        if($result){
-            //$message='Question deleted successfully';
-            return 'Question deleted successfully';
-            //return requestTrait::handleDeleteQuizRequest($request,$message);
+        $newChoices = $request->choices;
+        for($i=0; $i<sizeof($newChoices); $i++){
+            self::saveChoice($request->id, $newChoices[$i]);
         }
-        $message='Error ,question not deleted';
-        return 'Error ,question not deleted';
-        //return requestTrait::handleDeleteQuizRequest($request,$message);
-    }*/
-    /*search on question and if not found return true else return false*/
-   /*public static function search(Request $request){
-       $result= Question::query()
-           ->where('quiz_id', '=', "{$request->quizID}")
-           ->Where('content', '=', "{$request->Content}")
-           ->get();
-       if($result->isEmpty()){
-           return true;
-       }
-       else{
-           return false;
-       }
-   }*/
-  /*
-   * this function take the quiz id and return all question in this quiz*/
+    }
+
+    public function destroy(Request $request){
+        Question::destroy($request->id);
+        Choice::where('question_id','=',"{$request->id}")
+            ->delete();
+    }
+
+   /*this function take the quiz id and return all question in this quiz*/
    public static function getQuestions($quizID){
        return Question::query()->select('content','quiz_id','id')
            ->where('quiz_id','=',$quizID)

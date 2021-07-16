@@ -32,7 +32,7 @@ class AnnouncementController extends Controller
     public function saveupdate(Request $request)
     {
         Announcement::where(['course_id'=>$request->courseID])
-        ->where(['id'=>$request->postid])
+            ->where(['id'=>$request->postid])
             ->update([
                 'body' => $request->body
             ]);
