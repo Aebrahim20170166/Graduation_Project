@@ -4,6 +4,8 @@
  * */
 namespace App\Http\Controllers\Course;
 session()->start();
+
+use App\Models\Announcement;
 use App\Models\Course;
 use App\Models\StudentCourses;
 use App\Models\InstructorCourses;
@@ -15,8 +17,12 @@ class CourseController extends Controller
 {
     /*Created by Mohammed Ashore*/
     public function showCourse($id){
-        //return $id;
-        return view('staff/course',['courseID' => $id]);
+        $Announcements = Announcement::query()
+            ->where([
+                ['course_id', '=', $id]
+            ])
+            ->get();
+        return view('staff/course', ['courseID' => $id,'Announcements' => $Announcements]);
 
     }
     /*
