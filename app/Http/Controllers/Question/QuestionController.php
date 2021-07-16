@@ -11,11 +11,12 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    public static function saveQuestion($quizID,$questionID,$correctAnswer){
+    public static function saveQuestion($quizID,$questionID,$correctAnswer,$grade){
         $questionID = Question::insertGetId([
             'quiz_id' => $quizID,
             'content' => $questionID,
-            'answer' => $correctAnswer
+            'answer' => $correctAnswer,
+            'grade' => $grade
         ]);
         return $questionID;
 
@@ -29,10 +30,11 @@ class QuestionController extends Controller
             $count = 'optionCount'.$i;
             $content = 'question'.$i;
             $questionOptions = $request->$count;
+            $grade = 'questionGrade'.$i;
 
             if ($request->$content) {
                 // save question and its correct answer
-                $questionID = self::saveQuestion($quizID,$request->$content,$request->$correctAnswer);
+                $questionID = self::saveQuestion($quizID,$request->$content,$request->$correctAnswer,$request->$grade);
                 // sava question and its options
                 for ($j = 1; $j <= $questionOptions; $j++) {
                     $questionOption = 'question' . $i . 'option' . $j;
