@@ -86,10 +86,10 @@ if(session()->has('courseID'))
             <input type="hidden" name='postid' value={{$postid}}> <br>
             <span>Announcement</span>
             <input class="s_name" type="text" name='body' value="{{$body}}" > <br>
-            <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank"> update </button>
+            <button type="submit" class="btn btn-defult btn-lg"> update </button>
         </form>
          </div>
-     
+
     </div>
 </body>
 </html>

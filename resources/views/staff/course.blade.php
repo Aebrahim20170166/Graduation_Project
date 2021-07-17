@@ -81,7 +81,7 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
         <form action="{{route('get_sessions')}}" method="post">
             {{@csrf_field()}}
             <input type="hidden" name='courseID' value={{$courseID}}> <br>
-            <button type="submit" class="btn btn-defult btn-lg" formtarget="_blank">Sessions</button>
+            <button type="submit" class="btn btn-defult btn-lg" >Sessions</button>
 
         </form>
 
@@ -97,7 +97,15 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
     </div>
     <div class="row">
 
-        <a href={{route('getreports',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   get regular students </button></a>
+        <a href={{route('attendancereport',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   get attendance report </button></a>
+    </div>
+    <div class="row">
+
+        <a href={{route('quizreport',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   get quizs report </button></a>
+    </div>
+    <div class="row">
+
+        <a href={{route('makechart',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   make chart </button></a>
     </div>
 </div>
 
