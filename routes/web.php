@@ -9,7 +9,7 @@ use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Predection\PredectionController;
 use App\Http\Controllers\Announcement\AnnouncementController;
-use App\Http\Controllers\Reports\TopFive;
+use App\Http\Controllers\Reports\report;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,10 +145,15 @@ Route::get('generate','Grade\GradeController@generateAttendanceData');
 //Naive algorithm
 Route::get('Data','Naeve\NaeveController@naeve');
 
+//reports
+Route::get('attendancereport','Reports\report@attendancereport')->name('attendancereport');
+Route::get('quizreport','Reports\report@quizreport')->name('quizreport');
+
 //Announcement
-Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
+
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
 Route::get('saveupdate','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
 Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
+Route::get('makechart','chartcontroller\chartController@getSessionsOfCourse')->name('makechart');
