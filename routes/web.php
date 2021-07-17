@@ -8,6 +8,9 @@ use App\Http\Controllers\Quiz\QuizController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Predection\PredectionController;
+use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Reports\report;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -114,16 +117,37 @@ Route::get('/flush', function () {
 })->name('logout');
 
 
+Route::view('/createquiz/{courseID}','staff/quiz');
+Route::get('createQuiz/{courseID}',function ($courseID){
+    return view('staff/quiz')->with('courseID',$courseID);
+})->name('createQuiz');
+Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+
 //generate data for predection
 Route::get('generateFinal',[PredectionController::class,'generateStudentResults']);
 Route::get('predict',[PredectionController::class,'predictFinalGrade']);
 //predictFinalGrade
+
+//last
+Route::post('saveNewQuestions','Quiz\QuestionController@saveQuestions')->name('saveNewQuestions');
+
+Route::post('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+Route::post('removeChoice','Quiz\QuestionController@removeChoice')->name('removeChoice');
+Route::post('addOption','Quiz\QuestionController@addOption')->name('addOption');
+
+Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
+
+
 Route::get('getData','K_Means\KmeansController@kMeansquiz');
 Route::get('getData','K_Means\KmeansController@readData');
 Route::get('update','Grade\GradeController@update');
 Route::get('generate','Grade\GradeController@generateAttendanceData');
 //Naive algorithm
 Route::get('Data','Naeve\NaeveController@naeve');
+
+//reports
+Route::get('attendancereport','Reports\report@attendancereport')->name('attendancereport');
+Route::get('quizreport','Reports\report@quizreport')->name('quizreport');
 
 //Announcement
 
@@ -133,3 +157,4 @@ Route::post('makepost','Announcement\AnnouncementController@makepost')->name('ma
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
 Route::get('saveupdate','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
 Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
+Route::get('makechart','chartcontroller\chartController@getSessionsOfCourse')->name('makechart');

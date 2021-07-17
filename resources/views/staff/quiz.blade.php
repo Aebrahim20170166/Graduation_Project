@@ -50,6 +50,11 @@
         question.id = 'question'+questionID;
         question.placeholder = 'question body';
         section.appendChild(question);
+        var questionGrade = document.createElement('input');
+        questionGrade.type = 'number';
+        questionGrade.name = 'questionGrade'+ questionID;
+        questionGrade.style.width = '50px';
+        section.appendChild(questionGrade);
         var br = document.createElement('br');
         section.appendChild(br);
         var options = document.createElement('div');

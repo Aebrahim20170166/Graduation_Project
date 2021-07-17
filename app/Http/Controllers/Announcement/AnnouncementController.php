@@ -14,8 +14,8 @@ class AnnouncementController extends Controller
     public function makepost(Request $request)
     {
 
-        Announcement::create(['course_id' => $request->courseID, 'body' => $request->announcement]);
-        $Announcements = Announcement::query()
+       Announcement::create(['course_id' => $request->courseID, 'body' => $request->announcement]);
+       $Announcements = Announcement::query()
             ->where('course_id', '=', "$request->courseID")
             ->get();
         session_start();
