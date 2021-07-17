@@ -86,6 +86,7 @@ if(session()->has('courseID')and session()->has('Announcements'))
 
             <span>Announcement</span>
             <input class="s_name" type="text" name='announcement' > <br>
+
             <button type="submit" class="btn btn-defult btn-lg" >post </button>
         </form>
 

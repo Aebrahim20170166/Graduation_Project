@@ -151,6 +151,7 @@ Route::get('quizreport','Reports\report@quizreport')->name('quizreport');
 
 //Announcement
 
+Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
