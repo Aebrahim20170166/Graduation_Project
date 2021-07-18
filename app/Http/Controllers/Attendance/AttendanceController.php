@@ -66,4 +66,18 @@ class AttendanceController extends Controller
 
     }
 
+    // this function take sessions ids and return their attendance count
+    public static function getSessionsAttendance($sessions){
+        $sessionsAttendanceCount = [];
+        foreach ($sessions as $session){
+            $count = Attendance::query()
+                ->where('session_id','=',$session->session_id)
+                ->where('attended','=',1)
+                ->count();
+            array_push($sessionsAttendanceCount,$session->session_name,$count);
+        }
+        return $sessionsAttendanceCount;
+
+    }
+
 }
