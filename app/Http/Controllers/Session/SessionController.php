@@ -70,4 +70,13 @@ class SessionController extends Controller
         return view('staff/sessions',['sessions' => $sessions]);
     }
 
+    //this function get all sessions of specific course by course id
+    public static function getAllSessionsOfCourse($id){
+        $sessions=Session::query()->select('session_name','session_id')
+            ->where('course_id','=',$id)
+            ->get();
+
+        return $sessions;
+    }
+
 }

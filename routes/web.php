@@ -21,7 +21,9 @@ use App\Http\Controllers\Reports\report;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('getDataForAttChart','Charts\AttendanceChart@prepareData')->name('getDataForAttChart');
+Route::get('attendanceChart','Charts\AttendanceChart@returnview')->name('attendanceChart');
+Route::view('chart','testChart');
 Route::get('/', function () {
     return view('welcome');
 });

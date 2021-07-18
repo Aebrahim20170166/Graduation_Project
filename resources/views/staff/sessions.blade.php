@@ -75,6 +75,6 @@
     </div>
 
 </div>
-
+<a href="{{route('attendanceChart',['courseID' => $session->course_id])}}">show attendance chart</a>
 </body>
 </html>
