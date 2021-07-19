@@ -14,15 +14,21 @@ use App\Http\Controllers\Reports\report;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------quizChart
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::view('quizChart','charts.quizChart');
 Route::get('getDataForAttChart','Charts\AttendanceChart@prepareData')->name('getDataForAttChart');
 Route::get('attendanceChart','Charts\AttendanceChart@returnview')->name('attendanceChart');
+
+Route::get('getDataForQuizChart','Charts\QuizChart@prepareData')->name('getDataForQuizChart');
+Route::get('QuizChart','Charts\QuizChart@returnview')->name('quizChart');
+
 Route::view('chart','testChart');
 Route::get('/', function () {
     return view('welcome');
