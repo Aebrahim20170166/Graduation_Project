@@ -62,4 +62,13 @@ class AnnouncementController extends Controller
         return view('staff/makeAnnouncement');
     }
 
+    public function getAnnouncements(Request $request)
+    {
+        $announcements=Announcement::query()->select('body','date')
+            ->where('course_id','=',$request->courseID)
+            ->get();
+        if($request->wantsJson())
+            return json_encode($announcements);
+    }
+
 }

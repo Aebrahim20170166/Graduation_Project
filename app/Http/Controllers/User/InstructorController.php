@@ -13,26 +13,25 @@ class InstructorController extends UserController
     //check if this account is exist or not
     public static function search(Request $request){
         return Instructor::query()
-            ->where('id', '=', $request->id)
-            ->orWhere('email', '=', $request->email)
+            ->where('email', '=', $request->email)
+            ->orWhere('password', '=', $request->password)
             ->get();
     }
 
     public static function validate_data(Request $request){
-        return Instructor::where([['id','=',$request->id]])->first();
+        return Instructor::where([['email','=',$request->email]])->first();
     }
 
     public static function store(Request $request){
-        if(Instructor::create([
-            'id'=>$request->id,
+        if($result=Instructor::create([
             'Fname'=>$request->first_name,
             'Lname'=>$request->last_name,
             'email'=>$request->email,
+            'username'=>$request->username,
             'password'=>Hash::make($request->password)
         ]))
         {
-            return true;
+            return $result->id;
         }
-        return false;
     }
 }

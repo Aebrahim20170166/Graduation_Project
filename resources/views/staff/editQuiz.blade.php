@@ -193,7 +193,7 @@
             type: 'POST',
             datatype:"json",
             data:{
-                id: question["questionID"].value,
+                id: question["questionid"].value,
                 quizID:{{$quizID}}
             },
             success:function(optionID){

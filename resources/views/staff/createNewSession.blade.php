@@ -2,9 +2,9 @@
 session_start();
 $instr_id;
 $courseID;
-if(session()->has('instructorID') and session()->has('courseID'))
+if(session()->has('id') and session()->has('courseID'))
 {
-    $instr_id=session()->get('instructorID');
+    $instr_id=session()->get('id');
     $courseID=session()->get('courseID');
 }
 ?>

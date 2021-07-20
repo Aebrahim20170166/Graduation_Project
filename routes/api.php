@@ -34,4 +34,6 @@ Route::post('getTopicsOfQuizzes','Quiz\QuizController@getQuizzes');
 Route::post('getQuestionsandAnswersOfQuiz','Quiz\QuizController@showQuiz');
 Route::post('correctQuiz','Quiz\QuizController@quizCorrection');
 Route::post('getQuizzesGrades','Quiz\QuizController@getQuizzesGrades');
+//get announcements
+Route::post('getAnnouncements','Announcement\AnnouncementController@getAnnouncements');
 
