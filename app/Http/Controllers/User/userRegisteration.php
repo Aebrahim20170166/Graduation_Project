@@ -24,9 +24,10 @@ class userRegisteration extends Controller
 
             $result = InstructorController::search($request);
             if ($result->isEmpty()){
-                if(InstructorController::store($request))
+                $id= InstructorController::store($request);
+                if($id>0)
                 {
-                    $request->session()->put('instructorID',$request->id);
+                    $request->session()->put('id',$request->$id);
                     $message='success';
                     return requestTrait::handleRegistrationSuccess($request,$message);
                 }
@@ -75,7 +76,7 @@ class userRegisteration extends Controller
                 if(Hash::check($request->password,$result->password))
                 {
 
-                    $request->session()->put('instructorID',$request->id);
+                    $request->session()->put('id',$result->id);
                     $message='success';
                     //return $result->password;
                     return requestTrait::handleRegistrationSuccess($request,$message);

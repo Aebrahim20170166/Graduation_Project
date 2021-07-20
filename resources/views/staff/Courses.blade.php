@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(session()->has('instructorID'))
+if(session()->has('id'))
     {
-        $instructorID=session()->get('instructorID');
+        $instructorID=session()->get('id');
     }
 ?>
 <!DOCTYPE html>

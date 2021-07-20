@@ -70,6 +70,18 @@ class SessionController extends Controller
         return view('staff/sessions',['sessions' => $sessions]);
     }
 
+
+    //so in this function i will check the number of sessions in the course.
+    public static function checkNoSessions($courseID)
+    {
+        $NoSessions=Session::query()->where('course_id','=',$courseID)
+            ->count();
+        if($NoSessions<10)
+        {
+            return false;
+        }
+        return true;
+    }
     //this function get all sessions of specific course by course id
     public static function getAllSessionsOfCourse($id){
         $sessions=Session::query()->select('session_name','session_id')
@@ -77,6 +89,7 @@ class SessionController extends Controller
             ->get();
 
         return $sessions;
+
     }
 
 }

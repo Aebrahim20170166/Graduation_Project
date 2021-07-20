@@ -9,6 +9,7 @@ use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Predection\PredectionController;
 use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Teach\TeachController;
 use App\Http\Controllers\Reports\report;
 
 /*
@@ -31,7 +32,7 @@ Route::get('QuizChart','Charts\QuizChart@returnview')->name('quizChart');
 
 Route::view('chart','testChart');
 Route::get('/', function () {
-    return view('welcome');
+    return view('staff/FirstPage');
 });
 Route::get('home', function () {
     return view('staff/Home');
@@ -62,6 +63,7 @@ Route::post('validate','User\userRegisteration@login')->name('validate');
 
 Route::view('signup','Registration.SignUp')->name('signup');
 Route::view('login','Registration.Login')->name('login');
+Route::view('mainHome','staff.FirstPage')->name('mainHome');
 //validate quiz part
 
 
@@ -121,7 +123,7 @@ Route::get('getNumOfAbsents',[AttendanceController::class,'getNumOfAbsenceAndLec
 //logout
 Route::get('/flush', function () {
     Session::flush();
-    return redirect()->route('login');
+    return redirect()->route('mainHome');
 })->name('logout');
 
 
@@ -145,11 +147,15 @@ Route::get('predict',[PredectionController::class,'predictFinalGrade']);
 
 //Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
 
+//predection
 
+Route::get('getAccuracy','Predection\PredectionController@getAccuracy');
+Route::get('predict','Predection\PredectionController@predictFinalGrades');
 Route::get('getData','K_Means\KmeansController@kMeansquiz');
 Route::get('getData','K_Means\KmeansController@readData');
 Route::get('update','Grade\GradeController@update');
 Route::get('generate','Grade\GradeController@generateAttendanceData');
+Route::get('addData','Grade\GradeController@addData');
 //Naive algorithm
 Route::get('Data','Naeve\NaeveController@naeve');
 
