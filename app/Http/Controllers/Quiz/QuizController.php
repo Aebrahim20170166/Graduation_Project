@@ -173,6 +173,7 @@ class QuizController extends Controller
             $questionWithAnswer['question'] =$question->content;
             $questionWithAnswer['questionid'] =$question->id;
             $questionWithAnswer['correctAnswer'] =$question->answer;
+            $questionWithAnswer['questionGrade'] = $question->grade;
             $j = 1;
             foreach ($options as $option){
                 $questionWithAnswer['option'.$j] = $option->content;

@@ -81,7 +81,7 @@ Route::get('createQuiz/{courseID}',function ($courseID){
     return view('staff/quiz')->with('courseID',$courseID);
 })->name('createQuiz');
 Route::post('savequiz',[QuizController::class,'createQuiz'])->name('savequiz');
-Route::get('removeQuestion',[QuestionController::class,'destroy'])->name('removeQuestion');
+Route::post('removeQuestion',[QuestionController::class,'destroy'])->name('removeQuestion');
 Route::get('deleteQuiz/{CourseID}',[QuizController::class,'deleteQuiz']);
 Route::post('saveNewQuestions',[QuestionController::class,'saveQuestions'])->name('saveNewQuestions');
 Route::post('removeChoice',[ChoiceController::class,'removeChoice'])->name('removeChoice');
@@ -129,7 +129,7 @@ Route::view('/createquiz/{courseID}','staff/quiz');
 Route::get('createQuiz/{courseID}',function ($courseID){
     return view('staff/quiz')->with('courseID',$courseID);
 })->name('createQuiz');
-Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+//Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
 
 //generate data for predection
 Route::get('generateFinal',[PredectionController::class,'generateStudentResults']);
@@ -137,13 +137,13 @@ Route::get('predict',[PredectionController::class,'predictFinalGrade']);
 //predictFinalGrade
 
 //last
-Route::post('saveNewQuestions','Quiz\QuestionController@saveQuestions')->name('saveNewQuestions');
+//Route::post('saveNewQuestions','Quiz\QuestionController@saveQuestions')->name('saveNewQuestions');
 
-Route::post('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
-Route::post('removeChoice','Quiz\QuestionController@removeChoice')->name('removeChoice');
-Route::post('addOption','Quiz\QuestionController@addOption')->name('addOption');
+//Route::post('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+//Route::post('removeChoice','Quiz\QuestionController@removeChoice')->name('removeChoice');
+//Route::post('addOption','Quiz\QuestionController@addOption')->name('addOption');
 
-Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
+//Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
 
 
 Route::get('getData','K_Means\KmeansController@kMeansquiz');
