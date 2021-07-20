@@ -107,6 +107,15 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
 
         <a href={{route('makechart',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   make chart </button></a>
     </div>
+    <div class="row">
+
+        <a href={{route('attendanceChart',['courseID' => $courseID])}}><button type="submit" class="btn btn-defult btn-lg" >
+                <span class="glyphicon glyphicon-check"></span>attendance chart</button></a>
+    </div>
+    <div class="row">
+
+        <a href={{route('quizChart',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   quiz chart </button></a>
+    </div>
 </div>
 
 </body>

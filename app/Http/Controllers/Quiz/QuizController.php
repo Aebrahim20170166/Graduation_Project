@@ -91,6 +91,7 @@ class QuizController extends Controller
 
 
     }
+
     public static function getQuizzesGrades(Request $request)
     {
         return json_encode(Grade::query()->join('quiz','quiz.id','=','grades.quiz_id')
@@ -118,6 +119,7 @@ class QuizController extends Controller
             ->get();
         return json_encode($result);
     }
+
     public static function getQuestionsandAnswersOfQuiz(Request $request)
     {
         //this array have arrays each one has question with its answers
@@ -171,6 +173,7 @@ class QuizController extends Controller
             $questionWithAnswer['question'] =$question->content;
             $questionWithAnswer['questionid'] =$question->id;
             $questionWithAnswer['correctAnswer'] =$question->answer;
+            $questionWithAnswer['questionGrade'] = $question->grade;
             $j = 1;
             foreach ($options as $option){
                 $questionWithAnswer['option'.$j] = $option->content;
@@ -181,5 +184,23 @@ class QuizController extends Controller
         }
 //        return $allQuestions;
         return view("staff/editQuiz",['questions'=>$allQuestions, 'quizID'=>$quizID]);
+    }
+
+    public static function getQuizzesOfCourse($courseID){
+        return Quiz::query()
+            ->select('id','topic')
+            ->where('courseID','=',$courseID)
+            ->get();
+    }
+
+    public static function getAvgGradeForQuiz($quizzes){
+        $allQuizzesWithAvgGrad = [];
+        foreach ($quizzes as $quiz){
+            $quizAvgGrade = Grade::query()
+                ->where('quiz_id','=',$quiz->id)
+                ->average('grade');
+            array_push($allQuizzesWithAvgGrad,$quiz->topic,$quizAvgGrade);
+        }
+        return $allQuizzesWithAvgGrad;
     }
 }
