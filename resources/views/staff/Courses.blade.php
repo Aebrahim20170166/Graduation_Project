@@ -155,7 +155,7 @@ if(session()->has('id'))
         }
         #HomePage 	span.gl
         {
-            margin: 20px;
+            margin: 10px;
             font-size: 30px;
             color: #535565;
             transition: 0.5s;
@@ -218,8 +218,8 @@ if(session()->has('id'))
                         </a>
                     </div>
 
-        {{--                <a href="#"><span class="gl glyphicon glyphicon-minus-sign"></span> </a>--}}
-                    <div col sm-6>
+        {{-- <a href="#"><span class="gl glyphicon glyphicon-minus-sign"></span> </a>--}}
+                    <div>
                         <form action="{{route('delete_instructor_course')}}" method="post">
                             {{@csrf_field()}}
                             <input type="hidden" name="courseID" value="{{$course->course_id}}">

@@ -42,6 +42,8 @@
         }
     });
 
+    document.onload= getDataForChart();
+
     function getDataForChart() {
         $.ajax({
             url: "{{route('getDataForAttChart')}}",
