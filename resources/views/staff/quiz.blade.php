@@ -252,8 +252,6 @@
         };
         section.appendChild(close);
 
-
-
         // create question id and increment value of questions count
         var questionID = parseInt(questionsCount.value);
         questionID +=1;

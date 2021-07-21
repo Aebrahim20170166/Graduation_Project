@@ -14,13 +14,12 @@ class AnnouncementController extends Controller
     public function makepost(Request $request)
     {
 
-       Announcement::create(['course_id' => $request->courseID, 'body' => $request->announcement]);
-       $Announcements = Announcement::query()
+        Announcement::create(['course_id' => $request->courseID, 'body' => $request->announcement]);
+        $Announcements = Announcement::query()
             ->where('course_id', '=', "$request->courseID")
             ->get();
-        session_start();
-        session(['courseID' => $request->courseID,'Announcements'=>$Announcements]);
-        return view('staff/makeAnnouncement');
+
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
     }
 
     public function updatepost(Request $request)
@@ -41,9 +40,8 @@ class AnnouncementController extends Controller
                 ['course_id', '=', $request->courseID]
             ])
             ->get();
-        session_start();
-        session(['courseID' => $request->courseID,'Announcements'=>$Announcements]);
-        return view('staff/makeAnnouncement');
+
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
     }
 
 
@@ -57,18 +55,16 @@ class AnnouncementController extends Controller
                 ['course_id', '=', $request->courseID]
             ])
             ->get();
-        session_start();
-        session(['courseID' => $request->courseID,'Announcements'=>$Announcements]);
-        return view('staff/makeAnnouncement');
-    }
 
-    public function getAnnouncements(Request $request)
-    {
-        $announcements=Announcement::query()->select('body','date')
-            ->where('course_id','=',$request->courseID)
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
+    }
+    public function getpost(Request $request){
+        $Announcements = Announcement::query()
+            ->where([
+                ['course_id', '=', $request->courseID]
+            ])
             ->get();
-        if($request->wantsJson())
-            return json_encode($announcements);
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
     }
 
 }

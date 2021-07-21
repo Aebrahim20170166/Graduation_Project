@@ -1,6 +1,6 @@
 <?php
 session_start();
-session(['courseID' => $courseID,'Announcements'=>$Announcements]);
+session(['courseID' => $courseID]);
 
 
 ?>
@@ -177,7 +177,7 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
         <li class="CourseName"><a href="#">{{$courseName}}</a></li>
         <li><a class="active" href="CourseContent.html">Sessions</a></li>
         <li><a href="{{route('showQuizes',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
-        <li><a href="{{route('announcements')}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
+        <li><a href="{{route('getpost')}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
         <li><a href={{route('attendanceChart',['courseID' => $courseID])}}>Attendance Chart</a></li>
         <li><a href={{route('quizChart',['courseID' => $courseID])}}>quiz Chart</a></li>
         <li><a href="{{route('join_course')}}">Join Course</a></li>
