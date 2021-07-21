@@ -12,18 +12,31 @@ use App\Models\InstructorCourses;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Traits\requestTrait;
+use App\Http\Controllers\Session\SessionController;
 
 class CourseController extends Controller
 {
     /*Created by Mohammed Ashore*/
     public function showCourse($id){
-        $Announcements = Announcement::query()
-            ->where([
-                ['course_id', '=', $id]
-            ])
-            ->get();
-        return view('staff/course', ['courseID' => $id,'Announcements' => $Announcements]);
+//        $Announcements = Announcement::query()
+//            ->where([
+//                ['course_id', '=', $id]
+//            ])
+//            ->get();
+//        return view('staff/course', ['courseID' => $id,'Announcements' => $Announcements]);
 
+        $sessions = SessionController::getAllSessionsOfCourse($id);
+        $courseName = self::getCourseById($id);
+//        return $courseName[0]['name'];
+        return view('staff/course', ['courseID' => $id, 'courseName' => $courseName[0]['name'],'sessions' => $sessions]);
+
+    }
+
+    public function getCourseById($courseID){
+        return Course::query()
+            ->select('name')
+            ->where('course_id', '=', $courseID)
+            ->get();
     }
     /*
      * here i create course where i take the name and id of course to create it
