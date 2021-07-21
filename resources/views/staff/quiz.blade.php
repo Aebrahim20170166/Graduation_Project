@@ -110,6 +110,21 @@
         {
             margin-left:  15%;
         }
+        p.p
+        {
+            font-size: 20px;
+            color: #535565;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            margin-left: 3%;
+            display: inline-block;
+        }
+        span.gl1
+        {
+            color:  #FFB03B;
+            font-size: 25px;
+            margin-left: 2%;
+        }
         input.save
         {
 
@@ -186,6 +201,30 @@
         {
             background-color: red;
         }
+        #questionGrade
+        {
+            width: 100px;
+            border-radius: 50px;
+        }
+        #grade
+        {
+            font-size: 18px;
+            color: #535565;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            margin-left: 1%;
+            display: inline-block;
+        }
+        #correct_Answer
+        {
+            font-size: 18px;
+            color: #535565;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            margin-left: 1%;
+            display: inline-block;
+        }
+
     </style>
 </head>
 <body>
@@ -196,7 +235,7 @@
 
     <ul>
         <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
-        <li><a href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
+        <li><a href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzs</a></li>
         <li><a class="active" href="CreateQuiz.html"> Create Quiz</a></li>
         <li><a href="QuizReports.html"> Reports </a></li>
         <li><a href="#">Profile</a></li>
@@ -217,6 +256,9 @@
                 <input type="hidden" value="0" id="questionsCount" name="questionsCount">
                 <br>
                 <input class="save" type="submit" value="save quiz">
+                <div>
+                    <p class="p">Write Yuor Question Here</p> <span class="gl1 glyphicon glyphicon-hand-down">
+                </div>
             </form>
         </div>
         <div class="row text-center">
@@ -252,6 +294,8 @@
         };
         section.appendChild(close);
 
+
+
         // create question id and increment value of questions count
         var questionID = parseInt(questionsCount.value);
         questionID +=1;
@@ -274,6 +318,7 @@
         var br = document.createElement('br');
         section.appendChild(br);
 
+
         var options = document.createElement('div');
 
 
@@ -283,18 +328,34 @@
         correctAnswer.name = 'correctAnswer'+questionID;
         options.appendChild(correctAnswer);
 
+        var grade = document.createElement('p');
+        grade.innerHTML = 'Question Grade';
+        grade.id = 'grade';
+        section.appendChild(grade);
+
+
+
         var questionGrade = document.createElement('input');
         questionGrade.type = 'number';
         questionGrade.name = 'questionGrade'+ questionID;
-        questionGrade.style.width = '50px';
-        section.appendChild(questionGrade);
+        questionGrade.id = 'questionGrade' ;
+        questionGrade.style.width = '60px';
 
+        section.appendChild(questionGrade);
+        var br1 = document.createElement('br');
+        section.appendChild(br1);
+
+
+        var correct_Answer = document.createElement('p');
+        correct_Answer.innerHTML = 'Select Correct Answer';
+        correct_Answer.id = 'correct_Answer';
+        section.appendChild(correct_Answer);
         section.appendChild(options);
 
-        options.appendChild(br);
+
 
         var addNewOption = document.createElement('a');
-        addNewOption.innerHTML = 'Add option';
+        addNewOption.innerHTML = 'Add Answer';
         addNewOption.href = '#';
         addNewOption.id = 'add-new-option';
         addNewOption.onclick = function(){
@@ -380,4 +441,5 @@
 
 </body>
 </html>
+
 

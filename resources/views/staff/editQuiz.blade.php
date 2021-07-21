@@ -12,7 +12,6 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
     function updateChoice(choiceID,newValue){
         document.getElementById(choiceID).innerHTML = newValue;
         document.getElementById(choiceID).value = newValue;
