@@ -49,7 +49,25 @@
         .login-cta
         {
             color: #F4F4F6;
-            margin: 20px 50px;
+            margin: 20px 30px;
+        }
+        a.signup
+        {
+            font-size: 20px;
+        }
+        a.signup:hover
+        {
+            font-size: 25px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        label.remember
+        {
+            color: #ffffff;
+        }
+        a.forgot-password
+        {
+            color: #ffffff;
         }
     </style>
 </head>
@@ -72,14 +90,14 @@
             <form action="{{route('validate')}}" method="post">
                 @csrf
                 <div class="input-box">
-                    <input type="text" class="input-control" required placeholder="Email" name="email" >
+                    <input type="text" class="input-control" required placeholder="Email please" name="email" >
                     @error('email')
                     <span class="form-text text-danger">{{$message}}</span>
                     @enderror
                 </div>
 
                 <div class="input-box">
-                    <input type="password" class="input-control" required placeholder="Password" name="password">
+                    <input type="password" class="input-control" required placeholder="Password please" name="password">
                     @error('password')
                     <span class="form-text text-danger">{{$message}}</span>
                     @enderror
@@ -87,10 +105,10 @@
                 <br>
                 <div class="input-box rm-box">
                     <div>
-                        <input type="checkbox" id="remember-me" class="remember-me" name="remember-me">
-                        <label for="remember-me">Remember me</label>
+{{--                        <input type="checkbox" id="remember-me" class="remember-me" name="remember-me">--}}
+{{--                        <label for="remember-me" class="remember">Remember me</label>--}}
                     </div>
-                    <a href="forgot_password.php" class="forgot-password">Forgot password?</a>
+{{--                    <a href="forgot_password.php" class="forgot-password">Forgot password?</a>--}}
                 </div><br>
                 <div class="input-box">
                     <input type="hidden" name="role" value="instructor">
@@ -99,7 +117,7 @@
                 <div class="input-box">
                     <input type="submit" class="input-submit btn" value="LOGIN" name="login">
                 </div>
-                <div class="login-cta"><span>Don't have an account?</span> <a href={{route('signup')}}>Sign up here</a></div>
+                <div class="login-cta"><span>Don't have an account?</span> <a class="signup" href={{route('signup')}}>Sign up here</a></div>
             </form>
 
         </div>
