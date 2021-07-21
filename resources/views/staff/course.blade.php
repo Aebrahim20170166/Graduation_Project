@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-session(['courseID' => $courseID,'Announcements'=>$Announcements]);
+session(['courseID' => $courseID]);
 
 ?>
 
@@ -94,7 +94,7 @@ session(['courseID' => $courseID,'Announcements'=>$Announcements]);
     </div>
     <div class="row">
 
-        <a href={{route('announcements',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-bullhorn"></span>  Make an announcement</button></a>
+        <a href={{route('getpost',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-bullhorn"></span>  Make an announcement</button></a>
     </div>
     <div class="row">
 

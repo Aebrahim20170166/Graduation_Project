@@ -23,11 +23,7 @@ class CourseController extends Controller
     $flag_quiz=0;
     $flag_naive=0;
     $flag_mail=0;
-        $Announcements = Announcement::query()
-            ->where([
-                ['course_id', '=', $id]
-            ])
-            ->get();
+
 
         $flags=Course::query()->select('kmean_attend','kmean_quiz','naive','sentmail')
             ->where('course_id','=',$id)
@@ -52,7 +48,7 @@ class CourseController extends Controller
             }
 
         }
-        return view('staff/course', ['courseID' => $id,'Announcements' => $Announcements,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
+        return view('staff/course', ['courseID' => $id,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
 
     }
     /*

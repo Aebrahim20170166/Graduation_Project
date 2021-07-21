@@ -18,9 +18,8 @@ class AnnouncementController extends Controller
        $Announcements = Announcement::query()
             ->where('course_id', '=', "$request->courseID")
             ->get();
-        session_start();
-        session(['courseID' => $request->courseID,'Announcements'=>$Announcements]);
-        return view('staff/makeAnnouncement');
+
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
     }
 
     public function updatepost(Request $request)
@@ -41,9 +40,8 @@ class AnnouncementController extends Controller
                 ['course_id', '=', $request->courseID]
             ])
             ->get();
-        session_start();
-        session(['courseID' => $request->courseID,'Announcements'=>$Announcements]);
-        return view('staff/makeAnnouncement');
+
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
     }
 
 
@@ -57,9 +55,16 @@ class AnnouncementController extends Controller
                 ['course_id', '=', $request->courseID]
             ])
             ->get();
-        session_start();
-        session(['courseID' => $request->courseID,'Announcements'=>$Announcements]);
-        return view('staff/makeAnnouncement');
+
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
+    }
+    public function getpost(Request $request){
+        $Announcements = Announcement::query()
+            ->where([
+                ['course_id', '=', $request->courseID]
+            ])
+            ->get();
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
     }
 
 }

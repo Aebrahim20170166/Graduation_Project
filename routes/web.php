@@ -153,9 +153,10 @@ Route::get('quizreport','Reports\report@quizreport')->name('quizreport');
 //Announcement
 
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
+Route::get("getannounce",'Announcement\AnnouncementController@getpost')->name('getpost');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
-Route::get('/','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
+Route::get('saveupdate','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
 Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
 //Email
 Route::get('sendemail', 'MailController\MailController@mail')->name('sendemail');
