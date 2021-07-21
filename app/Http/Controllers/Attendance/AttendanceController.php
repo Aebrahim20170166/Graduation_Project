@@ -39,6 +39,7 @@ class AttendanceController extends Controller
         if($request->wantsJson())
             return json_encode($attendances);
         else{
+//            return $attendances;
             return view('staff/attendanceOfSession',['attendances'=>$attendances]);
         }
     }
