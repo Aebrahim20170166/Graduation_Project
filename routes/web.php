@@ -63,7 +63,7 @@ Route::post('createAccount','User\userRegisteration@signUp')->name("createAccoun
 Route::post('validate','User\userRegisteration@login')->name('validate');
 
 Route::view('signup','Registration.SignUp')->name('signup');
-Route::view('login','Registration.Login')->name('login');
+Route::view('Login','Registration.Login')->name('Login');
 Route::view('mainHome','staff.FirstPage')->name('mainHome');
 //validate quiz part
 

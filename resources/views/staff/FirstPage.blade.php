@@ -317,7 +317,7 @@
                 <ul class="nav navbar-nav">
                     <li><a class="active" href="#section1">About</a></li>
                     <li><a href="{{route('signup')}}">Sign Up</a></li>
-                    <li><a href="{{route('login')}}">Log In</a></li>
+                    <li><a href="{{route('Login')}}">Log In</a></li>
                 </ul>
 
             </div>

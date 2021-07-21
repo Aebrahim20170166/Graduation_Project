@@ -152,12 +152,12 @@
 
 
     <ul>
-        <li class="CourseName"><a href="#">{{$courseName}}</a></li>
+        <li class="CourseName"><a href="#"></a></li>
         <li><a class="active" href="CourseContent.html">Sessions</a></li>
         <li><a href="Quizes.html"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
         <li><a href="Announcements.html"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
-        <li><a href={{route('attendanceChart',['courseID' => $courseID])}}>Attendance Chart</a></li>
-        <li><a href={{route('quizChart',['courseID' => $courseID])}}>quiz Chart</a></li>
+        <li><a href="">Attendance Chart</a></li>
+        <li><a href="">quiz Chart</a></li>
         <li><a href="Join Course.html">Join Course</a></li>
         <li><a href="{{route('create_course')}}">Create Course</a></li>
         <li><a href="#">Profile</a></li>

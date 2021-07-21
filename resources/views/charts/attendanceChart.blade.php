@@ -127,8 +127,8 @@
         });
 
     }
+    document.onload = getDataForChart();
 </script>
 <script src="{{ url( '/js/app.js' ) }}"></script>
-<button onclick="getDataForChart()" >show chart</button>
 </body>
 </html>

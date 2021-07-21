@@ -217,12 +217,12 @@ if(session()->has('id') and session()->has('courseID'))
     <ul>
 {{--        <li class="CourseName"><a href="#">{{$courseName}}</a></li>--}}
         <li><a class="active" href="CourseContent.html">Sessions</a></li>
-        <li><a href="Quizes.html"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
-        <li><a href="Announcements.html"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
+        <li><a href="{{route('showQuizes',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
+        <li><a href="{{route('announcements')}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
         <li><a href={{route('attendanceChart',['courseID' => $courseID])}}>Attendance Chart</a></li>
         <li><a href={{route('quizChart',['courseID' => $courseID])}}>quiz Chart</a></li>
-        <li><a href="Join Course.html">Join Course</a></li>
-        <li><a href="create new course.html">Create Course</a></li>
+        <li><a href="{{route('join_course')}}">Join Course</a></li>
+        <li><a href="{{route('create_course')}}">Create Course</a></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Log Out</a></li>
     </ul>
@@ -244,7 +244,7 @@ if(session()->has('id') and session()->has('courseID'))
             <input type="text" name="SessionName" id="SessionName">
             <br><br><br>
 
-            <input  class="btn1" type="submit" value="Create" formtarget="_blank">
+            <input  class="btn1" type="submit" value="Create" >
         </form>
 
 
