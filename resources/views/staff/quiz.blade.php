@@ -209,6 +209,7 @@
     <div class="d2 container">
         <div class="row ">
             <form id="sections" action="{{route('savequiz')}}" method="post">
+                {{@csrf_field()}}
 
                 <input class="topic" type="text" placeholder="quiz topic" name="quizTopic">
 
@@ -276,13 +277,22 @@
         section.appendChild(br);
 
         var options = document.createElement('div');
-        section.appendChild(options);
+
 
         options.appendChild(optionCount);
 
         var correctAnswer = document.createElement('select');
         correctAnswer.name = 'correctAnswer'+questionID;
         options.appendChild(correctAnswer);
+
+        var questionGrade = document.createElement('input');
+        questionGrade.type = 'number';
+        questionGrade.name = 'questionGrade'+ questionID;
+        questionGrade.style.width = '50px';
+        section.appendChild(questionGrade);
+
+        section.appendChild(options);
+
         options.appendChild(br);
 
         var addNewOption = document.createElement('a');

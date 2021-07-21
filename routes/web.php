@@ -33,6 +33,7 @@ Route::get('QuizChart','Charts\QuizChart@returnview')->name('quizChart');
 
 Route::view('chart','testChart');
 Route::get('/', function () {
+
     return view('staff/FirstPage');
 });
 Route::get('home', function () {
@@ -47,7 +48,7 @@ Auth::routes(['verify'=>true]);
 Route::group(['prefix'=>'Registration'],function(){
 
 
-    Route::get('login','User\UserController@login')->name('login');
+//    Route::get('login','User\UserController@login')->name('login');
     //Route::get('signup','User\UserController@signup')->name('signup');
 
 });
@@ -170,12 +171,12 @@ Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
-Route::get('/','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
+//Route::get('/','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
 Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
 //Email
 Route::get('sendemail', 'MailController\MailController@mail')->name('sendemail');
 // prediction
 Route::post('/','K_Means\KmeansController@kMeansquiz')->name('kMeansquiz');
 
-Route::get('/','K_Means\KmeansController@kMeansattendance')->name('kMeansattendance');
+//Route::get('/','K_Means\KmeansController@kMeansattendance')->name('kMeansattendance');
 Route::get('naeve','Naeve\NaeveController@naeve')->name('naeve');

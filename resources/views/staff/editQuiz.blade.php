@@ -12,10 +12,12 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    
     function updateChoice(choiceID,newValue){
         document.getElementById(choiceID).innerHTML = newValue;
         document.getElementById(choiceID).value = newValue;
     }
+
     function removeQuestion(node,questionID) {
         $.ajax({
             url: "{{ route('removeQuestion') }}",
@@ -37,6 +39,7 @@
             }
         });
     }
+
     var saveQuestion = function (form){
         var count=form["choices"].length
         var choices=[]
@@ -68,6 +71,7 @@
             // }
         });
     }
+
     var newOption2 = function(questionID,where, correctAnswerList,optionCountID) {
         console.log(optionCountID.value);
         var questionOption = document.createElement('input');
@@ -98,6 +102,7 @@
         var br2 = document.createElement('br');
         where.appendChild(br2);
     };
+
     var newQuestion = function() {
         questionsCount = document.getElementById('questionsCount')
         var section = document.createElement('div');
@@ -150,6 +155,7 @@
         newOption2(question.id,options,correctAnswer,optionCount);
         newOption2(question.id,options,correctAnswer,optionCount)
     };
+
     var displayOption = function (question){
         var optionDiv = document.createElement('div');
         var questionID = question['questionID'].value;
@@ -188,13 +194,14 @@
         var br2 = document.createElement('br');
         location.appendChild(br2);
     }
+
     var newOption = function(question) {
         $.ajax({
             url: "{{ route('addOption') }}",
             type: 'POST',
             datatype:"json",
             data:{
-                id: question["questionid"].value,
+                id: question["questionID"].value,
                 quizID:{{$quizID}}
             },
             success:function(optionID){
@@ -203,6 +210,7 @@
             },
         });
     };
+
     var removeChoice = function (node,choiceID){
         $.ajax({
             url: "{{ route('removeChoice') }}",
@@ -223,6 +231,7 @@
             }
         });
     }
+
 </script>
 <h1>hello</h1>
 @foreach($questions as $question)

@@ -74,7 +74,7 @@ class CourseController extends Controller
 
     }*/
 
-    public function getCourseById($courseID){
+    public static function getCourseById($courseID){
         return Course::query()
             ->select('name')
             ->where('course_id', '=', $courseID)

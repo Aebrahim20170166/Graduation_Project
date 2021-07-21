@@ -125,7 +125,7 @@
                 <div class="input-box">
                     <input type="submit" class="input-submit btn">
                 </div>
-                <div class="sign-up-cta"><span>Already have an account?</span> <a href={{route('login')}}>Login here</a></div>
+                <div class="sign-up-cta"><span>Already have an account?</span> <a href={{route('Login')}}>Login here</a></div>
             </form>
         </div>
     </div>
