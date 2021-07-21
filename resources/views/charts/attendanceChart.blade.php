@@ -124,7 +124,7 @@
             color: #535565;
             display: inline-block;
             margin-left: 20%;
-            margin-top: 3%;
+            /*margin-top: 3%;*/
             font-family: "Playfair Display", serif;
             font-weight: 400;
             font-style: italic;
@@ -155,7 +155,7 @@
 
     <ul>
         <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
-        <li><a href="Attendance.html"></span> Attendance</a></li>
+        <li><a href="Attendance.html">Attendance</a></li>
         <li><a class="active" href="AttendanceChart.html"> Attendance Chart </a></li>
         <li><a href="QuizReport.html"> Reports </a></li>
         <li><a href="#">Profile</a></li>
@@ -182,15 +182,15 @@
     <div class="d2  ">
         <div class="row">
             <span class="p">Minimum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="min">40</span><span>Student</span>
+            <span class="num" data-toggle="counter-up" id="min"></span><span> Student</span>
         </div>
         <div class="row">
             <span class="p">Maximum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="max">55</span> <span>Student</span>
+            <span class="num" data-toggle="counter-up" id="max"></span> <span> Student</span>
         </div>
         <div class="row">
             <span class="p">Average number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="avg">49</span><span>Student</span>
+            <span class="num" data-toggle="counter-up" id="avg"></span><span> Student</span>
         </div>
     </div>
 </div>
