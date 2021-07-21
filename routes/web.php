@@ -104,6 +104,8 @@ Route::post('get_session','Session\SessionController@getSessionsOfCourse')->name
 
 Route::view('QrCode','staff/QrCode')->name('QrCode');
 
+Route::get("getannounce",'Announcement\AnnouncementController@getpost')->name('getpost');
+
 //Course part
 Route::get('/courseView/{courseID}',[CourseController::class,'showCourse']);
 Route::view('courses','staff.Courses')->name('courses');
@@ -171,7 +173,7 @@ Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
-//Route::get('/','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
+Route::get('saveupdate','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
 Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
 //Email
 Route::get('sendemail', 'MailController\MailController@mail')->name('sendemail');

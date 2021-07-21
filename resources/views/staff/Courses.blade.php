@@ -184,7 +184,7 @@ if(session()->has('id'))
                 <ul class="nav navbar-nav">
                     <li><a class="active" href="#section1">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="Join Course.html">Join Course</a></li>
+                    <li><a href="{{route('join_course')}}">Join Course</a></li>
                     <li><a href="{{route('create_course')}}">Create Course</a></li>
                     <li><a href="#">Log Out</a></li>
                 </ul>

@@ -1,8 +1,7 @@
 <?php
-if(session()->has('courseID')and session()->has('Announcements'))
+if(session()->has('courseID'))
 {
     $courseID=session()->get('courseID');
-    $announcements=session()->get('Announcements');
 }
 ?>
     <!DOCTYPE html>
@@ -17,6 +16,7 @@ if(session()->has('courseID')and session()->has('Announcements'))
         {
             background-color: #F4F4F6;
         }
+        /---------- NavBar ----------/
         .sidebar
         {
             position: fixed;
@@ -129,6 +129,7 @@ if(session()->has('courseID')and session()->has('Announcements'))
                 background-color: #FFB03B;
             }
         }
+        /---------- DIV 2 ----------/
         div.d2 h1
         {
             margin-top: 5%;
@@ -199,7 +200,7 @@ if(session()->has('courseID')and session()->has('Announcements'))
 
 
     <ul>
-        <li class="CourseName"><a href="/courseView/{{$courseID}}"> {{$courseID}} </a></li>
+        <li class="CourseName"><a href="CourseContent.html"> {{$courseID}} </a></li>
         <li><a class="active" href="Announcements.html"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Log Out</a></li>
@@ -230,7 +231,7 @@ if(session()->has('courseID')and session()->has('Announcements'))
     </div>
 
     <div class="butt">
-        @foreach($announcements as $announce)
+        @foreach($Announcements as $announce)
             <div class="row">
 
                 {{$announce->body}}
