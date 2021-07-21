@@ -60,14 +60,15 @@ class SessionController extends Controller
 
     }
     /*Get sessions of particular course fro the instructor*/
-    public static function getSessionsOfCourse(Request $request){
+    public static function getSessionsOfCourse($courseID){
         $sessions=Session::query()->select('session_name','session_id','course_id','date')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
-        if($request->wantsJson()){
-            return json_encode($sessions);
-        }
-        return view('staff/sessions',['sessions' => $sessions]);
+//        if($request->wantsJson()){
+//            return json_encode($sessions);
+//        }
+//        return view('staff/sessions',['sessions' => $sessions]);
+        return $sessions;
     }
 
 
@@ -84,7 +85,7 @@ class SessionController extends Controller
     }
     //this function get all sessions of specific course by course id
     public static function getAllSessionsOfCourse($id){
-        $sessions=Session::query()->select('session_name','session_id')
+        $sessions=Session::query()->select('session_name','date','session_id')
             ->where('course_id','=',$id)
             ->get();
 

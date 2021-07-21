@@ -6,6 +6,7 @@ if(session()->has('id'))
 }
 ?>
     <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>
@@ -23,108 +24,103 @@ if(session()->has('id'))
             background-color: #F4F4F6;
         }
         /*---------- NavBar ----------*/
-        div.d1
+        .sidebar
         {
-            width: 100%;
-            background: rgba(26, 24, 22, 0.6);
-
-            height: 70px;
-        }
-        div.d1 ul
-        {
-            margin-left: 100px;
-        }
-        div.d1 li {
-
-            position: relative;
-            white-space: nowrap;
-            padding: 10px 0 10px 24px;
+            position: fixed;
+            left: 0px;
+            width: 250px;
+            height: 100%;
+            background-color: #222222;
 
         }
-        div.d1 li.LogOut
-        {
-            margin-left: 250px;
-        }
-        div.d1 li a {
-
-
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-
-            position: relative;
-            color: #ffffff;
-            transition:  transform 1s;
-            font-size: 15px;
-            font-family: "Poppins", sans-serif;
-            font-weight: 400;
-        }
-
-        div.d1 li a:hover:not(.active) {
-            color: #FFB03B;
-            border-radius: 50px;
-            background:  rgba(26, 24, 22, 0.2);
-            border: 1.5px solid #FFB03B;
-
-        }
-
-        div.d1 .active {
-            color: #FFB03B;
-            font-weight: 900;
-
-        }
-        div.d1 .active:hover
-        {
-            background:  rgba(26, 24, 22, 0.2);
-            border-radius: 50px;
-            border: 1.5px solid #FFB03B;
-        }
-
-        div.d1 h2 a
+        .sidebar header
         {
             color: #FFB03B;
             font-family: "Playfair Display", serif;
             font-weight: 700;
             font-style: italic;
-            margin-left: 80px;
+            text-align: center;
             font-size: 45px;
+            line-height: 80px;
 
         }
-        div.d1 h2 a:hover
+        .sidebar ul
         {
+            list-style: none;
+        }
+        .sidebar li a
+        {
+            text-align: center;
+            padding: 14px 16px;
             text-decoration: none;
+            line-height: 70px;
+            position: relative;
+            color: #ADADAD;
+            transition:  transform 1s;
+            font-size: 15px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            padding-left: 35px;
+        }
+        .sidebar li a:hover:not(.active)
+        {
             color: #FFB03B;
+            border-radius: 50px;
+            background:  rgba(26, 24, 22, 0.2);
+            border: 1.5px solid #FFB03B;
+
         }
 
-        @media (min-width: 1024px) {
-            #HomePage {
-                background-attachment: fixed;
-            }
-        }
+        .sidebar .active
+        {
+            color: #FFB03B;
+            font-weight: 900;
 
+        }
+        .sidebar .active:hover
+        {
+            border-radius: 50px;
+            border: 1.5px solid #FFB03B;
+        }
+        .sidebar li.CourseName a
+        {
+            font-size: 30px;
+            color: #ffffff;
+        }
+        .sidebar li.CourseName a span
+        {
+
+            color:  #FFB03B;
+        }
         @media (max-width: 768px) {
-            #HomePage {
-                height: 80vh;
-            }
-            #HomePage h1 {
-                font-size: 25px;
-                line-height: 36px;
-            }
+
             div.d1
             {
 
-                height: 50px;
+                width: 30vh;
             }
-            div.d1 h2 a
+            div.d1 li a
             {
-                font-size: 25px;
+                font-size: 12px;
+                line-height: 50px;
+                padding-left: 15px;
 
+            }
+            .sidebar li.CourseName a
+            {
+                font-size: 20px;
+
+            }
+            .sidebar header
+            {
+                font-size: 35px;
             }
         }
         /*---------- DIV 2 ----------*/
-        #CreateCourse div.d2
+        form
         {
-            margin-top: 8%;
+            margin: 10% 10%;
+
         }
         #CreateCourse div.d2 p
         {
@@ -172,18 +168,16 @@ if(session()->has('id'))
         {
             background-color:#FFB03B;
             border-color: #FFB03B;
-            color: #535565;			}
+            color: #535565;
+        }
         @media (max-width: 768px) {
-
-            div.d1
+            #CreateCourse div.d2 p
             {
-
-                height: 50px;
+                font-size: 30px;
             }
-            div.d1 h2 a
+            #CreateCourse div.d2 p:hover
             {
-                font-size: 25px;
-
+                font-size: 40px;
             }
             #CreateCourse div.d2 input.btn1
             {
@@ -196,44 +190,43 @@ if(session()->has('id'))
             #CreateCourse div.d2 input
             {
                 padding: 2px;
-                width: 60%;
-                height: 50px;
+                width: 50%;
+                height: 40px;
                 border-color: black;
                 border-radius: 15px;
                 text-align: center;
                 font-size: 30px;
-                margin-left:  25%;
+                margin-left:  30%;
+            }
+            form
+            {
+                margin: 15% 18%;
+
             }
         }
 
     </style>
 </head>
 <body id="CreateCourse">
-<div class="d1">
-    <nav class="navbar navbar-expand-lg bg-secondary navbar-fixed-top" id="mainNav">
-        <div class="container-fluid">
-            <div class="navbar-header">
+<div class="d1 sidebar">
 
-                <h2 class="logo mr-auto "><a href="#">Eduance</a></h2>
+    <header> Eduance </header>
 
-            </div>
 
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{route('home')}}">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="{{route('joinCourse')}}">Join Course</a></li>
-                    <li><a class="active" href="{{route('create_course')}}">Create Course</a></li>
-                    <li class="LogOut"><a href="{{route('logout')}}">Log out</a></li>
-                </ul>
+    <ul>
+        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
+        <li><a href="CourseContent.html">Sessions</a></li>
+        <li><a href="Quizes.html"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
+        <li><a href="Announcements.html"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
+        <li><a href="Join Course.html">Join Course</a></li>
+        <li><a class="active" href="create new course.html">Create Course</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Log Out</a></li>
+    </ul>
 
-            </div>
-        </div>
-    </nav>
+
 </div>
-
 <div class="d2 container">
-
     <div class="row ">
         <form action="{{route('addCourse')}}" method="post">
             {{@csrf_field()}}
@@ -244,12 +237,14 @@ if(session()->has('id'))
             @endif
 
             <p> Course <span> Name </span> </p>
-            <input type="text" name="name" id="CourseName">
+            <input type="hidden" name="ID" value='{{$instr_id}}'>
+
+            <input type="text" name="name"  id="CourseName">
 
             <br><br>
             <p> Course <span> Code </span> </p>
-            <input type="text" name="courseID" id="CourseCode">
-            <input type="hidden" name="ID" value='{{$instr_id}}'>
+            <input type="text" name="courseID"  id="CourseCode">
+
             <br><br><br>
 
             <input  class="btn1" type="submit" value="Create">
@@ -257,6 +252,9 @@ if(session()->has('id'))
 
 
     </div>
+
 </div>
+
+
 </body>
 </html>
