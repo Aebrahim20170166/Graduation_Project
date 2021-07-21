@@ -34,7 +34,7 @@ class MailController extends Controller
                     ]);
                 Mail::to($email)->send(new MySendMail($student_detail));
             }
-            }
+        }
         Course::where('course_id', '=', "$request->courseID")
             ->update([
                 'sentmail' => 1
@@ -43,7 +43,7 @@ class MailController extends Controller
         return (CourseController::showCourse($request->courseID));
 
 
-        }
+    }
 
 
 }

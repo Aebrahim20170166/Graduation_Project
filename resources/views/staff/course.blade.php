@@ -177,11 +177,16 @@ session(['courseID' => $courseID]);
         <li class="CourseName"><a href="#">{{$courseName}}</a></li>
         <li><a class="active" href="CourseContent.html">Sessions</a></li>
         <li><a href="{{route('showQuizes',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
-        <li><a href="{{route('getpost')}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
+        <li><a href="{{route('getpost',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
         <li><a href={{route('attendanceChart',['courseID' => $courseID])}}>Attendance Chart</a></li>
         <li><a href={{route('quizChart',['courseID' => $courseID])}}>quiz Chart</a></li>
+
+        <li>    <a href={{route('attendancereport',['courseID' => $courseID])}}>regular students</a></li>
+
+           <li> <a href={{route('quizreport',['courseID' => $courseID])}}> hardworking students </a></li>
         <li><a href="{{route('join_course')}}">Join Course</a></li>
         <li><a href="{{route('create_course')}}">Create Course</a></li>
+
         <li><a href="#">Profile</a></li>
         <li><a href="#">Log Out</a></li>
     </ul>
@@ -225,6 +230,36 @@ session(['courseID' => $courseID]);
         </div>
     </div>
 </div>
+@if($flag_quiz == 0)
+
+    <form id="jsform" action="{{route('kMeansquiz')}}" method="post">
+        {{ csrf_field() }}
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+@if($flag_attend == 0)
+
+    <form id="jsform" action="{{route('kMeansattendance')}}" method="get">
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+
+@if($flag_naive == 0)
+
+    <form id="jsform" action="{{route('naeve')}}" method="get">
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+@if($flag_mail == 0)
+    <form id="jsform" action="{{route('sendemail')}}" method="get">
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+
+
+<script type="text/javascript">
+    document.getElementById('jsform').submit();
+</script>
 </body>
 </html>
 
@@ -320,7 +355,7 @@ session(['courseID' => $courseID]);
     </div>
     <div class="row">
 
-        <a href={{route('announcements',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-bullhorn"></span>  Make an announcement</button></a>
+        <a href={{route('getpost',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-bullhorn"></span>  Make an announcement</button></a>
     </div>
     <div class="row">
 
