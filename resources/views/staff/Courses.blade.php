@@ -106,8 +106,10 @@ if(session()->has('instructorID'))
                 @foreach($courses as $course)
                     <div class="row">
                         <div class="col-sm-6 text-center">
-                            <a class="btn btn-defult btn-lg" href="/courseView/{{$course->course_id}}">
+                            <a class="btn btn-defult btn-lg" href="/courseView/{{$course->course_id,'no'}}">
+
                                 {{$course->name}}  </a>
+
                         </div>
                         <div col sm-6>
                             <form action="{{route('delete_instructor_course')}}" method="post">
