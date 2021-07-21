@@ -7,6 +7,8 @@ session()->start();
 
 use App\Models\Announcement;
 use App\Models\Course;
+use App\Models\Quiz;
+use App\Models\Session;
 use App\Models\StudentCourses;
 use App\Models\InstructorCourses;
 use App\Http\Controllers\Controller;
@@ -17,6 +19,46 @@ use App\Http\Controllers\Session\SessionController;
 class CourseController extends Controller
 {
     /*Created by Mohammed Ashore*/
+    public static function  showCourse($id){
+    $flag_attend=0;
+    $flag_quiz=0;
+    $flag_naive=0;
+    $flag_mail=0;
+        $Announcements = Announcement::query()
+            ->where([
+                ['course_id', '=', $id]
+            ])
+            ->get();
+
+        $flags=Course::query()->select('kmean_attend','kmean_quiz','naive','sentmail')
+            ->where('course_id','=',$id)
+            ->get();
+        foreach ($flags as $flag)
+        {
+            if($flag->kmean_attend=='1')
+            {
+                $flag_attend=1;
+            }
+            if($flag->kmean_quiz=='1')
+            {
+                $flag_quiz=1;
+            }
+            if($flag->naive=='1')
+            {
+                $flag_naive=1;
+            }
+            if($flag->sentmail=='1')
+            {
+                $flag_mail=1;
+            }
+
+        }
+   $sessions = SessionController::getAllSessionsOfCourse($id);
+        $courseName = self::getCourseById($id);
+        return view('staff/course', ['courseID' => $id, 'courseName' => $courseName[0]['name'],'sessions' => $sessions,'Announcements' => $Announcements,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
+
+}
+  /*
     public function showCourse($id){
 //        $Announcements = Announcement::query()
 //            ->where([
@@ -30,7 +72,7 @@ class CourseController extends Controller
 //        return $courseName[0]['name'];
         return view('staff/course', ['courseID' => $id, 'courseName' => $courseName[0]['name'],'sessions' => $sessions]);
 
-    }
+    }*/
 
     public function getCourseById($courseID){
         return Course::query()

@@ -3,8 +3,10 @@
 
 namespace App\Http\Controllers\Naeve;
 
-use App\Models\Question;
-use App\Models\StudentPerformance;
+use App\Http\Controllers\Course\CourseController;
+use App\Models\Course;
+use App\Models\question;
+use App\Models\StudentCourses;
 use App\Models\TrainingSet;
 use phpDocumentor\Reflection\Type;
 use Phpml\Classification\KNearestNeighbors;
@@ -19,27 +21,46 @@ use Phpml\Classification\NaiveBayes;
 
 class NaeveController extends Controller
 {
-    public static function naeve()
+    public static function naeve(Request $request)
     {
-        $TrainingSet = self::getTrainingSet();
-
-        $samples=$TrainingSet[0];
-        $labels=$TrainingSet[1];
-        $classifier = new NaiveBayes();
-        $classifier->train($samples, $labels);
-        $prediction = self::getStudentsPerformance();
-
-        foreach ($prediction as $key=>$value) {
-            $result=$classifier->predict($prediction[$key]);
-            self::Saveprediction($key,$result);
+        $flags=Course::query()->select('kmean_attend','kmean_quiz')
+            ->where('course_id','=',$request->courseID)
+            ->get();
+        foreach ($flags as $flag)
+        {
+            if($flag->kmean_attend=='1'&&$flag->kmean_quiz=='1')
+            {
+                $start=1;
+            }
 
         }
-    }
-    public static function getStudentsPerformance(){
+        if($start=1) {
+            $TrainingSet = self::getTrainingSet();
+
+            $samples = $TrainingSet[0];
+            $labels = $TrainingSet[1];
+            $classifier = new NaiveBayes();
+            $classifier->train($samples, $labels);
+            $prediction = self::getStudentsPerformance($request);
+
+            foreach ($prediction as $key => $value) {
+                $result = $classifier->predict($prediction[$key]);
+                self::Saveprediction($key, $result, $request);
+            }
+            Course::where('course_id', '=', "$request->courseID")
+                ->update([
+                    'naive' => 1
+                ]);}
+        return (CourseController::showCourse($request->courseID));
+        }
+
+
+    public static function getStudentsPerformance(Request $request){
 
         $studentIDs=Student::query()->select('student_id')
             ->get();
-        $PerformanceData=StudentPerformance::query()->select('student_id','performance','attendance')
+        $PerformanceData=StudentCourses::query()->select('student_id','performance','attendance')
+            ->where('course_id','=',$request->courseID)
             ->get();
         $students=[];
 
@@ -91,10 +112,15 @@ class NaeveController extends Controller
 
         return array($samplesarray, $labelsarray);
     }
-    public static function Saveprediction($student_id,$prediction){
-        StudentPerformance::where('student_id', $student_id)
+
+
+    public static function Saveprediction($student_id,$prediction,Request $request)
+    {
+        studentcourses::where([['student_id','=', $student_id],['course_id','=',$request->courseID]])
             ->update([
-                'fail/pass' => $prediction
+                'pass/fail' => $prediction
             ]);
     }
+
 }
+

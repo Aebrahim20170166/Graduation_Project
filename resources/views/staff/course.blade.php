@@ -1,7 +1,9 @@
 
 <?php
 session_start();
-session(['courseID' => $courseID]);
+session(['courseID' => $courseID,'Announcements'=>$Announcements]);
+
+
 ?>
     <!DOCTYPE html>
 
@@ -329,9 +331,8 @@ session(['courseID' => $courseID]);
 
         <a href={{route('quizreport',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   get quizs report </button></a>
     </div>
-    <div class="row">
 
-        <a href={{route('makechart',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   make chart </button></a>
+
     </div>
     <div class="row">
 
@@ -343,6 +344,37 @@ session(['courseID' => $courseID]);
         <a href={{route('quizChart',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" >   quiz chart </button></a>
     </div>
 </div>
+
+@if($flag_quiz == 0)
+
+    <form id="jsform" action="{{route('kMeansquiz')}}" method="post">
+        {{ csrf_field() }}
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+@if($flag_attend == 0)
+
+    <form id="jsform" action="{{route('kMeansattendance')}}" method="get">
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+
+@if($flag_naive == 0)
+
+    <form id="jsform" action="{{route('naeve')}}" method="get">
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+@if($flag_mail == 0)
+    <form id="jsform" action="{{route('sendemail')}}" method="get">
+        <input type="hidden" name="courseID" value={{$courseID}}>
+    </form>
+@endif
+
+
+<script type="text/javascript">
+    document.getElementById('jsform').submit();
+</script>
 
 </body>
 </html>

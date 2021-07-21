@@ -11,6 +11,7 @@ use App\Http\Controllers\Predection\PredectionController;
 use App\Http\Controllers\Announcement\AnnouncementController;
 use App\Http\Controllers\Teach\TeachController;
 use App\Http\Controllers\Reports\report;
+use App\Http\Controllers\MailController\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,6 +170,12 @@ Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
 Route::get('updatepost','Announcement\AnnouncementController@updatepost')->name('updatepost');
-Route::get('saveupdate','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
+Route::get('/','Announcement\AnnouncementController@saveupdate')->name('saveupdate');
 Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name('deletepost');
-Route::get('makechart','chartcontroller\chartController@getSessionsOfCourse')->name('makechart');
+//Email
+Route::get('sendemail', 'MailController\MailController@mail')->name('sendemail');
+// prediction
+Route::post('/','K_Means\KmeansController@kMeansquiz')->name('kMeansquiz');
+
+Route::get('/','K_Means\KmeansController@kMeansattendance')->name('kMeansattendance');
+Route::get('naeve','Naeve\NaeveController@naeve')->name('naeve');

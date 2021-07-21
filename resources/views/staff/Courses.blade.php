@@ -203,6 +203,7 @@ if(session()->has('id'))
 <div class="container">
 
 
+
     <div class="d2  text-center">
         <div class="title">
             <h1>Your <span> Courses </span> </h1>
