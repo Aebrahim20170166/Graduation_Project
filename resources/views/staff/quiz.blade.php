@@ -234,12 +234,12 @@
 
 
     <ul>
-        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
-        <li><a href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzs</a></li>
-        <li><a class="active" href="CreateQuiz.html"> Create Quiz</a></li>
-        <li><a href="QuizReports.html"> Reports </a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Log Out</a></li>
+        <li class="CourseName"><a href="/courseView/{{$courseID}}"> {{$courseID}}</a></li>
+        <li><a class="active" href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzes</a></li>
+        <li><a href={{route('createQuiz',['courseID' => $courseID])}}> Create Quiz</a></li>
+        <li><a href="{{route('quizreport',['courseID' => $courseID])}}"> Quiz Report </a></li>
+        <li><a href="{{route('quizChart',['courseID' => $courseID])}}"> Quiz Chart</a></li>
+        <li><a href="{{route('logout')}}">Log Out</a></li>
     </ul>
 
 
@@ -257,7 +257,7 @@
                 <br>
                 <input class="save" type="submit" value="save quiz">
                 <div>
-                    <p class="p">Write Yuor Question Here</p> <span class="gl1 glyphicon glyphicon-hand-down">
+                    <p class="p">Write your question here</p> <span class="gl1 glyphicon glyphicon-hand-down"></span>
                 </div>
             </form>
         </div>

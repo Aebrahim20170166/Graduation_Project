@@ -8,7 +8,7 @@ if(session()->has('courseID'))
     <!DOCTYPE html>
 <html>
 <head>
-    <title>Quizs</title>
+    <title>Quizzes</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -151,11 +151,11 @@ if(session()->has('courseID'))
 
 
     <ul>
-        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
-        <li><a class="active" href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
+        <li class="CourseName"><a href="/courseView/{{$courseID}}"> {{$courseID}}</a></li>
+        <li><a class="active" href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzes</a></li>
         <li><a href={{route('createQuiz',['courseID' => $courseID])}}> Create Quiz</a></li>
-        <li><a href="QuizReports.html"> Reports </a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="{{route('quizreport',['courseID' => $courseID])}}"> Quiz Report </a></li>
+        <li><a href="{{route('quizChart',['courseID' => $courseID])}}"> Quiz Chart</a></li>
         <li><a href="{{route('logout')}}">Log Out</a></li>
     </ul>
 
@@ -165,7 +165,7 @@ if(session()->has('courseID'))
 <div class="container d2">
     <div>
         <div class=" title text-center">
-            <h1> Your <span> Quizs </span></h1>
+            <h1> Your <span> Quizzes </span></h1>
         </div>
         <div class="Quizs text-center">
             <table>

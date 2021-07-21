@@ -175,20 +175,19 @@ session(['courseID' => $courseID]);
 
     <ul>
         <li class="CourseName"><a href="#">{{$courseName}}</a></li>
-        <li><a class="active" href="CourseContent.html">Sessions</a></li>
-        <li><a href="{{route('showQuizes',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
+        <li><a class="active" href="#">Sessions</a></li>
+        <li><a href="{{route('showQuizes',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-check"></span> Quizzes</a></li>
         <li><a href="{{route('getpost',['courseID' => $courseID])}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
         <li><a href={{route('attendanceChart',['courseID' => $courseID])}}>Attendance Chart</a></li>
-        <li><a href={{route('quizChart',['courseID' => $courseID])}}>quiz Chart</a></li>
+        <li><a href={{route('quizChart',['courseID' => $courseID])}}>Quiz Chart</a></li>
 
-        <li>    <a href={{route('attendancereport',['courseID' => $courseID])}}>regular students</a></li>
+        <li>    <a href={{route('attendancereport',['courseID' => $courseID])}}>Regular students</a></li>
 
-           <li> <a href={{route('quizreport',['courseID' => $courseID])}}> hardworking students </a></li>
+           <li> <a href={{route('quizreport',['courseID' => $courseID])}}> Hardworking students </a></li>
         <li><a href="{{route('join_course')}}">Join Course</a></li>
         <li><a href="{{route('create_course')}}">Create Course</a></li>
 
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Log Out</a></li>
+        <li><a href="{{route('logout')}}">Log Out</a></li>
     </ul>
 
 
@@ -218,7 +217,9 @@ session(['courseID' => $courseID]);
                         <form action="{{route('getAttendance')}}">
                             {{@csrf_field()}}
                             <input type="hidden" name="sessionID" value="{{$session->session_id}}">
-                            <input type="hidden" name="courseID" value="{{$session->course_id}}">
+                            <input type="hidden" name="courseID" value="{{$courseID}}">
+                            <input type="hidden" name="sessionName" value="{{$session->session_name}}">
+
                             <button class="btn" type="submit"> Attendance </button>
                         </form>
                     </td>
