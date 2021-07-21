@@ -18,8 +18,8 @@
             <form action="{{route('validate')}}" method="post">
                 @csrf
                 <div class="input-box">
-                    <input type="text" class="input-control" required placeholder="ID please" name="id" >
-                    @error('id')
+                    <input type="text" class="input-control" required placeholder="Email please" name="email" >
+                    @error('email')
                     <span class="form-text text-danger">{{$message}}</span>
                     @enderror
                 </div>

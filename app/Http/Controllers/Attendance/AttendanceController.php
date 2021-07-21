@@ -48,10 +48,6 @@ class AttendanceController extends Controller
     */
     public function getNumOfAbsenceAndLecturesNamesِInCourse(Request $request){
         //get number of times the student not attend it in this course
-        $numOfAttendance=Attendance::query()->where('course_id','=',$request->courseID)
-            ->where('student_id','=',$request->studentID)
-            ->where('attended','=',0)
-            ->get()->count();
         /** @var TYPE_NAME $lecturesNames */
         $lecturesNames=Attendance::query()->join('sessions','sessions.session_id','=',
         'attendence.session_id')
@@ -63,6 +59,28 @@ class AttendanceController extends Controller
         //$results= [$numOfAttendance,
             //$lecturesNames];
         return json_encode($lecturesNames);
+
+    }
+    public static function getAbsenceOfStudentInCourse($courseID,$studentID)
+    {
+        $numOfAttendance=Attendance::query()->where('course_id','=',$courseID)
+            ->where('student_id','=',$studentID)
+            ->where('attended','=',0)
+            ->get()->count();
+        return $numOfAttendance;
+    }
+
+    // this function take sessions ids and return their attendance count
+    public static function getSessionsAttendance($sessions){
+        $sessionsAttendanceCount = [];
+        foreach ($sessions as $session){
+            $count = Attendance::query()
+                ->where('session_id','=',$session->session_id)
+                ->where('attended','=',1)
+                ->count();
+            array_push($sessionsAttendanceCount,$session->session_name,$count);
+        }
+        return $sessionsAttendanceCount;
 
     }
 
