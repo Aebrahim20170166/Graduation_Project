@@ -62,7 +62,8 @@
                     <td><?php echo $i++;?></td>
                     <td>{{$session->session_name}}</td>
                     <td>{{$session->date}}</td>
-                    <td class="text-center "><form action="{{route('getAttendance')}}">
+                    <td class="text-center ">
+                        <form action="{{route('getAttendance')}}">
                             {{@csrf_field()}}
                             <input type="hidden" name="sessionID" value="{{$session->session_id}}">
                             <input type="hidden" name="courseID" value="{{$session->course_id}}">

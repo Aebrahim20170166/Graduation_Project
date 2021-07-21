@@ -168,7 +168,7 @@
 </div>
 <div class="container d2 text-center">
     <div class=" title ">
-        <h1> Session <span> Name </span></h1>
+        <h1>{{$sessionName}}</h1>
     </div>
     <div class="row text-center">
         <table >

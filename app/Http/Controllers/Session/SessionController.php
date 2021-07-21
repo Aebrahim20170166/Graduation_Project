@@ -67,8 +67,8 @@ class SessionController extends Controller
 //        if($request->wantsJson()){
 //            return json_encode($sessions);
 //        }
-//        return view('staff/sessions',['sessions' => $sessions]);
-        return $sessions;
+       return view('staff/sessions',['sessionss' => $sessions]);
+        //return $sessions;
     }
 
 

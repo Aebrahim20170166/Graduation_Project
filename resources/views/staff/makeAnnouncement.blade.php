@@ -261,13 +261,13 @@ if(session()->has('courseID'))
             @foreach($Announcements as $announce)
                 <div class="row">
 
-                {{$announce->body}}
                     <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
 
                     <button type="button" class="btn button btn1" >  <span class=" glyphicon glyphicon-edit"></span></button></a>
 
                     <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
                         <button type="button" class="btn button btn2" >   <span class=" glyphicon glyphicon-trash"></span></button></a>
+                    {{$announce->body}}
 
                 </div>
 
