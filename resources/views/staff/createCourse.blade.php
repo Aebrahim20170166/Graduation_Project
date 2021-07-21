@@ -214,14 +214,14 @@ if(session()->has('id'))
 
 
     <ul>
-        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
+        {{--<li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>--}}
         <li><a href="CourseContent.html">Sessions</a></li>
         <li><a href="Quizes.html"> <span class="glyphicon glyphicon-check"></span> Quizs</a></li>
-        <li><a href="Announcements.html"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
-        <li><a href="Join Course.html">Join Course</a></li>
-        <li><a class="active" href="create new course.html">Create Course</a></li>
+        <li><a href="{{route('makepost')}}"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
+        <li><a href="{{route('join_course')}}">Join Course</a></li>
+        <li><a class="active" href="create_course">Create Course</a></li>
         <li><a href="#">Profile</a></li>
-        <li><a href="#">Log Out</a></li>
+        <li><a href="{{route('logout')}}">Log Out</a></li>
     </ul>
 
 
