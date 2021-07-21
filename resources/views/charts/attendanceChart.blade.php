@@ -11,8 +11,160 @@
     <title>chart</title>
     <link rel="stylesheet" href="{{url( '/css/app.css' )}}">
     <link rel="stylesheet" href="{{url( '/css/blog.css' )}}">
+
+    <style type="text/css">
+        body
+        {
+            background-color: #F4F4F6;
+        }
+        /*---------- NavBar ----------*/
+        .sidebar
+        {
+            position: fixed;
+            left: 0px;
+            width: 250px;
+            height: 100%;
+            background-color: #222222;
+
+        }
+        .sidebar header
+        {
+            color: #FFB03B;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
+            font-size: 45px;
+            line-height: 80px;
+
+        }
+        .sidebar ul
+        {
+            list-style: none;
+        }
+        .sidebar li a
+        {
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            line-height: 70px;
+            position: relative;
+            color: #ADADAD;
+            transition:  transform 1s;
+            font-size: 15px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            padding-left: 35px;
+        }
+        .sidebar li a:hover:not(.active)
+        {
+            color: #FFB03B;
+            border-radius: 50px;
+            background:  rgba(26, 24, 22, 0.2);
+            border: 1.5px solid #FFB03B;
+
+        }
+
+        .sidebar .active
+        {
+            color: #FFB03B;
+            font-weight: 900;
+
+        }
+        .sidebar .active:hover
+        {
+            border-radius: 50px;
+            border: 1.5px solid #FFB03B;
+        }
+        .sidebar li.CourseName a
+        {
+            font-size: 30px;
+            color: #ffffff;
+        }
+        .sidebar li.CourseName a span
+        {
+
+            color:  #FFB03B;
+        }
+        @media (max-width: 768px) {
+
+            div.d1
+            {
+
+                width: 30vh;
+            }
+            div.d1 li a
+            {
+                font-size: 12px;
+                line-height: 50px;
+                padding-left: 15px;
+
+            }
+            .sidebar li.CourseName a
+            {
+                font-size: 20px;
+
+            }
+            .sidebar header
+            {
+                font-size: 35px;
+            }
+            div.d2 .btn1
+            {
+                margin: 1.5% 25%;
+                font-size: 10px;
+
+            }
+        }
+        /*---------- DIV 2 ----------*/
+
+        div.d2 span.p
+        {
+            font-size: 20px;
+            color: #535565;
+            display: inline-block;
+            margin-left: 20%;
+            margin-top: 3%;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+        div.d2 p
+        {
+            margin-left: 2%;
+            display: inline-block;
+            font-size: 15px;
+        }
+        div.d2  .num
+        {
+            color: #FFB03B;
+            font-size: 20px;
+        }
+        div.d2 span.sp
+        {
+            color: #535565;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
+<div class="d1 sidebar">
+
+    <header> Eduance </header>
+
+
+    <ul>
+        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
+        <li><a href="Attendance.html"></span> Attendance</a></li>
+        <li><a class="active" href="AttendanceChart.html"> Attendance Chart </a></li>
+        <li><a href="QuizReport.html"> Reports </a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Log Out</a></li>
+    </ul>
+
+
+</div>
+
 
 <br>
 <div class="container">
@@ -26,9 +178,21 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-    <h3>Min: </h3> <h3 id="min"></h3>
-    <h3>Max: </h3> <h3 id="max"></h3>
-    <h3>Avg: </h3> <h3 id="avg"></h3>
+
+    <div class="d2  ">
+        <div class="row">
+            <span class="p">Minimum number of student attend </span><p> .................................................................................  </p>
+            <span class="num" data-toggle="counter-up" id="min">40</span><span>Student</span>
+        </div>
+        <div class="row">
+            <span class="p">Maximum number of student attend </span><p> .................................................................................  </p>
+            <span class="num" data-toggle="counter-up" id="max">55</span> <span>Student</span>
+        </div>
+        <div class="row">
+            <span class="p">Average number of student attend </span><p> .................................................................................  </p>
+            <span class="num" data-toggle="counter-up" id="avg">49</span><span>Student</span>
+        </div>
+    </div>
 </div>
 
 <script src="{{url( 'vendor/jquery.min.js' )}}"></script>

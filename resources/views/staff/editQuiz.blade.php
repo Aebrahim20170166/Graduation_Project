@@ -4,6 +4,228 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+    <style type="text/css">
+        body
+        {
+            background-color: #F4F4F6;
+        }
+        /*---------- NavBar ----------*/
+        .sidebar
+        {
+            position: fixed;
+            left: 0px;
+            width: 250px;
+            height: 100%;
+            background-color: #222222;
+
+        }
+        .sidebar header
+        {
+            color: #FFB03B;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
+            font-size: 45px;
+            line-height: 80px;
+
+        }
+        .sidebar ul
+        {
+            list-style: none;
+        }
+        .sidebar li a
+        {
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            line-height: 70px;
+            position: relative;
+            color: #ADADAD;
+            transition:  transform 1s;
+            font-size: 15px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            padding-left: 35px;
+        }
+        .sidebar li a:hover:not(.active)
+        {
+            color: #FFB03B;
+            border-radius: 50px;
+            background:  rgba(26, 24, 22, 0.2);
+            border: 1.5px solid #FFB03B;
+
+        }
+
+        .sidebar .active
+        {
+            color: #FFB03B;
+            font-weight: 900;
+
+        }
+        .sidebar .active:hover
+        {
+            border-radius: 50px;
+            border: 1.5px solid #FFB03B;
+        }
+        .sidebar li.CourseName a
+        {
+            font-size: 30px;
+            color: #ffffff;
+        }
+        .sidebar li.CourseName a span
+        {
+
+            color:  #FFB03B;
+        }
+        @media (max-width: 768px) {
+
+            div.d1
+            {
+
+                width: 30vh;
+            }
+            div.d1 li a
+            {
+                font-size: 12px;
+                line-height: 50px;
+                padding-left: 15px;
+
+            }
+            .sidebar li.CourseName a
+            {
+                font-size: 20px;
+
+            }
+            .sidebar header
+            {
+                font-size: 35px;
+            }
+
+
+        }
+        /*---------- DIV 2 ----------*/
+        div.d2 .row
+        {
+            margin-left:  15%;
+        }
+        p.p
+        {
+            font-size: 20px;
+            color: #535565;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            margin-left: 3%;
+            display: inline-block;
+        }
+        span.gl1
+        {
+            color:  #FFB03B;
+            font-size: 25px;
+            margin-left: 2%;
+        }
+        input.save
+        {
+
+            margin-left:  40%;
+            width: 20%;
+            border-radius: 15px;
+            margin-top: 10px;
+            background-color:#535565;
+            color: #FFB03B;
+        }
+        input
+        {
+            font-size: 20px;
+            height: 50px;
+            width: 95%;
+            text-align: center;
+            color: black;
+            margin-top: 20px;
+
+        }
+        a:hover
+        {
+            text-decoration: none;
+
+        }
+        a#add-new-section
+        {
+            font-size: 30px;
+            color: #FFB03B;
+
+
+        }
+        .save:hover
+        {
+            background-color:#535565;
+            color: #FFB03B;
+        }
+        #add-new-option
+        {
+            font-size: 30px;
+            color:#535565;
+            margin: 200px;
+            text-decoration: none;
+        }
+
+        fieldset
+        {
+
+            padding: 40px;
+
+        }
+        .Answers
+        {
+
+            width: 50%;
+            margin: 10px;
+        }
+        .topic
+        {
+            margin: 4% 5%;
+            width: 40%;
+            border-radius: 15px;
+        }
+        #Close
+        {
+            background-color: #535565 ;
+            color: white;
+            font-size: 15px;
+            border-radius: 80px;
+            height: 30px;
+            transition: 0.5s;
+        }
+        #Close:hover
+        {
+            background-color: red;
+        }
+        #questionGrade
+        {
+            width: 100px;
+            border-radius: 50px;
+        }
+        #grade
+        {
+            font-size: 18px;
+            color: #535565;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            margin-left: 1%;
+            display: inline-block;
+        }
+        #correct_Answer
+        {
+            font-size: 18px;
+            color: #535565;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            margin-left: 1%;
+            display: inline-block;
+        }
+
+    </style>
+
 </head>
 <body>
 <script>
@@ -181,6 +403,7 @@
         var close = document.createElement('input');
         close.type = 'button';
         close.value = 'x';
+        close.id='close';
         close.style.width = '26px';
         close.onclick = function() {
             var parent = this.parentNode;
@@ -232,12 +455,29 @@
     }
 
 </script>
-<h1>hello</h1>
+<div class="d1 sidebar">
+
+    <header> Eduance </header>
+
+
+    <ul>
+        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
+        <li><a href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzs</a></li>
+        <li><a class="active" href="CreateQuiz.html"> Create Quiz</a></li>
+        <li><a href="QuizReports.html"> Reports </a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Log Out</a></li>
+    </ul>
+
+
+</div>
+<div class="d2 container">
+    <div class="row ">
 @foreach($questions as $question)
     <form id="sections" onchange="saveQuestion(this)">
 
         <div id="{{$question['questionid']}}" name="options">
-            <input type="button" value="x" style="width: 26" onclick="removeQuestion(this.parentElement,'{{$question['questionid']}}')">
+            <input type="button" id="close" value="x" style="width: 26" onclick="removeQuestion(this.parentElement,'{{$question['questionid']}}')">
             <input type="hidden" value="{{$question['questionid']}}"  name="questionID">
             <input type="hidden" value="{{$question['optionsCount']}}" id="{{$question['questionid']}}options" name="optionCount">
             <input type="text" value="{{$question['question']}}" name="content">
@@ -251,18 +491,20 @@
                 @endfor
 
             </select>
-            <input type="number" style="width: 40px" value="{{$question['questionGrade']}}" name="grade">
+            <input type="number" style="width: 40px" value="{{$question['questionGrade']}}" name="grade" id="grade">
             <br>
             @for($j=1; $j<=$question['optionsCount']; $j++)
                 <div>
-                    <input type="button" value="x" style="width: 22" onclick="removeChoice(this.parentElement,'{{$question['optionid'.$j]}}')">
+                    <input type="button" value="x" id="close" style="width: 22" onclick="removeChoice(this.parentElement,'{{$question['optionid'.$j]}}')">
                     <input type="text" value="{{$question['option'.$j]}}" name="choices" id="{{$question['optionid'.$j]}}" onchange="updateChoice({{$question['optionid'.$j]}},this.value)">
                 </div>
             @endfor
         </div>
         {{--        <a href="#" onclick="test(this.parentElement)"> test</a>--}}
-        <a href="#" onclick="newOption(this.parentElement)">add option</a>
+        <a href="#" id="add-new-option" onclick="newOption(this.parentElement)">add answer</a>
     </form>
+    </div>
+</div>
 
 @endforeach
 <form  action="{{route('saveNewQuestions')}}" method="post">
