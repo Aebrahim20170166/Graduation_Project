@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Teach;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\InstructorController;
 use App\Models\InstructorCourses;
 use Illuminate\Http\Request;
 class TeachController extends Controller
 {
     //
     public function getTeachedCourses(){
-        $instructorID = session('instructorID');
-        $courses = TeachController::getInstructorCourses($instructorID);
-        //echo $courses;
-        //return $instructorID;
+        $id = session('id');
+        $courses = TeachController::getInstructorCourses($id);
+        //echo ($courses);
         return view("staff/Courses",['courses' => $courses]);
     }
     /*get all courses that instructor teach it*/

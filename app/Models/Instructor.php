@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 class Instructor extends Model
 {
     protected $table = "instructors";
-    protected $fillable = ['id', 'Fname','Lname', 'email', 'password'];
+    protected $fillable = ['id', 'Fname','Lname', 'email','username', 'password'];
 
     public $timestamps = false;
 

@@ -14,15 +14,18 @@ use App\Models\InstructorCourses;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Traits\requestTrait;
+use App\Http\Controllers\Session\SessionController;
 
 class CourseController extends Controller
 {
     /*Created by Mohammed Ashore*/
+
+
     public static function  showCourse($id){
-    $flag_attend=0;
-    $flag_quiz=0;
-    $flag_naive=0;
-    $flag_mail=0;
+        $flag_attend=0;
+        $flag_quiz=0;
+        $flag_naive=0;
+        $flag_mail=0;
 
 
         $flags=Course::query()->select('kmean_attend','kmean_quiz','naive','sentmail')
@@ -48,8 +51,32 @@ class CourseController extends Controller
             }
 
         }
-        return view('staff/course', ['courseID' => $id,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
+        $sessions = SessionController::getAllSessionsOfCourse($id);
+        $courseName = self::getCourseById($id);
+        return view('staff/course', ['courseName' => $courseName[0]['name'],'sessions' => $sessions,'courseID' => $id,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
 
+    }
+  /*
+    public function showCourse($id){
+//        $Announcements = Announcement::query()
+//            ->where([
+//                ['course_id', '=', $id]
+//            ])
+//            ->get();
+//        return view('staff/course', ['courseID' => $id,'Announcements' => $Announcements]);
+
+        $sessions = SessionController::getAllSessionsOfCourse($id);
+        $courseName = self::getCourseById($id);
+//        return $courseName[0]['name'];
+        return view('staff/course', ['courseID' => $id, 'courseName' => $courseName[0]['name'],'sessions' => $sessions]);
+
+    }*/
+
+    public static function getCourseById($courseID){
+        return Course::query()
+            ->select('name')
+            ->where('course_id', '=', $courseID)
+            ->get();
     }
     /*
      * here i create course where i take the name and id of course to create it

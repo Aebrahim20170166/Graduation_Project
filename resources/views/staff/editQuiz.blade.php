@@ -12,10 +12,12 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
     function updateChoice(choiceID,newValue){
         document.getElementById(choiceID).innerHTML = newValue;
         document.getElementById(choiceID).value = newValue;
     }
+
     function removeQuestion(node,questionID) {
         $.ajax({
             url: "{{ route('removeQuestion') }}",
@@ -24,7 +26,7 @@
                 id: questionID
             },
             success:function(data){
-                // alert(data);
+                console.log(data);
                 node.remove();
             },
             error:function(xhr,status,error){
@@ -37,6 +39,7 @@
             }
         });
     }
+
     var saveQuestion = function (form){
         var count=form["choices"].length
         var choices=[]
@@ -51,11 +54,12 @@
                 id: form["questionID"].value,
                 content:form["content"].value,
                 correctAnswer:form["correct_answer"].value,
+                grade:form["grade"].value,
                 choices:choices,
                 quizID:{{$quizID}}
             },
             success:function(data){
-                alert(data);
+                // alert(data);
                 console.log(data);
             },
             // error:function(xhr,status,error){
@@ -67,6 +71,7 @@
             // }
         });
     }
+
     var newOption2 = function(questionID,where, correctAnswerList,optionCountID) {
         console.log(optionCountID.value);
         var questionOption = document.createElement('input');
@@ -97,6 +102,7 @@
         var br2 = document.createElement('br');
         where.appendChild(br2);
     };
+
     var newQuestion = function() {
         questionsCount = document.getElementById('questionsCount')
         var section = document.createElement('div');
@@ -149,6 +155,7 @@
         newOption2(question.id,options,correctAnswer,optionCount);
         newOption2(question.id,options,correctAnswer,optionCount)
     };
+
     var displayOption = function (question){
         var optionDiv = document.createElement('div');
         var questionID = question['questionID'].value;
@@ -187,6 +194,7 @@
         var br2 = document.createElement('br');
         location.appendChild(br2);
     }
+
     var newOption = function(question) {
         $.ajax({
             url: "{{ route('addOption') }}",
@@ -197,10 +205,12 @@
                 quizID:{{$quizID}}
             },
             success:function(optionID){
+                console.log(optionID);
                 displayOption(question,optionID);
             },
         });
     };
+
     var removeChoice = function (node,choiceID){
         $.ajax({
             url: "{{ route('removeChoice') }}",
@@ -221,6 +231,7 @@
             }
         });
     }
+
 </script>
 <h1>hello</h1>
 @foreach($questions as $question)
@@ -241,6 +252,7 @@
                 @endfor
 
             </select>
+            <input type="number" style="width: 40px" value="{{$question['questionGrade']}}" name="grade">
             <br>
             @for($j=1; $j<=$question['optionsCount']; $j++)
                 <div>

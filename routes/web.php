@@ -9,13 +9,14 @@ use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Predection\PredectionController;
 use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Teach\TeachController;
 use App\Http\Controllers\Reports\report;
 use App\Http\Controllers\MailController\MailController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------quizChart
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -23,8 +24,17 @@ use App\Http\Controllers\MailController\MailController;
 |
 */
 
+Route::view('quizChart','charts.quizChart');
+Route::get('getDataForAttChart','Charts\AttendanceChart@prepareData')->name('getDataForAttChart');
+Route::get('attendanceChart','Charts\AttendanceChart@returnview')->name('attendanceChart');
+
+Route::get('getDataForQuizChart','Charts\QuizChart@prepareData')->name('getDataForQuizChart');
+Route::get('QuizChart','Charts\QuizChart@returnview')->name('quizChart');
+
+Route::view('chart','testChart');
 Route::get('/', function () {
-    return view('welcome');
+
+    return view('staff/FirstPage');
 });
 Route::get('home', function () {
     return view('staff/Home');
@@ -38,7 +48,7 @@ Auth::routes(['verify'=>true]);
 Route::group(['prefix'=>'Registration'],function(){
 
 
-    Route::get('login','User\UserController@login')->name('login');
+//    Route::get('login','User\UserController@login')->name('login');
     //Route::get('signup','User\UserController@signup')->name('signup');
 
 });
@@ -54,7 +64,8 @@ Route::post('createAccount','User\userRegisteration@signUp')->name("createAccoun
 Route::post('validate','User\userRegisteration@login')->name('validate');
 
 Route::view('signup','Registration.SignUp')->name('signup');
-Route::view('login','Registration.Login')->name('login');
+Route::view('Login','Registration.Login')->name('Login');
+Route::view('mainHome','staff.FirstPage')->name('mainHome');
 //validate quiz part
 
 
@@ -74,7 +85,7 @@ Route::get('createQuiz/{courseID}',function ($courseID){
     return view('staff/quiz')->with('courseID',$courseID);
 })->name('createQuiz');
 Route::post('savequiz',[QuizController::class,'createQuiz'])->name('savequiz');
-Route::get('removeQuestion',[QuestionController::class,'destroy'])->name('removeQuestion');
+Route::post('removeQuestion',[QuestionController::class,'destroy'])->name('removeQuestion');
 Route::get('deleteQuiz/{CourseID}',[QuizController::class,'deleteQuiz']);
 Route::post('saveNewQuestions',[QuestionController::class,'saveQuestions'])->name('saveNewQuestions');
 Route::post('removeChoice',[ChoiceController::class,'removeChoice'])->name('removeChoice');
@@ -92,6 +103,8 @@ Route::post('get_session','Session\SessionController@getSessionsOfCourse')->name
 
 
 Route::view('QrCode','staff/QrCode')->name('QrCode');
+
+Route::get("getannounce",'Announcement\AnnouncementController@getpost')->name('getpost');
 
 //Course part
 Route::get('/courseView/{courseID}',[CourseController::class,'showCourse']);
@@ -114,7 +127,7 @@ Route::get('getNumOfAbsents',[AttendanceController::class,'getNumOfAbsenceAndLec
 //logout
 Route::get('/flush', function () {
     Session::flush();
-    return redirect()->route('login');
+    return redirect()->route('mainHome');
 })->name('logout');
 
 
@@ -122,7 +135,7 @@ Route::view('/createquiz/{courseID}','staff/quiz');
 Route::get('createQuiz/{courseID}',function ($courseID){
     return view('staff/quiz')->with('courseID',$courseID);
 })->name('createQuiz');
-Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+//Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
 
 //generate data for predection
 Route::get('generateFinal',[PredectionController::class,'generateStudentResults']);
@@ -130,19 +143,23 @@ Route::get('predict',[PredectionController::class,'predictFinalGrade']);
 //predictFinalGrade
 
 //last
-Route::post('saveNewQuestions','Quiz\QuestionController@saveQuestions')->name('saveNewQuestions');
+//Route::post('saveNewQuestions','Quiz\QuestionController@saveQuestions')->name('saveNewQuestions');
 
-Route::post('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
-Route::post('removeChoice','Quiz\QuestionController@removeChoice')->name('removeChoice');
-Route::post('addOption','Quiz\QuestionController@addOption')->name('addOption');
+//Route::post('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
+//Route::post('removeChoice','Quiz\QuestionController@removeChoice')->name('removeChoice');
+//Route::post('addOption','Quiz\QuestionController@addOption')->name('addOption');
 
-Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
+//Route::post('updatequestion', 'Quiz\QuestionController@update')->name('updateQuestion');
 
+//predection
 
+Route::get('getAccuracy','Predection\PredectionController@getAccuracy');
+Route::get('predict','Predection\PredectionController@predictFinalGrades');
 Route::get('getData','K_Means\KmeansController@kMeansquiz');
 Route::get('getData','K_Means\KmeansController@readData');
 Route::get('update','Grade\GradeController@update');
 Route::get('generate','Grade\GradeController@generateAttendanceData');
+Route::get('addData','Grade\GradeController@addData');
 //Naive algorithm
 Route::get('Data','Naeve\NaeveController@naeve');
 
@@ -152,6 +169,7 @@ Route::get('quizreport','Reports\report@quizreport')->name('quizreport');
 
 //Announcement
 
+Route::get('getreport','Reports\TopFive@getTopFive')->name('getreports');
 Route::view('Announcements','staff.makeAnnouncement')->name('announcements');
 Route::get("getannounce",'Announcement\AnnouncementController@getpost')->name('getpost');
 Route::post('makepost','Announcement\AnnouncementController@makepost')->name('makepost');
@@ -161,7 +179,7 @@ Route::get('deletepost','Announcement\AnnouncementController@deletepost')->name(
 //Email
 Route::get('sendemail', 'MailController\MailController@mail')->name('sendemail');
 // prediction
-Route::post('/','K_Means\KmeansController@kMeansquiz')->name('kMeansquiz');
+Route::post('kMeansquiz','K_Means\KmeansController@kMeansquiz')->name('kMeansquiz');
 
-Route::get('/','K_Means\KmeansController@kMeansattendance')->name('kMeansattendance');
+Route::get('kMeansattendance','K_Means\KmeansController@kMeansattendance')->name('kMeansattendance');
 Route::get('naeve','Naeve\NaeveController@naeve')->name('naeve');

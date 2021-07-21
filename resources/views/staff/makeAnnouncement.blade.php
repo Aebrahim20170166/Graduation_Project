@@ -41,6 +41,33 @@ if(session()->has('courseID'))
         {
             list-style: none;
         }
+        {
+            background-color: #F4F4F6;
+        }
+        .sidebar
+        {
+            position: fixed;
+            left: 0px;
+            width: 250px;
+            height: 100%;
+            background-color: #222222;
+
+        }
+        .sidebar header
+        {
+            color: #FFB03B;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
+            font-size: 45px;
+            line-height: 80px;
+
+        }
+        .sidebar ul
+        {
+            list-style: none;
+        }
         .sidebar li a
         {
             text-align: center;
@@ -129,7 +156,7 @@ if(session()->has('courseID'))
                 background-color: #FFB03B;
             }
         }
-        /*---------- DIV 2 ----------*/
+
         div.d2 h1
         {
             margin-top: 5%;
@@ -247,6 +274,9 @@ if(session()->has('courseID'))
             @endforeach
 
         </div>
+
+
+
 </div>
 
 </body>

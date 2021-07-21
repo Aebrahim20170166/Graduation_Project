@@ -27,6 +27,7 @@ class QuestionController extends Controller
         $questionsCount = $request->questionsCount; // number of questions in this request
         for($i=1; $i<=$questionsCount; $i++) {
             $correctAnswer = 'correctAnswer'.$i;
+
             $count = 'optionCount'.$i;
             $content = 'question'.$i;
             $questionOptions = $request->$count;
@@ -48,20 +49,33 @@ class QuestionController extends Controller
     public function update(Request $request)
     {
 //        return $request;
+
         $question= Question::findOrFail($request->id);
         $question-> content =$request['content'];
-        $question-> answer_id =$request['correctAnswer'];
+        $question-> answer =$request['correctAnswer'];
+        $question->grade = $request['grade'];
         $question->save();
 
         Choice::where('question_id','=',"{$request->id}")
             ->delete();
+
         $newChoices = $request->choices;
+
         for($i=0; $i<sizeof($newChoices); $i++){
             self::saveChoice($request->id, $newChoices[$i]);
         }
+        return $question-> answer;
+    }
+
+    public static function saveChoice($questionID,$choice){
+        choice::create([
+            'question_id' =>$questionID,
+            'content' => $choice
+        ]);
     }
 
     public function destroy(Request $request){
+//        return $request;
         Question::destroy($request->id);
         Choice::where('question_id','=',"{$request->id}")
             ->delete();

@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Sign Up') }}</title>
 
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
 </head>
 <body>
 @yield('content')

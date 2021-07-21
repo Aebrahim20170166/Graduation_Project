@@ -20,3 +20,4 @@ if(session()->has('quizID')){
         </form>
     </body>
 </html>
+
