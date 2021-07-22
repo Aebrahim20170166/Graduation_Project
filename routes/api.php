@@ -34,6 +34,8 @@ Route::post('getTopicsOfQuizzes','Quiz\QuizController@getQuizzes');
 Route::post('getQuestionsandAnswersOfQuiz','Quiz\QuizController@showQuiz');
 Route::post('correctQuiz','Quiz\QuizController@quizCorrection');
 Route::post('getQuizzesGrades','Quiz\QuizController@getQuizzesGrades');
+Route::post('checkPrediction','Prediction\PredictionController@checkprediction');
+Route::post('predictFinal','Prediction\PredictionController@predictFinalGrades');
 //get announcements
 Route::post('getAnnouncements','Announcement\AnnouncementController@getAnnouncements');
 

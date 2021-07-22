@@ -230,7 +230,8 @@ class CourseController extends Controller
      */
     public static function save_student_in_course(Request $request){
         if(StudentCourses::create(['course_id'=>$request->courseID,
-            'student_id'=>$request->ID]))
+            'student_id'=>$request->ID,
+            'token'=>$request->token]))
         {
             $message='You joined the course';
             return requestTrait::handleJoinCourseRequest($request,$message);
