@@ -123,7 +123,7 @@ class AnnouncementController extends Controller
                 ['course_id', '=', $request->courseID]
             ])
             ->get();
-        return view('staff/makeAnnouncement',['Announcements' => $Announcements]);
+        return view('staff/makeAnnouncement',['Announcements' => $Announcements,'courseID'=>$request->courseID]);
     }
 
 }
