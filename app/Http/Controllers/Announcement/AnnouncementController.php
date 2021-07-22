@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers\Announcement;
-session()->start();
 
 use App\Models\Announcement;
 

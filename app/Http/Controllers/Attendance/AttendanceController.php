@@ -35,11 +35,12 @@ class AttendanceController extends Controller
             ->select('students.Fname','students.Lname','students.student_id')
             ->where('attendence.session_id','=',$request->sessionID)
             ->where('attendence.course_id','=',$request->courseID)
+            ->where('attendence.attended','=','1')
             ->get();
         if($request->wantsJson())
             return json_encode($attendances);
         else{
-            return view('staff/attendanceOfSession',['attendances'=>$attendances]);
+            return view('staff/attendanceOfSession',['attendances'=>$attendances,'sessionName'=>$request->sessionName]);
         }
     }
     /*Here to get tha number of times of absence of student in course

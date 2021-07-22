@@ -16,7 +16,34 @@ if(session()->has('courseID'))
         {
             background-color: #F4F4F6;
         }
-        /---------- NavBar ----------/
+        /*---------- NavBar ----------*/
+        .sidebar
+        {
+            position: fixed;
+            left: 0px;
+            width: 250px;
+            height: 100%;
+            background-color: #222222;
+
+        }
+        .sidebar header
+        {
+            color: #FFB03B;
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
+            font-size: 45px;
+            line-height: 80px;
+
+        }
+        .sidebar ul
+        {
+            list-style: none;
+        }
+        {
+            background-color: #F4F4F6;
+        }
         .sidebar
         {
             position: fixed;
@@ -129,7 +156,7 @@ if(session()->has('courseID'))
                 background-color: #FFB03B;
             }
         }
-        /---------- DIV 2 ----------/
+
         div.d2 h1
         {
             margin-top: 5%;
@@ -230,23 +257,26 @@ if(session()->has('courseID'))
         </form>
     </div>
 
-    <div class="butt">
-        @foreach($Announcements as $announce)
-            <div class="row">
+        <div class="butt">
+            @foreach($Announcements as $announce)
+                <div class="row">
 
-                {{$announce->body}}
-                <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
+                    <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
 
                     <button type="button" class="btn button btn1" >  <span class=" glyphicon glyphicon-edit"></span></button></a>
 
-                <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
-                    <button type="button" class="btn button btn2" >   <span class=" glyphicon glyphicon-trash"></span></button></a>
+                    <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
+                        <button type="button" class="btn button btn2" >   <span class=" glyphicon glyphicon-trash"></span></button></a>
+                    {{$announce->body}}
 
-            </div>
+                </div>
 
-        @endforeach
+            @endforeach
 
-    </div>
+        </div>
+
+
+
 </div>
 
 </body>
