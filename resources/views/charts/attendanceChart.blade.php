@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{url( '/css/blog.css' )}}">
 
    <style>
+       div.container{
+           margin-left: 17%;
+
+       }
         /*---------- DIV 2 ----------*/
 
         div.d2 span.p
@@ -64,15 +68,15 @@
     <div class="d2  ">
         <div class="row">
             <span class="p">Minimum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="min">40</span><span>Student</span>
+            <span class="num" data-toggle="counter-up" id="min"></span><span>Student</span>
         </div>
         <div class="row">
             <span class="p">Maximum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="max">55</span> <span>Student</span>
+            <span class="num" data-toggle="counter-up" id="max"></span> <span>Student</span>
         </div>
         <div class="row">
             <span class="p">Average number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="avg">49</span><span>Student</span>
+            <span class="num" data-toggle="counter-up" id="avg"></span><span>Student</span>
         </div>
     </div>
 </div>
