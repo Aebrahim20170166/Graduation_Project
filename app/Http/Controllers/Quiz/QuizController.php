@@ -8,6 +8,7 @@ session_start();
 
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\K_Means\KmeansController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Traits\requestTrait;
 use App\Models\Choice;
@@ -34,6 +35,14 @@ class QuizController extends Controller
         $quizID = $this->saveQuiz($courseID,$topic,$totalGrade);
         $request->merge(['quizID'=> $quizID]);
         QuestionController::saveQuestions($request);
+       $QuizCount= Quiz::query()->select('id')
+            ->where('courseID','=',$courseID)
+            ->count();
+       if($QuizCount==6)
+       {
+           (KmeansController::kMeansquiz($courseID));
+       }
+
 
         return redirect()->route('showQuizes',['courseID'=> $courseID]);
     }

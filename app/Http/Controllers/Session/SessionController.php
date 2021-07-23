@@ -3,6 +3,8 @@
  * Author : Alaa Ibrahim
  * */
 namespace App\Http\Controllers\Session;
+use App\Http\Controllers\K_Means\KmeansController;
+use App\Models\Quiz;
 use App\Models\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\QrCode\QrCodeController;
@@ -29,8 +31,17 @@ class SessionController extends Controller
         $sessionID = $date.substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9);
         $session=new SessionController();
         $session->ID=$sessionID;
+        $courseID=$request->courseID;
         $session->session_name=$request->SessionName;
         $session->date=$date;
+
+        $sessionsCount= session::query()->select('id')
+            ->where('course_id','=',$courseID)
+            ->count();
+        if($sessionsCount==2)
+        {
+            (KmeansController::kMeansattendance($courseID));
+        }
         return self::validateSessionNAmeThenSaveSession($session,$request);
 
     }

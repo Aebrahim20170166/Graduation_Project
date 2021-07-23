@@ -10,13 +10,12 @@ use App\Http\Controllers\Controller;
 
 class MailController extends Controller
 {
-    public function mail( Request $request)
+    public static function mail($courseID)
     {
         $students=StudentCourses::query()->select('student_id','getmail')
-            ->where([['pass/fail','=','fail'],['course_id','=',$request->courseID]])
+            ->where([['pass/fail','=','fail'],['course_id','=',$courseID]])
             ->get();
         foreach ($students as $student){
-            if($student->getmail!=1) {
                 $email = Student::query()->select('email')
                     ->where('student_id', '=', $student->student_id)
                     ->get();
@@ -27,23 +26,13 @@ class MailController extends Controller
                     Find a study partener'
 
                 ];
-                StudentCourses::where('course_id', '=', "$request->courseID")
-                    ->where('student_id', '=', $student->student_id)
-                    ->update([
-                        'getmail' => 1
-                    ]);
+
                 Mail::to($email)->send(new MySendMail($student_detail));
             }
         }
-        Course::where('course_id', '=', "$request->courseID")
-            ->update([
-                'sentmail' => 1
-            ]);
-
-        return (CourseController::showCourse($request->courseID));
 
 
-    }
+
 
 
 }
