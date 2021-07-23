@@ -7,7 +7,7 @@ use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Quiz\QuizController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Choice\ChoiceController;
-use App\Http\Controllers\Predection\PredectionController;
+use App\Http\Controllers\Prediction\PredictionController;
 use App\Http\Controllers\Announcement\AnnouncementController;
 use App\Http\Controllers\Teach\TeachController;
 use App\Http\Controllers\Reports\report;
@@ -138,8 +138,8 @@ Route::get('createQuiz/{courseID}',function ($courseID){
 //Route::get('removeQuestion','Quiz\QuestionController@destroy')->name('removeQuestion');
 
 //generate data for predection
-Route::get('generateFinal',[PredectionController::class,'generateStudentResults']);
-Route::get('predict',[PredectionController::class,'predictFinalGrade']);
+Route::get('generateFinal',[PredictionController::class,'generateStudentResults']);
+Route::get('predict',[PredictionController::class,'predictFinalGrade']);
 //predictFinalGrade
 
 //last
