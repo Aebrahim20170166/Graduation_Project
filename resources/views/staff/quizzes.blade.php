@@ -149,7 +149,6 @@ if(session()->has('courseID'))
 
     <header> Eduance </header>
 
-
     <ul>
         <li class="CourseName"><a href="/courseView/{{$courseID}}"> {{$courseID}}</a></li>
         <li><a class="active" href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzes</a></li>
@@ -158,8 +157,6 @@ if(session()->has('courseID'))
         <li><a href="{{route('quizChart',['courseID' => $courseID])}}"> Quiz Chart</a></li>
         <li><a href="{{route('logout')}}">Log Out</a></li>
     </ul>
-
-
 </div>
 
 <div class="container d2">

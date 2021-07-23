@@ -227,7 +227,7 @@ if(session()->has('courseID'))
 
 
     <ul>
-        <li class="CourseName"><a href="CourseContent.html"> {{$courseID}} </a></li>
+        <li class="CourseName"><a href="CourseContent.html"> {{session("courseName")}} </a></li>
         <li><a class="active" href="Announcements.html"> <span class="glyphicon glyphicon-bullhorn"></span> Announcements</a></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Log Out</a></li>

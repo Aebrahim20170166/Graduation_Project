@@ -53,6 +53,7 @@ class CourseController extends Controller
         }
         $sessions = SessionController::getAllSessionsOfCourse($id);
         $courseName = self::getCourseById($id);
+//        return $courseName[0]['name'];
         return view('staff/course', ['courseName' => $courseName[0]['name'],'sessions' => $sessions,'courseID' => $id,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
 
     }

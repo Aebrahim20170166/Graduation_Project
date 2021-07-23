@@ -15,7 +15,7 @@ class QuestionController extends Controller
         $questionID = Question::insertGetId([
             'quiz_id' => $quizID,
             'content' => $questionID,
-            'answer' => $correctAnswer,
+            'answer_id' => $correctAnswer,
             'grade' => $grade
         ]);
         return $questionID;
@@ -23,6 +23,7 @@ class QuestionController extends Controller
     }
 
     public static function saveQuestions(Request $request){
+        $list = ['a','b','c','d','e','f'];
         $quizID = $request->quizID;
         $questionsCount = $request->questionsCount; // number of questions in this request
         for($i=1; $i<=$questionsCount; $i++) {
@@ -40,7 +41,8 @@ class QuestionController extends Controller
                 for ($j = 1; $j <= $questionOptions; $j++) {
                     $questionOption = 'question' . $i . 'option' . $j;
                     $questionOptionContent = $request->$questionOption;
-                    ChoiceController::saveChoice($questionID, $questionOptionContent);
+                    $t = $j - 1;
+                    ChoiceController::saveChoice($questionID, $questionOptionContent,$list[$t]);
                 }
             }
         }
@@ -48,29 +50,34 @@ class QuestionController extends Controller
 
     public function update(Request $request)
     {
-//        return $request;
 
+//        return $request;
         $question= Question::findOrFail($request->id);
         $question-> content =$request['content'];
-        $question-> answer =$request['correctAnswer'];
+        $question-> answer_id = $request['correctAnswerIndicator'];
         $question->grade = $request['grade'];
         $question->save();
+
 
         Choice::where('question_id','=',"{$request->id}")
             ->delete();
 
         $newChoices = $request->choices;
-
+        $list = ['a','b','c','d','e','f'];
+//        return $request;
         for($i=0; $i<sizeof($newChoices); $i++){
-            self::saveChoice($request->id, $newChoices[$i]);
+            self::saveChoice($request->id, $newChoices[$i],$list[$i]);
         }
-        return $question-> answer;
+//        return $question-> answer;
     }
 
-    public static function saveChoice($questionID,$choice){
+    public static function saveChoice($questionID,$choice,$indicator){
+        if ($choice == null)
+            $choice = "";
         choice::create([
             'question_id' =>$questionID,
-            'content' => $choice
+            'content' => $choice,
+            'indicator' => $indicator
         ]);
     }
 

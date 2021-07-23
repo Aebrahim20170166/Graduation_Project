@@ -1,8 +1,7 @@
 <?php
 session_start();
 session(['courseID' => $courseID]);
-
-
+session(['courseName' => $courseName]);
 ?>
     <!DOCTYPE html>
 
