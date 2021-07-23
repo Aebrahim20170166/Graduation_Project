@@ -17,7 +17,7 @@ class loggedin
     {
         if (!session()->has('id')) {
 
-            return redirect('login');
+            return redirect('Login');
         }
         return $next($request);
     }

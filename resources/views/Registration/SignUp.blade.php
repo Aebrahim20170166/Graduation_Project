@@ -70,10 +70,6 @@
         <div class="content">
             <h1 class="heading">Sign Up</h1>
 
-            @if($errors->any())
-                <div class="error">{{ $errors->first() }}</div>
-
-            @endif
             @if(Session::has('success'))
                 <div class="alert alert-success" role="alert">
                     {{Session::get('success')}}
@@ -83,44 +79,25 @@
                 @csrf
                 <div class="input-box">
                     <input type="text" class="input-control" placeholder="First name" name="first_name" autocomplete="off">
-                    @error('first_name')
-                    <span class="form-text text-danger">{{$message}}</span>
-                    @enderror
+
                 </div>
 
                 <div class="input-box">
                     <input type="text" class="input-control"  placeholder="Last name" name="last_name" autocomplete="off">
-                    @error('last_name')
-                    <span class="form-text text-danger">{{$message}}</span>
-                    @enderror
+
                 </div>
 
                 <div class="input-box">
                     <input type="text" id="email" class="input-control" required placeholder="Email address" name="email" autocomplete="off" >
-                    @error('email')
-                    <span class="form-text text-danger">{{$message}}</span>
-
-                    @enderror
-                    <span id="result" class="text-danger"></span>
                 </div>
                 <div class="input-box">
                     <input type="text" class="input-control" placeholder="Username" required name="username" pattern="[a-z0-9]{6,}" title="enter valid id" autocomplete="off">
-                    @error('username')
-                    <span class="form-text text-danger">{{$message}}</span>
-                    @enderror
                 </div>
 
                 <div class="input-box">
                     <input type="password" class="input-control" required placeholder="Enter password" name="password" autocomplete="off">
-                    @error('password')
-                    <span class="form-text text-danger">{{$message}}</span>
-                    @enderror
                 </div>
 
-                <div class="input-box">
-                    <input type="hidden" name="role" value="instructor">
-
-                </div>
 
                 <div class="input-box">
                     <input type="submit" class="input-submit btn">
