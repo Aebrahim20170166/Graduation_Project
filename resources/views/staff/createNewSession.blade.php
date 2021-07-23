@@ -103,7 +103,7 @@ if(session()->has('id') and session()->has('courseID'))
 
 <div class="d2 container">
     <div class="row ">
-        <form action="{{route('create_session')}}" method="post">
+        <form action="{{route('create_session')}}" method="post" target="_blank">
             {{@csrf_field()}}
             <input type="hidden" name='courseID' value={{$courseID}}> <br>
             <input type="hidden" name='instructorID' value={{$instr_id}}> <br>

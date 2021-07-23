@@ -19,6 +19,7 @@
 
         div.d2 span.p
         {
+            text-indent: 10px;
             font-size: 20px;
             color: #535565;
             display: inline-block;
@@ -30,6 +31,7 @@
         }
         div.d2 p
         {
+            text-indent: 5px;
             margin-left: 2%;
             display: inline-block;
             font-size: 15px;
@@ -67,17 +69,17 @@
 
     <div class="d2  ">
         <div class="row">
-            <span class="p">Minimum number of student attend </span><p> .................................................................................  </p>
+            <span class="p" > Minimum number of students attend  </span>
 
-            <span class="num" data-toggle="counter-up" id="min"></span><span> Student</span>
+            <span class="num" data-toggle="counter-up" id="min"></span>
         </div>
         <div class="row">
-            <span class="p">Maximum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="max"></span> <span> Student</span>
+            <span class="p">Maximum number of students attend </span>
+            <span class="num" data-toggle="counter-up" id="max"></span>
         </div>
         <div class="row">
-            <span class="p">Average number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="avg"></span><span> Student</span>
+            <span class="p">Average number of students attend </span>
+            <span class="num" data-toggle="counter-up" id="avg"></span>
         </div>
     </div>
 </div>

@@ -5,6 +5,7 @@
 <body>
 <h1>hello world</h1>
 <div class="row">
+
     <a href={{route('createQuiz',['courseID' => $courseID])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-check"></span> create quiz</button></a>
 
 

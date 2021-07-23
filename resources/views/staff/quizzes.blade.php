@@ -51,6 +51,8 @@
 
                 @endforeach
             </table>
+                    <a href={{route('createQuiz',['courseID' => session('courseID')])}}><button type="button" class="btn btn-defult btn-lg" > <span class="glyphicon glyphicon-check"></span> create quiz</button></a>
+
                 </div>
             </div>
         </div>

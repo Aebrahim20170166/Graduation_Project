@@ -345,6 +345,7 @@
 
         var questionGrade = document.createElement('input');
         questionGrade.type = 'number';
+        questionGrade.min = '1';
         questionGrade.required = 'required';
         questionGrade.name = 'questionGrade'+ questionID;
         questionGrade.id = 'questionGrade' ;
