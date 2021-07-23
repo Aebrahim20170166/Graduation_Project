@@ -99,6 +99,7 @@ div.ann
     div.d2 button.btn1:hover
     {
 
+
         color: #FFB03B;
         font-size: 15px;
     }
@@ -109,6 +110,7 @@ div.ann
     }
     div.d2 button.btn2:hover
     {
+
 
         color: #FFB03B;
         font-size: 15px;
