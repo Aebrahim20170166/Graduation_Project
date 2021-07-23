@@ -70,6 +70,8 @@ class SessionController extends Controller
             return QrCodeController::showQrCode($request,$session->ID);
         }
 
+
+
     }
     /*Get sessions of particular course fro the instructor*/
     public static function getSessionsOfCourse($courseID){

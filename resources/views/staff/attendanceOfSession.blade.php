@@ -54,8 +54,8 @@
     <div class="row text-center">
         <table >
             <tr >
-                <th>Student <span> Name</span> </th>
                 <th>Student <span> ID</span> </th>
+                <th>Student <span> Name</span> </th>
 
             </tr>
             @foreach($attendances as $attendance)

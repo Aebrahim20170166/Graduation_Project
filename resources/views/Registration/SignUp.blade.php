@@ -104,7 +104,7 @@
                     <span id="result" class="text-danger"></span>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="input-control" placeholder="Username please" required name="username" pattern="[a-z0-9]{6,}" title="enter valid id" autocomplete="off">
+                    <input type="text" class="input-control" placeholder="Username" required name="username" pattern="[a-z0-9]{6,}" title="enter valid id" autocomplete="off">
                     @error('username')
                     <span class="form-text text-danger">{{$message}}</span>
                     @enderror

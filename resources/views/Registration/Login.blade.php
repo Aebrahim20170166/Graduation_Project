@@ -90,14 +90,14 @@
             <form action="{{route('validate')}}" method="post">
                 @csrf
                 <div class="input-box">
-                    <input type="text" class="input-control" required placeholder="Email please" name="email" >
+                    <input type="text" class="input-control" required placeholder="Email" name="email" >
                     @error('email')
                     <span class="form-text text-danger">{{$message}}</span>
                     @enderror
                 </div>
 
                 <div class="input-box">
-                    <input type="password" class="input-control" required placeholder="Password please" name="password">
+                    <input type="password" class="input-control" required placeholder="Password" name="password">
                     @error('password')
                     <span class="form-text text-danger">{{$message}}</span>
                     @enderror

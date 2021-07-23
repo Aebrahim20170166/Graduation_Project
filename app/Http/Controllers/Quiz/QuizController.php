@@ -15,6 +15,7 @@ use App\Models\Choice;
 use App\Models\Grade;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -42,6 +43,8 @@ class QuizController extends Controller
            (KmeansController::kMeansquiz($courseID));
        }
 
+
+        return redirect()->route('showQuizes',['courseID'=> $courseID]);
     }
 
     public function saveQuiz($courseID,$topic,$totalGrade){
@@ -214,4 +217,6 @@ class QuizController extends Controller
         }
         return $allQuizzesWithAvgGrad;
     }
+
+
 }
