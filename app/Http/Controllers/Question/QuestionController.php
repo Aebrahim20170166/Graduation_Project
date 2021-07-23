@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\requestTrait;
 use App\Models\Choice;
 use App\Models\Question;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -24,7 +25,9 @@ class QuestionController extends Controller
 
     public static function saveQuestions(Request $request){
         $list = ['a','b','c','d','e','f'];
+//        return $request;
         $quizID = $request->quizID;
+         $courseID = $request->courseID;
         $questionsCount = $request->questionsCount; // number of questions in this request
         for($i=1; $i<=$questionsCount; $i++) {
             $correctAnswer = 'correctAnswer'.$i;
@@ -46,6 +49,8 @@ class QuestionController extends Controller
                 }
             }
         }
+        self::updateQuizGrade($quizID);
+        return redirect()->route('showQuizes',['courseID'=> $courseID]);
     }
 
     public function update(Request $request)
@@ -69,6 +74,16 @@ class QuestionController extends Controller
             self::saveChoice($request->id, $newChoices[$i],$list[$i]);
         }
 //        return $question-> answer;
+    }
+
+    public static function updateQuizGrade($quizID){
+        $totalGrade = Question::query()
+            ->where('quiz_id','=',$quizID)
+            ->sum('grade');
+
+        Quiz::where('id',$quizID)
+            ->update(['total_grade' => $totalGrade]);
+
     }
 
     public static function saveChoice($questionID,$choice,$indicator){

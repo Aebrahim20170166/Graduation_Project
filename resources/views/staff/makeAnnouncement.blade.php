@@ -125,7 +125,11 @@ div.ann
 
 
     <div class="row text-center">
-
+        @if(isset($error))
+            <div  style="margin-left:30" class="alert alert-danger" role="alert">
+                {{$error}}
+            </div>
+        @endif
         <form action="{{route('makepost')}}" method="post">
             @csrf
 
@@ -139,20 +143,22 @@ div.ann
     </div>
     </div>
     <div class="butt">
-        @foreach($Announcements as $announce)
-            <div class="row">
+        @if(isset($Announcements))
+            @foreach($Announcements as $announce)
+                <div class="row">
 
-                <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
+                    <a href={{route('updatepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
 
-                    <button type="button" class="btn button btn1" >  <span class=" glyphicon glyphicon-edit"></span></button></a>
+                        <button type="button" class="btn button btn1" >  <span class=" glyphicon glyphicon-edit"></span></button></a>
 
-                <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
-                    <button type="button" class="btn button btn2" >   <span class=" glyphicon glyphicon-trash"></span></button></a>
+                    <a href={{route('deletepost',['courseID' => $courseID,'postid'=>$announce->id,'body'=>$announce->body])}} >
+                        <button type="button" class="btn button btn2" >   <span class=" glyphicon glyphicon-trash"></span></button></a>
 
-            </div>
-            <div class="ann"> {{$announce->body}}</div>
+                </div>
+                <div class="ann"> {{$announce->body}}</div>
 
-        @endforeach
+            @endforeach
+        @endif
 
     </div>
 

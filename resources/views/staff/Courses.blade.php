@@ -183,10 +183,9 @@ if(session()->has('id'))
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a class="active" href="#section1">Home</a></li>
-                    <li><a href="#">Profile</a></li>
                     <li><a href="{{route('join_course')}}">Join Course</a></li>
                     <li><a href="{{route('create_course')}}">Create Course</a></li>
-                    <li><a href="#">Log Out</a></li>
+                    <li><a href="{{route('logout')}}">Log Out</a></li>
                 </ul>
 
             </div>

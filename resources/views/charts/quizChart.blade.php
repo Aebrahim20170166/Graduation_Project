@@ -74,7 +74,7 @@
     function showChart(quizzesTopics,quizzesAvgGrade){
         // Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         // Chart.defaults.global.defaultFontColor = '#292b2c';
-
+        var max = Math.max.apply(null, quizzesAvgGrade);
         var ctx = document.getElementById("myBarChart");
         var myLineChart = new Chart(ctx, {
             type: 'bar',
@@ -103,7 +103,7 @@
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: 10,
+                            max: max,
                             maxTicksLimit: 5
                         },
                         gridLines: {

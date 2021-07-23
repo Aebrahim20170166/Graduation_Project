@@ -32,6 +32,7 @@ class SessionController extends Controller
         $session->session_name=$request->SessionName;
         $session->date=$date;
         return self::validateSessionNAmeThenSaveSession($session,$request);
+
     }
     /*
      * here i validate the name and if is valid i create the session
@@ -57,6 +58,8 @@ class SessionController extends Controller
 
             return QrCodeController::showQrCode($request,$session->ID);
         }
+
+
 
     }
     /*Get sessions of particular course fro the instructor*/

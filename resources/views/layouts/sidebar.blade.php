@@ -132,7 +132,7 @@ if(session()->has('courseID'))
 <body id="CourseContent">
 <div class="d1 sidebar">
 
-    <header> Eduance </header>
+    <header><a href="{{route('home')}}"> Eduance </a></header>
 
 
     <ul >

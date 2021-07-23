@@ -236,8 +236,8 @@
         }
     });
     function updateChoice(choiceID,newValue){
-        document.getElementById(choiceID).innerHTML = newValue;
-        document.getElementById(choiceID).value = newValue;
+        // document.getElementById(choiceID).innerHTML = newValue;
+        // document.getElementById(choiceID).value = newValue;
     }
 
     function removeQuestion(node,questionID) {
@@ -518,8 +518,8 @@
         questionOption.id = newOptionID;
         questionOption.onchange = function(){
             console.log( document.getElementById(questionOption.id))
-            document.getElementById('C'+newOptionID).innerHTML = questionOption.value;
-            document.getElementById('C'+newOptionID).value = questionOption.value;
+            // document.getElementById('C'+newOptionID).innerHTML = questionOption.value;
+            // document.getElementById('C'+newOptionID).value = questionOption.value;
         }
         var location = document.getElementById(question['questionID'].value)
         // alert("location " + location)
@@ -710,6 +710,7 @@
     <div id="sections">
     <div id="newQuestions">
         <input type="hidden" value="{{$quizID}}" name="quizID">
+        <input type="hidden" value="{{session('courseID')}}" name="courseID">
         <input type="hidden" value="0" id="questionsCount" name="questionsCount">
     </div>
     <input class="finish" type="submit" value="finish">
