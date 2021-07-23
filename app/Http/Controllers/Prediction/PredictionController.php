@@ -11,30 +11,18 @@ use App\Models\Session;
 use App\Models\StudentResult;
 use App\Models\TrainingData;
 use Illuminate\Http\Request;
+use Phpml\CrossValidation\Split;
 use Phpml\Regression;
+use Phpml\Dataset\ArrayDataset;
+use Phpml\CrossValidation\RandomSplit;
 use Phpml\Helper\Predictable;
 use Phpml\Math\Matrix;
 use function PHPUnit\Framework\lessThanOrEqual;
 use function Sodium\randombytes_uniform;
+use Phpml\Metric\Accuracy;
 
 class PredictionController extends Controller
 {
-    /*public static function generateStudentResults()
-    {
-        $id=20170001;
-        $course_id="IS215";
-        for($id;$id<=20170500;$id++)
-        {
-            $numOfAttendance=rand(0,20);
-            $finalResult=rand(20,60);
-
-            $yearWork=Grade::query()->where('student_id','=',$id)
-                ->where('course_id','=',$course_id)
-                ->sum('grade');
-            StudentResult::create(['student_id'=>$id,'course_id'=>$course_id,'number_of_attendance'=>$numOfAttendance,
-                'year_works'=>$yearWork,'finalresult'=>$finalResult]);
-        }
-    }*/
     public static function buildRegressionModel()
     {
         $samples=array();
@@ -63,8 +51,8 @@ class PredictionController extends Controller
             return json_encode($response);
         }
     }
-    //this function will take request from flutter
-    public static function predictFinalGrades(Request $request)
+    //get data from database
+    public static function getDataFromDB(Request $request)
     {
         $courseID=$request->courseID;
         $studentID=$request->studentID;
@@ -90,26 +78,36 @@ class PredictionController extends Controller
         $quizzesAvg=$totalGrade/$count;
         $absence=AttendanceController::getAbsenceOfStudentInCourse($courseID,$studentID);
         $record=[$quizzesAvg,$absence];
+        return $record;
+    }
+    //this function will take request from flutter
+    public static function predictFinalGrades(Request $request)
+    {
+        $record=self::getDataFromDB($request);
         $regression=self::buildRegressionModel();
         $predicted_grade=$regression->predict($record);
-        $grade='';
-        if($predicted_grade<30)
-            $grade="F";
-        else if($predicted_grade>30 && $predicted_grade<37)
-            $grade="D";
-        else if($predicted_grade>37 && $predicted_grade<45)
-            $grade="C";
-        else if($predicted_grade>45 && $predicted_grade<52)
-            $grade="B";
-        else
-            $grade="A";
+        if(ceil($predicted_grade)<50)
+        {
+            return self::getQuizzesGrades($request);
+        }
+    }
 
-        return json_encode(['grade'=>$grade]);
+    //get grades of quizzes student examined it.
+    public static function getQuizzesGrades(Request $request)
+    {
+        $results=Grade::query()->join('quiz','quiz.id','=','grades.quiz_id')
+            ->where('grades.student_id','=',$request->studentID)
+            ->where('grades.course_id','=',$request->courseID)
+            ->where('grades.grade','<',7)
+            ->select('quiz.topic','quiz.courseID')
+            ->get();
+        return $results;
     }
     //to make prediction the instructor must create 10 session in session
 
     public static function getAccuracy()
     {
+
         $samples=array();
         $targets=array();
         $predicted=array();
@@ -120,21 +118,21 @@ class PredictionController extends Controller
             $samples=$sample;
             $targets[]=$record->final_grade;
         }
+        $dataset = new ArrayDataset($samples,$targets);
+        $dataset = new RandomSplit($dataset, 0.2);
+
+        $train_samples = $dataset->getTrainSamples();
+        $test_samples = $dataset->getTestSamples();
 
         $regression = new Regression\LeastSquares();
-        $regression->train($samples, $targets);
-        foreach($samples as $sample)
-        {
-            $predicted[]=round($regression->predict($sample));
+        $regression->train($train_samples, $dataset->getTrainLabels());
+        $Y_pred = $regression->predict($test_samples);
+
+        for ($i=0;$i<count($Y_pred);$i++){
+            $Y_pred[$i] = (int) ceil($Y_pred[$i]);
         }
-        $count2=0;
-        for($i=0;$i<count($predicted);$i++)
-        {
-            if($predicted[$i]!= $targets[$i])
-                $count2++;
-        }
-        return $count2;
-        return $predicted;
+        return Accuracy::score($dataset->getTestLabels(),$Y_pred)*100;
+
     }
 
 }

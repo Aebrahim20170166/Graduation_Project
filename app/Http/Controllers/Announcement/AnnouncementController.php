@@ -13,7 +13,7 @@ class AnnouncementController extends Controller
     {
         if(strlen($request->announcement)<5)
         {
-            $error='Announcement is empty, please try again';
+            $error='Announcement is empty or very small, please try again';
             return view('staff/makeAnnouncement',['error' => $error]);
         }
 

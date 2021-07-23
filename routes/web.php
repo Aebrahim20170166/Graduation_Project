@@ -60,8 +60,8 @@ Route::group(['middleware' => 'loggedin'],function (){
     Route::get('getEnrolledCourses','Teach\TeachController@getTeachedCourses')->name('getEnrolledCourses');
 });
 
-Route::post('createAccount','User\userRegisteration@signUp')->name("createAccount");
-Route::post('validate','User\userRegisteration@login')->name('validate');
+Route::post('createAccount','User\InstructorController@sign_up')->name("createAccount");
+Route::post('validate','User\InstructorController@login')->name('validate');
 
 Route::view('signup','Registration.SignUp')->name('signup');
 Route::view('Login','Registration.Login')->name('Login');

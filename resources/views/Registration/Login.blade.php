@@ -91,16 +91,10 @@
                 @csrf
                 <div class="input-box">
                     <input type="text" class="input-control" required placeholder="Email" name="email" >
-                    @error('email')
-                    <span class="form-text text-danger">{{$message}}</span>
-                    @enderror
                 </div>
 
                 <div class="input-box">
                     <input type="password" class="input-control" required placeholder="Password" name="password">
-                    @error('password')
-                    <span class="form-text text-danger">{{$message}}</span>
-                    @enderror
                 </div>
                 <br>
                 <div class="input-box rm-box">
