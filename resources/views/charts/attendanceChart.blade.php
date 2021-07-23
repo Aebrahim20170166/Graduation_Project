@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="{{url( '/css/blog.css' )}}">
 
    <style>
+       div.container{
+           margin-left: 17%;
+
+       }
         /*---------- DIV 2 ----------*/
 
         div.d2 span.p
@@ -64,6 +68,7 @@
     <div class="d2  ">
         <div class="row">
             <span class="p">Minimum number of student attend </span><p> .................................................................................  </p>
+
             <span class="num" data-toggle="counter-up" id="min"></span><span> Student</span>
         </div>
         <div class="row">
