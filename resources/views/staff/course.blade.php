@@ -1,8 +1,7 @@
 <?php
 session_start();
 session(['courseID' => $courseID]);
-
-
+session(['courseName' => $courseName]);
 ?>
 @extends('layouts.sidebar')
 @section('content')

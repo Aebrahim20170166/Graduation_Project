@@ -1,6 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
@@ -25,7 +23,7 @@
             color: #535565;
             display: inline-block;
             margin-left: 20%;
-            margin-top: 3%;
+            /*margin-top: 3%;*/
             font-family: "Playfair Display", serif;
             font-weight: 400;
             font-style: italic;
@@ -49,6 +47,8 @@
 
     </style>
 
+
+
     @extends('layouts.sidebar')
     @section('content')
 
@@ -68,15 +68,16 @@
     <div class="d2  ">
         <div class="row">
             <span class="p">Minimum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="min"></span><span>Student</span>
+
+            <span class="num" data-toggle="counter-up" id="min"></span><span> Student</span>
         </div>
         <div class="row">
             <span class="p">Maximum number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="max"></span> <span>Student</span>
+            <span class="num" data-toggle="counter-up" id="max"></span> <span> Student</span>
         </div>
         <div class="row">
             <span class="p">Average number of student attend </span><p> .................................................................................  </p>
-            <span class="num" data-toggle="counter-up" id="avg"></span><span>Student</span>
+            <span class="num" data-toggle="counter-up" id="avg"></span><span> Student</span>
         </div>
     </div>
 </div>

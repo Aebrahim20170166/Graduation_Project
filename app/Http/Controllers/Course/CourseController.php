@@ -53,6 +53,7 @@ class CourseController extends Controller
         }
         $sessions = SessionController::getAllSessionsOfCourse($id);
         $courseName = self::getCourseById($id);
+//        return $courseName[0]['name'];
         return view('staff/course', ['courseName' => $courseName[0]['name'],'sessions' => $sessions,'courseID' => $id,'flag_attend'=>$flag_attend,'flag_quiz'=>$flag_quiz,'flag_naive'=>$flag_naive,'flag_mail'=>$flag_mail]);
 
     }
@@ -191,7 +192,8 @@ class CourseController extends Controller
      */
     public static function save_student_in_course(Request $request){
         if(StudentCourses::create(['course_id'=>$request->courseID,
-            'student_id'=>$request->ID]))
+            'student_id'=>$request->ID,
+            'token'=>$request->token]))
         {
             $message='You joined the course';
             return requestTrait::handleJoinCourseRequest($request,$message);

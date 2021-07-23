@@ -240,6 +240,7 @@
         <li><a href="{{route('quizreport',['courseID' => $courseID])}}"> Quiz Report </a></li>
         <li><a href="{{route('quizChart',['courseID' => $courseID])}}"> Quiz Chart</a></li>
         <li><a href="{{route('logout')}}">Log Out</a></li>
+
     </ul>
 
 
@@ -247,18 +248,23 @@
 <fieldset >
     <div class="d2 container">
         <div class="row ">
-            <form id="sections" action="{{route('savequiz')}}" method="post">
-                {{@csrf_field()}}
+            <form   action="{{route('savequiz')}}" method="post">
 
-                <input class="topic" type="text" placeholder="quiz topic" name="quizTopic">
+                {{@csrf_field()}}
+                <div id="sections">
+
+                <input class="topic" type="text" placeholder="quiz topic" name="quizTopic" required>
 
                 <input type="hidden" value="{{$courseID}}" name="courseID">
                 <input type="hidden" value="0" id="questionsCount" name="questionsCount">
                 <br>
-                <input class="save" type="submit" value="save quiz">
+
                 <div>
                     <p class="p">Write your question here</p> <span class="gl1 glyphicon glyphicon-hand-down"></span>
+
                 </div>
+                </div>
+                <input class="save" type="submit" value="save quiz">
             </form>
         </div>
         <div class="row text-center">
@@ -310,6 +316,7 @@
 
         var question = document.createElement('input');
         question.type = 'text';
+        question.required = 'required';
         // generate name & id
         question.name = 'question'+questionID;
         question.id = 'question'+questionID;
@@ -319,14 +326,15 @@
         section.appendChild(br);
 
 
-        var options = document.createElement('div');
+        var options = document.createElement('ol');
+        options.type = 'a';
+        options.id = "question"+questionID+"ol";
 
-
-        options.appendChild(optionCount);
+        section.appendChild(optionCount);
 
         var correctAnswer = document.createElement('select');
         correctAnswer.name = 'correctAnswer'+questionID;
-        options.appendChild(correctAnswer);
+        section.appendChild(correctAnswer);
 
         var grade = document.createElement('p');
         grade.innerHTML = 'Question Grade';
@@ -337,6 +345,7 @@
 
         var questionGrade = document.createElement('input');
         questionGrade.type = 'number';
+        questionGrade.required = 'required';
         questionGrade.name = 'questionGrade'+ questionID;
         questionGrade.id = 'questionGrade' ;
         questionGrade.style.width = '60px';
@@ -359,8 +368,8 @@
         addNewOption.href = '#';
         addNewOption.id = 'add-new-option';
         addNewOption.onclick = function(){
-            newOption(question.id,options,correctAnswer,optionCount)
-            console.log(question.id);
+            newOption(question.id,correctAnswer,optionCount)
+            // console.log(question.id);
 
         }
         section.appendChild(addNewOption);
@@ -370,66 +379,115 @@
         section.appendChild(br4);
 
         document.getElementById('sections').appendChild(section);
+        newOption(question.id,correctAnswer,optionCount)
+        newOption(question.id,correctAnswer,optionCount)
 
     };
 
-    var newOption = function(questionID,where, correctAnswerList,optionCountID) {
-
-        console.log(optionCountID.value);
+    var newOption = function(questionID, correctAnswerList,optionCountID) {
+        console.log(questionID + " " + " " + correctAnswerList + " " + optionCountID)
+        console.log("hellooo")
         var optionDiv = document.createElement('div');
-        var questionOption = document.createElement('input');
-        questionOption.type = 'text';
-        // generate name & id
 
-
-
-
+        // create option input
         var optionCountValue = parseInt(optionCountID.value);
+        if(optionCountValue == 6)
+            return alert("each question must have at more six answers")
+        var indicator = optionCountValue;
         optionCountValue +=1;
-        console.log(optionCountValue);
+        optionCountID.value = optionCountValue;
+
+        console.log(" option count " + optionCountValue + " indicator " + indicator);
+        console.log(correctAnswerList);
 
         var newOptionID = questionID + 'option' + optionCountValue;
-        console.log('optionCountValue ' + optionCountValue)
-        optionCountID.value = optionCountValue ;
+        var questionOption = document.createElement('input');
+        questionOption.type = 'text';
+        questionOption.required = 'required'
         questionOption.name = newOptionID;
         questionOption.placeholder = 'option content';
         questionOption.id = newOptionID;
         questionOption.classList.add("Answers");
+
         // questionOption.size = '40';
-        questionOption.onchange = function(){
-            console.log( document.getElementById(questionOption.id))
-            document.getElementById('C'+newOptionID).innerHTML = questionOption.value;
-            document.getElementById('C'+newOptionID).value = questionOption.value;
 
-        }
-        optionDiv.appendChild(questionOption)
-        where.appendChild(optionDiv);
+        // questionOption.onchange = function(){
+        //     console.log( document.getElementById(questionOption.id))
+        //     document.getElementById('C'+newOptionID).innerHTML = questionOption.value;
+        //     document.getElementById('C'+newOptionID).value = questionOption.value;
+        // }
 
+
+        // create the option and insert it to correct answer list
+        var list=['a','b','c','d','e','f'];
         var option = document.createElement('option');
-        option.value = questionOption.value;
-        option.id = 'C'+newOptionID;
-        option.name = 'C'+newOptionID;
-        option.innerHTML = questionOption.value;
-        correctAnswerList.appendChild(option);
+        option.value = list[indicator];
+        // option.id = 'C'+newOptionID;
+        // option.name = 'C'+newOptionID;
 
+        option.innerHTML = list[indicator];
+
+        correctAnswerList.appendChild(option);
+        console.log(correctAnswerList);
+
+
+
+        // close button
         var close = document.createElement('input');
         close.type = 'button';
         close.value = 'x';
         close.style.width = '26px';
         close.id = 'Close';
-        close.onclick = function() {
+        console.log("hi" + indicator);
+        var choiceIndicator = list[indicator];
+
+        close.onclick = function(indicator) {
+            var optionCountValue = parseInt(optionCountID.value);
+            if(optionCountValue == 2)
+                return alert("each question must have at least two answers")
+            console.log("indicator " + indicator)
+
+            var correctAnswerIndicator = correctAnswerList.value;
+            // var i = optionCountValue;
+            // var choiceIndicator = list[--i];
+            console.log("cor ans " + correctAnswerIndicator + " choi indi " + choiceIndicator + " indicator " + indicator);
+
+            if(correctAnswerIndicator == choiceIndicator)
+                return alert("you can not remove the correct answer")
+
+            if(correctAnswerIndicator > choiceIndicator){
+                var index = list.indexOf(correctAnswerIndicator);
+                index-=1
+                correctAnswerList.selectedIndex = index;
+
+                console.log( correctAnswerIndicator + " with index " + list.indexOf(correctAnswerIndicator));
+                console.log("new selection is " + list[index] + " with index " + index)
+            }
+
+            optionCountValue -= 1;
+            optionCountID.value  = optionCountValue;
+            listLength = correctAnswerList.length;
+            var greatestValue = list[--listLength];
+            for(var i=0; i<correctAnswerList.length;i++){
+                console.log(i + " " + correctAnswerList[i].value + " " + greatestValue)
+                if(correctAnswerList[i].value == greatestValue) {
+                    correctAnswerList[i].remove();
+                }
+            }
             var parent = this.parentNode;
             parent.parentNode.removeChild(parent);
-
-            document.getElementById(option.id).remove();
-
         };
+
+        var li = document.createElement('li');
+        optionDiv.appendChild(li);
         optionDiv.appendChild(close);
         optionDiv.appendChild(questionOption)
-        where.appendChild(optionDiv);
+        var location = document.getElementById(questionID+"ol");
+        location.appendChild(optionDiv);
 
         var br2 = document.createElement('br');
-        where.appendChild(br2);
+        // where.appendChild(br2);
+
 
     };
 

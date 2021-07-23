@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Predection;
+namespace App\Http\Controllers\Prediction;
 
 use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Controller;
@@ -17,7 +17,7 @@ use Phpml\Math\Matrix;
 use function PHPUnit\Framework\lessThanOrEqual;
 use function Sodium\randombytes_uniform;
 
-class PredectionController extends Controller
+class PredictionController extends Controller
 {
     /*public static function generateStudentResults()
     {
@@ -51,16 +51,22 @@ class PredectionController extends Controller
         $regression->train($samples, $targets);
         return $regression;
     }
+    public static function checkprediction(Request $request)
+    {
+        if(!SessionController::checkNoSessions($request->courseID))
+        {
+            $response="Early";
+            return json_encode($response);
+        }
+        else{
+            $response='Done';
+            return json_encode($response);
+        }
+    }
     //this function will take request from flutter
     public static function predictFinalGrades(Request $request)
     {
         $courseID=$request->courseID;
-        //$courseID='IS215';
-        if(!SessionController::checkNoSessions($courseID))
-        {
-            $response="Now you cannot predict your indicator for final grade because there is no enough data";
-            return json_encode($response);
-        }
         $studentID=$request->studentID;
         //$studentID=20170001;
         $quizzes=Quiz::query()->where('courseID','=',$courseID)
@@ -98,7 +104,7 @@ class PredectionController extends Controller
         else
             $grade="A";
 
-        return json_encode($grade);
+        return json_encode(['grade'=>$grade]);
     }
     //to make prediction the instructor must create 10 session in session
 

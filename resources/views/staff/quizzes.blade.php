@@ -31,6 +31,7 @@
     padding: 20px;
     }
     </style>
+
     <div class="container">
 
         <div class="container d2">
@@ -39,6 +40,7 @@
                     <h1> Your <span> Quizzes </span></h1>
                 </div>
                 <div class="Quizs text-center">
+
             <table>
                 @foreach($quizes as $quiz)
                 <tr>
