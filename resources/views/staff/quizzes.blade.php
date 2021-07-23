@@ -1,3 +1,8 @@
+<?php
+if(session()->has('courseID'))
+{
+$courseID=session()->get('courseID');
+}?>
 @extends('layouts.sidebar')
 @section('content')
 <style>
@@ -51,6 +56,7 @@
 
                 @endforeach
             </table>
+                   <a href=" {{route('createQuiz',['courseID' => $courseID])}}">create quiz</a>
                 </div>
             </div>
         </div>

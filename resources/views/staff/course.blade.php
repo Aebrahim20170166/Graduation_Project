@@ -1,5 +1,4 @@
 <?php
-session_start();
 session(['courseID' => $courseID]);
 session(['courseName' => $courseName]);
 ?>
@@ -99,17 +98,11 @@ session(['courseName' => $courseName]);
                         @endforeach
                     @endif
                 </table>
-
             </div>
         </div>
     </div>
-    @if($flag_quiz == 0)
 
-        <form id="jsform" action="{{route('kMeansquiz')}}" method="post">
-            {{ csrf_field() }}
-            <input type="hidden" name="courseID" value={{$courseID}}>
-        </form>
-    @endif
+    {{--
     @if($flag_attend == 0)
 
         <form id="jsform" action="{{route('kMeansattendance')}}" method="get">
@@ -132,7 +125,7 @@ session(['courseName' => $courseName]);
 
     <script type="text/javascript">
         document.getElementById('jsform').submit();
-    </script>
+    </script>--}}
 
 
 
