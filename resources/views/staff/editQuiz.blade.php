@@ -11,74 +11,7 @@
             background-color: #F4F4F6;
         }
         /*---------- NavBar ----------*/
-        .sidebar
-        {
-            position: fixed;
-            left: 0px;
-            width: 250px;
-            height: 100%;
-            background-color: #222222;
 
-        }
-        .sidebar header
-        {
-            color: #FFB03B;
-            font-family: "Playfair Display", serif;
-            font-weight: 700;
-            font-style: italic;
-            text-align: center;
-            font-size: 45px;
-            line-height: 80px;
-
-        }
-        .sidebar ul
-        {
-            list-style: none;
-        }
-        .sidebar li a
-        {
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            line-height: 70px;
-            position: relative;
-            color: #ADADAD;
-            transition:  transform 1s;
-            font-size: 15px;
-            font-family: "Poppins", sans-serif;
-            font-weight: 400;
-            padding-left: 35px;
-        }
-        .sidebar li a:hover:not(.active)
-        {
-            color: #FFB03B;
-            border-radius: 50px;
-            background:  rgba(26, 24, 22, 0.2);
-            border: 1.5px solid #FFB03B;
-
-        }
-
-        .sidebar .active
-        {
-            color: #FFB03B;
-            font-weight: 900;
-
-        }
-        .sidebar .active:hover
-        {
-            border-radius: 50px;
-            border: 1.5px solid #FFB03B;
-        }
-        .sidebar li.CourseName a
-        {
-            font-size: 30px;
-            color: #ffffff;
-        }
-        .sidebar li.CourseName a span
-        {
-
-            color:  #FFB03B;
-        }
         @media (max-width: 768px) {
 
             div.d1
@@ -139,7 +72,8 @@
         {
             font-size: 20px;
             height: 50px;
-            width: 85%;
+            width: 50%;
+            margin-left: 2px;
             text-align: center;
             color: black;
             margin-top: 20px;
@@ -223,6 +157,9 @@
 
     </style>
 
+{{--    @extends('layouts.sidebar')--}}
+{{--    @section('content')--}}
+
 </head>
 <body>
 <script>
@@ -240,7 +177,14 @@
         // document.getElementById(choiceID).value = newValue;
     }
 
-    function removeQuestion(node,questionID) {
+    function removeQuestion(question,questionID) {
+        questionCount = document.getElementsByTagName('question')
+        if (questionCount <= 1){
+            return alert('the quiz must have at least one answers')
+        }
+        if(question['optionCount'].value <= 2){
+            return alert('each question must have at least two answers')
+        }
         $.ajax({
             url: "{{ route('removeQuestion') }}",
             type: 'POST',
@@ -249,7 +193,7 @@
             },
             success:function(data){
                 console.log(data);
-                node.remove();
+                question.remove();
             },
             error:function(xhr,status,error){
                 $.each(xhr.responseJSON.errors,function (key,item)
@@ -487,7 +431,7 @@
         addNewOption.href = '#';
         addNewOption.id = 'add-new-option';
         addNewOption.onclick = function(){
-            newOption(question.id,correctAnswer,optionCount)
+            newOption2(question.id,correctAnswer,optionCount)
             // console.log(question.id);
 
         }
@@ -576,6 +520,12 @@
         var question = document.getElementById(questionID);
         var correctAnswerIndicator = question["correct_answer"].value
         var isCorrectAnswerChange = "false";
+        if(correctAnswerIndicator == choicIndicator){
+            return alert("you can not remove the correct answer")
+        }
+        if(questionID['optionCount'].value <= 2){
+            return alert("each question must have at least two answers")
+        }
         if(correctAnswerIndicator > choicIndicator)
             isCorrectAnswerChange = "true"
 
@@ -637,30 +587,14 @@
     }
 
 </script>
-{{--<div class="d1 sidebar">--}}
 
-{{--    <header> Eduance </header>--}}
-
-{{--
-    <ul>
-        <li class="CourseName"><a href="CourseContent.html">Course <span> 1 </span></a></li>
-        <li><a href="Quizs.html"> <span class="glyphicon glyphicon-check"></span> Quizzs</a></li>
-        <li><a class="active" href="CreateQuiz.html"> Create Quiz</a></li>
-        <li><a href="QuizReport.html"> Reports </a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Log Out</a></li>
-    </ul>
---}}
-
-{{--</div>--}}
-
-<div class="d2 container">
-    <div class="row ">
         @foreach($questions as $question)
-            <form id="{{$question['questionid']}}" onchange="saveQuestion(this)">
+            <div class="d2 container">
+                <div class="row ">
+            <form id="{{$question['questionid']}}" onchange="saveQuestion(this)" name="question">
 
                 <div  name="options">
-                    <input type="button" id="close" value="x" style="width: 26" onclick="removeQuestion(this.parentElement,'{{$question['questionid']}}')">
+                    <input type="button" id="close" value="x" style="width: 26" onclick="removeQuestion(this.parentElement.parentElement,'{{$question['questionid']}}')">
                     <input type="hidden" value="{{$question['questionid']}}"  name="questionID">
                     <input type="hidden" value="{{$question['optionsCount']}}" id="{{$question['questionid']}}options" name="optionCount">
                     <input type="text" value="{{$question['question']}}" name="content">
@@ -705,6 +639,7 @@
 </div>
 
 @endforeach
+<<<<<<< HEAD
 
 <form  action="{{route('saveNewQuestions')}}" method="post">
     {{@csrf_field()}}
@@ -715,13 +650,34 @@
             <input type="hidden" value="0" id="questionsCount" name="questionsCount">
         </div>
         <input class="finish" type="submit" value="finish">
+=======
+<div class="d2 container">
+    <div class="row ">
+<form  action="{{route('saveNewQuestions')}}" method="post">
+    {{@csrf_field()}}
+    <div id="sections">
+    <div id="newQuestions">
+        <input type="hidden" value="{{$quizID}}" name="quizID">
+        <input type="hidden" value="{{session('courseID')}}" name="courseID">
+        <input type="hidden" value="0" id="questionsCount" name="questionsCount">
     </div>
-</form>
-<div class="text-center d3">
 
-    <a id="add-new-section" class="Add" href="#" onclick="newQuestion()"><span class="gl glyphicon glyphicon-plus"> </span> </a>
+>>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
+    </div>
+    <div class="text-center d3">
+
+        <a id="add-new-section" class="Add" href="#" onclick="newQuestion()"><span class="gl glyphicon glyphicon-plus"> </span> </a>
+    </div>
+    <input class="finish" type="submit" value="finish">
+</form>
+    </div>
 </div>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
 </body>
 </html>
 

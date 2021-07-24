@@ -60,8 +60,8 @@ Route::group(['middleware' => 'loggedin'],function (){
     Route::get('getEnrolledCourses','Teach\TeachController@getTeachedCourses')->name('getEnrolledCourses');
 });
 
-Route::post('createAccount','User\userRegisteration@signUp')->name("createAccount");
-Route::post('validate','User\userRegisteration@login')->name('validate');
+Route::post('createAccount','User\InstructorController@sign_up')->name("createAccount");
+Route::post('validate','User\InstructorController@login')->name('validate');
 
 Route::view('signup','Registration.SignUp')->name('signup');
 Route::view('Login','Registration.Login')->name('Login');
@@ -91,6 +91,7 @@ Route::post('saveNewQuestions',[QuestionController::class,'saveQuestions'])->nam
 Route::post('removeChoice',[ChoiceController::class,'removeChoice'])->name('removeChoice');
 Route::post('addOption',[ChoiceController::class,'addChoice'])->name('addOption');
 Route::post('updatequestion', [QuestionController::class,'update'])->name('updateQuestion');
+Route::post('publishQuiz','Quiz\QuizController@publishQuiz')->name('publishQuiz');
 //Route::post('savequiz',[QuizController::class,'createQuiz'])->name('savequiz');
 
 //Session part

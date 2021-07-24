@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <title> Create Quiz</title>
@@ -8,7 +7,28 @@
     <style type="text/css">
         @extends('layouts.sidebar')
         @section('content')
+<<<<<<< HEAD
 /*---------- DIV 2 ----------*/
+=======
+        @media (max-width: 768px) {
+
+            div.d1
+            {
+
+                width: 30vh;
+            }
+            div.d1 li a
+            {
+                font-size: 12px;
+                line-height: 50px;
+                padding-left: 15px;
+
+            }
+
+
+        }
+        /*---------- DIV 2 ----------*/
+>>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
         div.d2 .row
         {
             margin-left:  15%;

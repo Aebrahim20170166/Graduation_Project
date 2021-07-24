@@ -42,6 +42,7 @@ class SessionController extends Controller
         if($sessionsCount==2)
         {
             (KmeansController::kMeansattendance($courseID));
+
         }
         return self::validateSessionNAmeThenSaveSession($session,$request);
 
