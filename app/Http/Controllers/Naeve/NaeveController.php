@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Naeve;
 
 use App\Http\Controllers\Course\CourseController;
+use App\Http\Controllers\MailController\MailController;
 use App\Models\Course;
 use App\Models\question;
 use App\Models\StudentCourses;
@@ -21,46 +22,34 @@ use Phpml\Classification\NaiveBayes;
 
 class NaeveController extends Controller
 {
-    public static function naeve(Request $request)
+    public static function naeve($courseID)
     {
         $flags=Course::query()->select('kmean_attend','kmean_quiz')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
-        foreach ($flags as $flag)
-        {
-            if($flag->kmean_attend=='1'&&$flag->kmean_quiz=='1')
-            {
-                $start=1;
-            }
-
-        }
-        if($start=1) {
             $TrainingSet = self::getTrainingSet();
 
             $samples = $TrainingSet[0];
             $labels = $TrainingSet[1];
             $classifier = new NaiveBayes();
             $classifier->train($samples, $labels);
-            $prediction = self::getStudentsPerformance($request);
+            $prediction = self::getStudentsPerformance($courseID);
 
             foreach ($prediction as $key => $value) {
                 $result = $classifier->predict($prediction[$key]);
-                self::Saveprediction($key, $result, $request);
+                self::Saveprediction($key, $result, $courseID);
             }
-            Course::where('course_id', '=', "$request->courseID")
-                ->update([
-                    'naive' => 1
-                ]);}
-        return (CourseController::showCourse($request->courseID));
-        }
+//        MailController::mail($courseID);
+    }
 
 
-    public static function getStudentsPerformance(Request $request){
+
+    public static function getStudentsPerformance($courseID){
 
         $studentIDs=Student::query()->select('student_id')
             ->get();
         $PerformanceData=StudentCourses::query()->select('student_id','performance','attendance')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
         $students=[];
 
@@ -114,9 +103,9 @@ class NaeveController extends Controller
     }
 
 
-    public static function Saveprediction($student_id,$prediction,Request $request)
+    public static function Saveprediction($student_id,$prediction,$courseID)
     {
-        studentcourses::where([['student_id','=', $student_id],['course_id','=',$request->courseID]])
+        studentcourses::where([['student_id','=', $student_id],['course_id','=',$courseID]])
             ->update([
                 'pass/fail' => $prediction
             ]);

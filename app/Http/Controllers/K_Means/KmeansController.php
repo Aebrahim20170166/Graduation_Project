@@ -4,6 +4,7 @@ namespace App\Http\Controllers\K_Means;
 //require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Http\Controllers\Course\CourseController;
+use App\Http\Controllers\Naeve\NaeveController;
 use App\Models\Course;
 use App\Models\question;
 use App\Models\Quiz;
@@ -26,12 +27,12 @@ use DB;
 
 class KmeansController extends Controller
 {
-    public static function kMeansquiz(Request $request){
+    public static function kMeansquiz($courseID){
         $quizzes=Quiz::query()->select('id')
-            ->where('courseID','=',"$request->courseID")
+            ->where('courseID','=',"$courseID")
             ->count();
-        if($quizzes>=2) {
-            $studentsWithGrades = self::getquizgrade($request);
+            $studentsWithGrades = self::getquizgrade($courseID);
+
             $clusterer = new KMeans(5);
             $clusters = $clusterer->cluster($studentsWithGrades);
             $performance = array();
@@ -51,29 +52,23 @@ class KmeansController extends Controller
                     $clusterDegree = ($final / $numberofstudents) * 10;
                     $rate = self::getRate($clusterDegree);
 
-                    self::saveStudentsPerformance($students, $rate, $request);
+                    self::saveStudentsPerformance($students, $rate, $courseID);
                     $performance ["cluster " . ($i + 1)] = $rate;
                 }
             }
-            Course::where('course_id', '=', "$request->courseID")
-                ->update([
-                    'kmean_quiz' => 1
-                ]);
-        }
-       return (CourseController::showCourse($request->courseID));
+
+        self::makenaeve($courseID);
     }
 
-    public function kMeansattendance(Request $request){
+    public static function kMeansattendance ($courseID){
         $sessions=Session::query()->select('id')
-            ->where('course_id','=',"$request->courseID")
+            ->where('course_id','=',"$courseID")
         ->count();
         $numberofstudents=StudentCourses::query()->select('student_id')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->count();
-        if($sessions>=2)
-        {
-
-        $studentsattend = self::getattendancedata($request);
+        $studentsattend = self::getattendancedata($courseID);
+//        return $studentsattend;
         $clustering = new KMeans(2);
         $clusters = $clustering->cluster($studentsattend);
         $performance = array();
@@ -94,24 +89,21 @@ class KmeansController extends Controller
                     $clusterDegree = ($attended / $numberofstudents);
                     $regularity = self::getRegularity($clusterDegree);
 
-                    self::saveStudentsRegularity($students, $regularity, $request);
+                    self::saveStudentsRegularity($students, $regularity, $courseID);
                     $performance ["cluster " . ($i + 1)] = $regularity;
                 }
-        }
-            Course::where('course_id', '=', "$request->courseID")
-                ->update([
-                    'kmean_attend' => 1
-                ]);}
-        return (CourseController::showCourse($request->courseID));
+
+    }
+        self::makenaeve($courseID);
 
     }
 
-    public static function getquizgrade(Request $request){
+    public static function getquizgrade($courseID){
         $studentIDs=StudentCourses::query()->select('student_id')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
         $gradesData=Grade::query()->select('student_id','grade')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
 
         $studentsWithGrades=[];
@@ -134,14 +126,16 @@ class KmeansController extends Controller
         return $studentsWithGrades;
     }
 
-    public static function getattendancedata(Request $request){
+    public static function getattendancedata($courseID){
         $studentIDs=StudentCourses::query()->select('student_id')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
         $attendanceData=Attendance::query()->select('student_id','attended')
-            ->where('course_id','=',$request->courseID)
+            ->where('course_id','=',$courseID)
             ->get();
         $studentsattend=[];
+
+//        return $studentIDs;
 
         foreach ($studentIDs as $id)
         {
@@ -180,11 +174,11 @@ class KmeansController extends Controller
         return $Regularity;
     }
 
-    public static function saveStudentsPerformance($students,$rate,Request $request){
+    public static function saveStudentsPerformance($students,$rate,$courseID){
         foreach ($students as $student){
 
             StudentCourses::where('student_id', $student)
-                ->where ('course_id','=',"$request->courseID")
+                ->where ('course_id','=',"$courseID")
                 ->update([
                     'performance' => $rate
                 ]);
@@ -197,11 +191,11 @@ class KmeansController extends Controller
 
     }
 
-    public static function saveStudentsRegularity($students,$Regularity,Request $request){
+    public static function saveStudentsRegularity($students,$Regularity,$courseID){
 
         foreach ($students as $student) {
             StudentCourses::where('student_id', $student)
-                ->where ('course_id','=',"$request->courseID")
+                ->where ('course_id','=',"$courseID")
                 ->update([
                     'attendance' => $Regularity
                 ]);
@@ -211,7 +205,26 @@ class KmeansController extends Controller
     }
 
 
+public static function makenaeve($courseID)
+{
+    $stud=0;
+    $students=StudentCourses::select('performance','attendance')
+        ->where('course_id','=',$courseID)
+        ->get();
 
+    foreach($students as $student){
+        if(!empty($student->performance) && !empty($student->attendance))
+        {
+            $stud++;
+
+        }
+        if($stud==count($students))
+        {
+            NaeveController::naeve($courseID);
+        }
+}
+
+}
 
 
 }

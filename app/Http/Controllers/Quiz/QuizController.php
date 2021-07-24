@@ -8,6 +8,7 @@ session_start();
 
 use App\Http\Controllers\Choice\ChoiceController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\K_Means\KmeansController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Traits\requestTrait;
 use App\Models\Choice;
@@ -34,6 +35,14 @@ class QuizController extends Controller
         $quizID = $this->saveQuiz($courseID,$topic,$totalGrade);
         $request->merge(['quizID'=> $quizID]);
         QuestionController::saveQuestions($request);
+       $QuizCount= Quiz::query()->select('id')
+            ->where('courseID','=',$courseID)
+            ->count();
+       if($QuizCount>2)
+       {
+           (KmeansController::kMeansquiz($courseID));
+       }
+
 
         return redirect()->route('showQuizes',['courseID'=> $courseID]);
     }
@@ -57,7 +66,7 @@ class QuizController extends Controller
         $grade=0;
         for($i=0;$i<count($questionIDS);$i++)
         {
-            $grade+=self::checkAnswer($request->quizID,$answers[$i],$questionIDS[$i]);
+            $grade += self::checkAnswer($request->quizID,$answers[$i],$questionIDS[$i]);
         }
         if(Grade::create(['student_id'=>$request->studentID,'quiz_id'=>$request->quizID,'course_id'=>$request->courseID,
             'grade'=>$grade]))
@@ -67,32 +76,16 @@ class QuizController extends Controller
         else{
             json_encode('Error');
         }
-//      $str = '[{"question_id":"q1.question1","answer_id":"q1.question1.o3"},{"question_id":"q1.question2","answer_id":"q1.question2.o1"}]';
-        /*$str = $request->str;
-        $questions = json_decode($str,false);
-        $grade = 0;
-        foreach ($questions as $question){
-            $grade += $this->checkAnswer($question);
-        }
-        grade::create([
-            'course_id' => $request->course_id,
-            'quiz_id' => $request->quiz_id,
-            'student_id' => $request->student_id,
-            'grade' => $grade
-        ]);
-
-        return json_encode($grade);*/
     }
 
-    public static function checkAnswer($quizID,$answer,$questionID){
-        return Question::query()
+    public static function checkAnswer($quizID,$indicator,$questionID){
+        $questionGrade = Question::query()
+            ->select('grade')
             ->where('id', '=', $questionID)
             ->where('quiz_id','=',$quizID)
-            ->where('answer','=',$answer)
-            ->count();
-
-
-
+            ->where('indicator','=',$indicator)
+            ->get();
+        return $questionGrade->grade;
     }
 
     public static function getQuizzesGrades(Request $request)
@@ -160,6 +153,13 @@ class QuizController extends Controller
 
 
         return view('staff/quizzes',[ 'quizes' =>$quizes]);
+    }
+
+    public function publishQuiz(Request $request){
+        Quiz::where('id',$request->quizID)
+            ->update(['status' => 1]);
+
+        return redirect()->route('showQuizes',['courseID' => $request->courseID]);
     }
 
     public function showQuiz($quizID){
