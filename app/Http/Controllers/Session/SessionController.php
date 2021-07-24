@@ -38,6 +38,7 @@ class SessionController extends Controller
         $sessionsCount= session::query()->select('id')
             ->where('course_id','=',$courseID)
             ->count();
+
         if($sessionsCount==2)
         {
             (KmeansController::kMeansattendance($courseID));

@@ -38,7 +38,7 @@ class QuizController extends Controller
        $QuizCount= Quiz::query()->select('id')
             ->where('courseID','=',$courseID)
             ->count();
-       if($QuizCount==6)
+       if($QuizCount==2)
        {
            (KmeansController::kMeansquiz($courseID));
        }
