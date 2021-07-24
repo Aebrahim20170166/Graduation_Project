@@ -91,6 +91,7 @@ Route::post('saveNewQuestions',[QuestionController::class,'saveQuestions'])->nam
 Route::post('removeChoice',[ChoiceController::class,'removeChoice'])->name('removeChoice');
 Route::post('addOption',[ChoiceController::class,'addChoice'])->name('addOption');
 Route::post('updatequestion', [QuestionController::class,'update'])->name('updateQuestion');
+Route::post('publishQuiz','Quiz\QuizController@publishQuiz')->name('publishQuiz');
 //Route::post('savequiz',[QuizController::class,'createQuiz'])->name('savequiz');
 
 //Session part

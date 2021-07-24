@@ -28,12 +28,12 @@ class MailController extends Controller
                 ];
 
                 Mail::to($email)->send(new MySendMail($student_detail));
-            }
+//            Mail::send('emails.activation',$student_detail, function($message) {
+//                $message->from('mohamed.3ashour07@gmail.com', 'eman');
+//
+//                $message->to('mohamed.3ashour07@gmail.com')->subject('subject');
+//            });
         }
-
-
-
-
 
 }
 ?>
