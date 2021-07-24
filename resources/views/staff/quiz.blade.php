@@ -7,9 +7,7 @@
     <style type="text/css">
         @extends('layouts.sidebar')
         @section('content')
-<<<<<<< HEAD
 /*---------- DIV 2 ----------*/
-=======
         @media (max-width: 768px) {
 
             div.d1
@@ -28,7 +26,6 @@
 
         }
         /*---------- DIV 2 ----------*/
->>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
         div.d2 .row
         {
             margin-left:  15%;

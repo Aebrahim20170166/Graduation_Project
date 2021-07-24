@@ -15,6 +15,7 @@ use App\Models\Choice;
 use App\Models\Grade;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\StudentCourses;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 
@@ -38,15 +39,17 @@ class QuizController extends Controller
        $QuizCount= Quiz::query()->select('id')
             ->where('courseID','=',$courseID)
             ->count();
-<<<<<<< HEAD
-       if($QuizCount==2)
-=======
-       if($QuizCount>2)
-
->>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
-       {
-           (KmeansController::kMeansquiz($courseID));
-       }
+        $studentIDs=StudentCourses::query()->select('student_id')
+            ->where('course_id','=',$courseID)
+            ->count();
+        $gradesData=Grade::query()->select('student_id','grade')
+            ->where('course_id','=',$courseID)
+            ->count();
+        if($studentIDs > 10 and $gradesData !=0) {
+            if ($QuizCount ==6) {
+                (KmeansController::kMeansquiz($courseID));
+            }
+        }
 
 
         return redirect()->route('showQuizes',['courseID'=> $courseID]);

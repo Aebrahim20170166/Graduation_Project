@@ -4,10 +4,12 @@
  * */
 namespace App\Http\Controllers\Session;
 use App\Http\Controllers\K_Means\KmeansController;
+use App\Models\Attendance;
 use App\Models\Quiz;
 use App\Models\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\QrCode\QrCodeController;
+use App\Models\StudentCourses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use phpDocumentor\Reflection\Types\This;
@@ -38,12 +40,18 @@ class SessionController extends Controller
         $sessionsCount= session::query()->select('id')
             ->where('course_id','=',$courseID)
             ->count();
-
-        if($sessionsCount==2)
+        $studentIDs=StudentCourses::query()->select('student_id')
+            ->where('course_id','=',$courseID)
+            ->count();
+        $attendanceData=Attendance::query()->select('student_id','attended')
+            ->where('course_id','=',$courseID)
+            ->count();
+        if($studentIDs > 10 and $attendanceData !=0)
+        {if($sessionsCount==10)
         {
             (KmeansController::kMeansattendance($courseID));
 
-        }
+        }}
         return self::validateSessionNAmeThenSaveSession($session,$request);
 
     }

@@ -12,22 +12,22 @@ class MailController extends Controller
 {
     public static function mail($courseID)
     {
-        $students=StudentCourses::query()->select('student_id','getmail')
-            ->where([['pass/fail','=','fail'],['course_id','=',$courseID]])
+        $students = StudentCourses::query()->select('student_id', 'getmail')
+            ->where([['pass/fail', '=', 'fail'], ['course_id', '=', $courseID]])
             ->get();
-        foreach ($students as $student){
-                $email = Student::query()->select('email')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get();
-                $student_detail = [
-                    'address' => 'Based on your performance for this semester,it seems you are not doing great.',
-                    'body'=>'You can try the following: Attend lectures & take notes ,
+        foreach ($students as $student) {
+            $email = Student::query()->select('email')
+                ->where('student_id', '=', $student->student_id)
+                ->get();
+            $student_detail = [
+                'address' => 'Based on your performance for this semester,it seems you are not doing great.',
+                'body' => 'You can try the following: Attend lectures & take notes ,
                     Ask help from subjects instructor ,
                     Find a study partener'
 
-                ];
+            ];
 
-                Mail::to($email)->send(new MySendMail($student_detail));
+            Mail::to($email)->send(new MySendMail($student_detail));
 //            Mail::send('emails.activation',$student_detail, function($message) {
 //                $message->from('mohamed.3ashour07@gmail.com', 'eman');
 //
@@ -35,5 +35,4 @@ class MailController extends Controller
 //            });
         }
 
-}
-?>
+    }}
