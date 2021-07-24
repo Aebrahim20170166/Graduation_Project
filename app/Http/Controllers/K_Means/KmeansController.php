@@ -32,6 +32,7 @@ class KmeansController extends Controller
             ->where('courseID','=',"$courseID")
             ->count();
             $studentsWithGrades = self::getquizgrade($courseID);
+
             $clusterer = new KMeans(5);
             $clusters = $clusterer->cluster($studentsWithGrades);
             $performance = array();
@@ -67,6 +68,7 @@ class KmeansController extends Controller
             ->where('course_id','=',$courseID)
             ->count();
         $studentsattend = self::getattendancedata($courseID);
+
         $clustering = new KMeans(2);
         $clusters = $clustering->cluster($studentsattend);
         $performance = array();
@@ -132,6 +134,8 @@ class KmeansController extends Controller
             ->where('course_id','=',$courseID)
             ->get();
         $studentsattend=[];
+
+//        return $studentIDs;
 
         foreach ($studentIDs as $id)
         {
@@ -213,12 +217,14 @@ public static function makenaeve($courseID)
         {
             $stud++;
 
+
         }
         if($stud==count($students))
         {
             NaeveController::naeve($courseID);
         }
 }
+
 
 }
 

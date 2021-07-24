@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 //});
 
-Route::post('signup','User\userRegistration@signup');
-Route::post('login','User\userRegistration@login');
+Route::post('signup','User\studentController@sign_up');
+Route::post('login','User\studentController@login');
 
 Route::post('attend_lec','ApiAttendance\AttendanceController@attendLecture');
 Route::post('createCourse','Course\CourseController@createCourse');
