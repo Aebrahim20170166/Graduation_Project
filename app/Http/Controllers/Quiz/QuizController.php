@@ -39,6 +39,7 @@ class QuizController extends Controller
             ->where('courseID','=',$courseID)
             ->count();
        if($QuizCount>2)
+
        {
            (KmeansController::kMeansquiz($courseID));
        }

@@ -68,7 +68,7 @@ class KmeansController extends Controller
             ->where('course_id','=',$courseID)
             ->count();
         $studentsattend = self::getattendancedata($courseID);
-//        return $studentsattend;
+
         $clustering = new KMeans(2);
         $clusters = $clustering->cluster($studentsattend);
         $performance = array();
@@ -217,12 +217,14 @@ public static function makenaeve($courseID)
         {
             $stud++;
 
+
         }
         if($stud==count($students))
         {
             NaeveController::naeve($courseID);
         }
 }
+
 
 }
 

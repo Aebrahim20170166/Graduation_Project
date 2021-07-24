@@ -34,11 +34,6 @@ class MailController extends Controller
 //                $message->to('mohamed.3ashour07@gmail.com')->subject('subject');
 //            });
         }
-    }
-
-
-
-
 
 }
 ?>

@@ -39,7 +39,8 @@ class NaeveController extends Controller
                 $result = $classifier->predict($prediction[$key]);
                 self::Saveprediction($key, $result, $courseID);
             }
-//        MailController::mail($courseID);
+
+        MailController::mail($courseID);
     }
 
 

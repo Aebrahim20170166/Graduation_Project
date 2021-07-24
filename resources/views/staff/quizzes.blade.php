@@ -95,7 +95,9 @@ $courseID=session()->get('courseID');
                 @endforeach
             </table>
 
+
                     <a href={{route('createQuiz',['courseID' => session('courseID')])}}><button type="button" class="btn5" > <span class="glyphicon glyphicon-check"></span> create quiz</button></a>
+
 
                 </div>
             </div>
