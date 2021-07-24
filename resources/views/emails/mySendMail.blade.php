@@ -9,7 +9,7 @@
     <p>{{ $student_detail['address'] }}</p>
     <p>{{ $student_detail['body'] }}</p>
 
-    <p>Best of luck in the future!</p>
+    <p>Best of luck in the future</p>
     <p> Eduance </p>
 
 </div>

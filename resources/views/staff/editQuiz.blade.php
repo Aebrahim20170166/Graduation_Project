@@ -621,15 +621,15 @@
                     <input type="number" class="questionGrade" value="{{$question['questionGrade']}}" name="grade" id="grade">
                     <br>
                     <ol type="a" id="{{$question['questionid']}}ol" >
-                    @for($j=1; $j<=$question['optionsCount']; $j++)
-                        <div>
-                            <li></li>
-                            <input type="button" value="x" id="close" style="width: 22"
-                                   onclick="removeChoice(this.parentElement,'{{$question['optionid'.$j]}}'
-                                       ,{{$question['questionid']}},'{{$question['optionindicator'.$j]}}')">
-                            <input class="Answers" type="text" value="{{$question['option'.$j]}}" name="choices" id="{{$question['optionid'.$j]}}" onchange="updateChoice({{$question['optionid'.$j]}},this.value)">
-                        </div>
-                    @endfor
+                        @for($j=1; $j<=$question['optionsCount']; $j++)
+                            <div>
+                                <li></li>
+                                <input type="button" value="x" id="close" style="width: 22"
+                                       onclick="removeChoice(this.parentElement,'{{$question['optionid'.$j]}}'
+                                           ,{{$question['questionid']}},'{{$question['optionindicator'.$j]}}')">
+                                <input class="Answers" type="text" value="{{$question['option'.$j]}}" name="choices" id="{{$question['optionid'.$j]}}" onchange="updateChoice({{$question['optionid'.$j]}},this.value)">
+                            </div>
+                        @endfor
                     </ol>
                 </div>
                 {{--        <a href="#" onclick="test(this.parentElement)"> test</a>--}}
@@ -639,6 +639,18 @@
 </div>
 
 @endforeach
+<<<<<<< HEAD
+
+<form  action="{{route('saveNewQuestions')}}" method="post">
+    {{@csrf_field()}}
+    <div id="sections">
+        <div id="newQuestions">
+            <input type="hidden" value="{{$quizID}}" name="quizID">
+            <input type="hidden" value="{{session('courseID')}}" name="courseID">
+            <input type="hidden" value="0" id="questionsCount" name="questionsCount">
+        </div>
+        <input class="finish" type="submit" value="finish">
+=======
 <div class="d2 container">
     <div class="row ">
 <form  action="{{route('saveNewQuestions')}}" method="post">
@@ -650,6 +662,7 @@
         <input type="hidden" value="0" id="questionsCount" name="questionsCount">
     </div>
 
+>>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
     </div>
     <div class="text-center d3">
 
@@ -660,8 +673,11 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 539e3b51df376a2f248079bdb2d5c234176a05e7
 </body>
 </html>
 

@@ -7,6 +7,7 @@
     <style type="text/css">
         @extends('layouts.sidebar')
         @section('content')
+/*---------- DIV 2 ----------*/
         @media (max-width: 768px) {
 
             div.d1
@@ -240,7 +241,7 @@
         section.appendChild(correctAnswer);
 
         var grade = document.createElement('p');
-        grade.innerHTML = 'Question Grade';
+        grade.innerHTML = 'Question Grade ';
         grade.id = 'grade';
         section.appendChild(grade);
 
